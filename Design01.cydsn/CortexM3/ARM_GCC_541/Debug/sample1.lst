@@ -1,0 +1,504 @@
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"sample1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	sample1
+  20              		.section	.rodata
+  21              		.align	2
+  22              		.type	sample1, %object
+  23              		.size	sample1, 159
+  24              	sample1:
+  25 0000 52       		.byte	82
+  26 0001 49       		.byte	73
+  27 0002 54       		.byte	84
+  28 0003 45       		.byte	69
+  29 0004 30       		.byte	48
+  30 0005 30       		.byte	48
+  31 0006 30       		.byte	48
+  32 0007 34       		.byte	52
+  33 0008 0A       		.byte	10
+  34 0009 F4       		.byte	-12
+  35 000a 00       		.byte	0
+  36 000b 00       		.byte	0
+  37 000c 00       		.byte	0
+  38 000d 9F       		.byte	-97
+  39 000e 4D       		.byte	77
+  40 000f 41       		.byte	65
+  41 0010 54       		.byte	84
+  42 0011 5A       		.byte	90
+  43 0012 30       		.byte	48
+  44 0013 30       		.byte	48
+  45 0014 30       		.byte	48
+  46 0015 30       		.byte	48
+  47 0016 49       		.byte	73
+  48 0017 52       		.byte	82
+  49 0018 45       		.byte	69
+  50 0019 50       		.byte	80
+  51 001a 00       		.byte	0
+  52 001b 00       		.byte	0
+  53 001c 00       		.byte	0
+  54 001d 81       		.byte	-127
+  55 001e 30       		.byte	48
+  56 001f 30       		.byte	48
+  57 0020 30       		.byte	48
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 2
+
+
+  58 0021 30       		.byte	48
+  59 0022 00       		.byte	0
+  60 0023 00       		.byte	0
+  61 0024 00       		.byte	0
+  62 0025 79       		.byte	121
+  63 0026 00       		.byte	0
+  64 0027 01       		.byte	1
+  65 0028 00       		.byte	0
+  66 0029 05       		.byte	5
+  67 002a 00       		.byte	0
+  68 002b 00       		.byte	0
+  69 002c 00       		.byte	0
+  70 002d 00       		.byte	0
+  71 002e 00       		.byte	0
+  72 002f 13       		.byte	19
+  73 0030 00       		.byte	0
+  74 0031 40       		.byte	64
+  75 0032 07       		.byte	7
+  76 0033 17       		.byte	23
+  77 0034 00       		.byte	0
+  78 0035 80       		.byte	-128
+  79 0036 00       		.byte	0
+  80 0037 11       		.byte	17
+  81 0038 01       		.byte	1
+  82 0039 40       		.byte	64
+  83 003a 00       		.byte	0
+  84 003b 83       		.byte	-125
+  85 003c 01       		.byte	1
+  86 003d C0       		.byte	-64
+  87 003e 00       		.byte	0
+  88 003f 03       		.byte	3
+  89 0040 00       		.byte	0
+  90 0041 80       		.byte	-128
+  91 0042 41       		.byte	65
+  92 0043 20       		.byte	32
+  93 0044 00       		.byte	0
+  94 0045 80       		.byte	-128
+  95 0046 00       		.byte	0
+  96 0047 06       		.byte	6
+  97 0048 01       		.byte	1
+  98 0049 40       		.byte	64
+  99 004a 00       		.byte	0
+ 100 004b 03       		.byte	3
+ 101 004c 00       		.byte	0
+ 102 004d 80       		.byte	-128
+ 103 004e 80       		.byte	-128
+ 104 004f A0       		.byte	-96
+ 105 0050 00       		.byte	0
+ 106 0051 80       		.byte	-128
+ 107 0052 00       		.byte	0
+ 108 0053 11       		.byte	17
+ 109 0054 01       		.byte	1
+ 110 0055 40       		.byte	64
+ 111 0056 00       		.byte	0
+ 112 0057 83       		.byte	-125
+ 113 0058 01       		.byte	1
+ 114 0059 BF       		.byte	-65
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 3
+
+
+ 115 005a FF       		.byte	-1
+ 116 005b 83       		.byte	-125
+ 117 005c 00       		.byte	0
+ 118 005d 80       		.byte	-128
+ 119 005e 41       		.byte	65
+ 120 005f 20       		.byte	32
+ 121 0060 00       		.byte	0
+ 122 0061 80       		.byte	-128
+ 123 0062 00       		.byte	0
+ 124 0063 06       		.byte	6
+ 125 0064 01       		.byte	1
+ 126 0065 40       		.byte	64
+ 127 0066 00       		.byte	0
+ 128 0067 03       		.byte	3
+ 129 0068 00       		.byte	0
+ 130 0069 80       		.byte	-128
+ 131 006a 80       		.byte	-128
+ 132 006b A0       		.byte	-96
+ 133 006c 00       		.byte	0
+ 134 006d C0       		.byte	-64
+ 135 006e 00       		.byte	0
+ 136 006f 03       		.byte	3
+ 137 0070 00       		.byte	0
+ 138 0071 BF       		.byte	-65
+ 139 0072 F8       		.byte	-8
+ 140 0073 18       		.byte	24
+ 141 0074 00       		.byte	0
+ 142 0075 80       		.byte	-128
+ 143 0076 00       		.byte	0
+ 144 0077 05       		.byte	5
+ 145 0078 00       		.byte	0
+ 146 0079 00       		.byte	0
+ 147 007a 00       		.byte	0
+ 148 007b 4A       		.byte	74
+ 149 007c 00       		.byte	0
+ 150 007d 00       		.byte	0
+ 151 007e 00       		.byte	0
+ 152 007f 00       		.byte	0
+ 153 0080 00       		.byte	0
+ 154 0081 00       		.byte	0
+ 155 0082 00       		.byte	0
+ 156 0083 03       		.byte	3
+ 157 0084 00       		.byte	0
+ 158 0085 02       		.byte	2
+ 159 0086 49       		.byte	73
+ 160 0087 4F       		.byte	79
+ 161 0088 00       		.byte	0
+ 162 0089 00       		.byte	0
+ 163 008a 03       		.byte	3
+ 164 008b 6F       		.byte	111
+ 165 008c 75       		.byte	117
+ 166 008d 74       		.byte	116
+ 167 008e 00       		.byte	0
+ 168 008f 00       		.byte	0
+ 169 0090 05       		.byte	5
+ 170 0091 73       		.byte	115
+ 171 0092 6C       		.byte	108
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 4
+
+
+ 172 0093 65       		.byte	101
+ 173 0094 65       		.byte	101
+ 174 0095 70       		.byte	112
+ 175 0096 00       		.byte	0
+ 176 0097 45       		.byte	69
+ 177 0098 4E       		.byte	78
+ 178 0099 44       		.byte	68
+ 179 009a 00       		.byte	0
+ 180 009b 00       		.byte	0
+ 181 009c 00       		.byte	0
+ 182 009d 00       		.byte	0
+ 183 009e 08       		.byte	8
+ 184              		.text
+ 185              	.Letext0:
+ 186              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 187              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 188              		.file 3 "..\\..\\mruby_c2\\Design01.cydsn\\sample1.c"
+ 189              		.section	.debug_info,"",%progbits
+ 190              	.Ldebug_info0:
+ 191 0000 A8000000 		.4byte	0xa8
+ 192 0004 0400     		.2byte	0x4
+ 193 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 194 000a 04       		.byte	0x4
+ 195 000b 01       		.uleb128 0x1
+ 196 000c 40000000 		.4byte	.LASF12
+ 197 0010 0C       		.byte	0xc
+ 198 0011 0A000000 		.4byte	.LASF13
+ 199 0015 FB000000 		.4byte	.LASF14
+ 200 0019 00000000 		.4byte	.Ldebug_line0
+ 201 001d 02       		.uleb128 0x2
+ 202 001e 01       		.byte	0x1
+ 203 001f 06       		.byte	0x6
+ 204 0020 89010000 		.4byte	.LASF0
+ 205 0024 03       		.uleb128 0x3
+ 206 0025 00000000 		.4byte	.LASF9
+ 207 0029 01       		.byte	0x1
+ 208 002a 1D       		.byte	0x1d
+ 209 002b 2F000000 		.4byte	0x2f
+ 210 002f 02       		.uleb128 0x2
+ 211 0030 01       		.byte	0x1
+ 212 0031 08       		.byte	0x8
+ 213 0032 32000000 		.4byte	.LASF1
+ 214 0036 02       		.uleb128 0x2
+ 215 0037 02       		.byte	0x2
+ 216 0038 05       		.byte	0x5
+ 217 0039 76010000 		.4byte	.LASF2
+ 218 003d 02       		.uleb128 0x2
+ 219 003e 02       		.byte	0x2
+ 220 003f 07       		.byte	0x7
+ 221 0040 E0000000 		.4byte	.LASF3
+ 222 0044 02       		.uleb128 0x2
+ 223 0045 04       		.byte	0x4
+ 224 0046 05       		.byte	0x5
+ 225 0047 80010000 		.4byte	.LASF4
+ 226 004b 02       		.uleb128 0x2
+ 227 004c 04       		.byte	0x4
+ 228 004d 07       		.byte	0x7
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 5
+
+
+ 229 004e CE000000 		.4byte	.LASF5
+ 230 0052 02       		.uleb128 0x2
+ 231 0053 08       		.byte	0x8
+ 232 0054 05       		.byte	0x5
+ 233 0055 68010000 		.4byte	.LASF6
+ 234 0059 02       		.uleb128 0x2
+ 235 005a 08       		.byte	0x8
+ 236 005b 07       		.byte	0x7
+ 237 005c 40010000 		.4byte	.LASF7
+ 238 0060 04       		.uleb128 0x4
+ 239 0061 04       		.byte	0x4
+ 240 0062 05       		.byte	0x5
+ 241 0063 696E7400 		.ascii	"int\000"
+ 242 0067 02       		.uleb128 0x2
+ 243 0068 04       		.byte	0x4
+ 244 0069 07       		.byte	0x7
+ 245 006a 33010000 		.4byte	.LASF8
+ 246 006e 03       		.uleb128 0x3
+ 247 006f 57010000 		.4byte	.LASF10
+ 248 0073 02       		.byte	0x2
+ 249 0074 18       		.byte	0x18
+ 250 0075 24000000 		.4byte	0x24
+ 251 0079 05       		.uleb128 0x5
+ 252 007a 90000000 		.4byte	0x90
+ 253 007e 89000000 		.4byte	0x89
+ 254 0082 06       		.uleb128 0x6
+ 255 0083 89000000 		.4byte	0x89
+ 256 0087 9E       		.byte	0x9e
+ 257 0088 00       		.byte	0
+ 258 0089 02       		.uleb128 0x2
+ 259 008a 04       		.byte	0x4
+ 260 008b 07       		.byte	0x7
+ 261 008c 5F010000 		.4byte	.LASF11
+ 262 0090 07       		.uleb128 0x7
+ 263 0091 6E000000 		.4byte	0x6e
+ 264 0095 08       		.uleb128 0x8
+ 265 0096 F3000000 		.4byte	.LASF15
+ 266 009a 03       		.byte	0x3
+ 267 009b 0B       		.byte	0xb
+ 268 009c A6000000 		.4byte	0xa6
+ 269 00a0 05       		.uleb128 0x5
+ 270 00a1 03       		.byte	0x3
+ 271 00a2 00000000 		.4byte	sample1
+ 272 00a6 07       		.uleb128 0x7
+ 273 00a7 79000000 		.4byte	0x79
+ 274 00ab 00       		.byte	0
+ 275              		.section	.debug_abbrev,"",%progbits
+ 276              	.Ldebug_abbrev0:
+ 277 0000 01       		.uleb128 0x1
+ 278 0001 11       		.uleb128 0x11
+ 279 0002 01       		.byte	0x1
+ 280 0003 25       		.uleb128 0x25
+ 281 0004 0E       		.uleb128 0xe
+ 282 0005 13       		.uleb128 0x13
+ 283 0006 0B       		.uleb128 0xb
+ 284 0007 03       		.uleb128 0x3
+ 285 0008 0E       		.uleb128 0xe
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 6
+
+
+ 286 0009 1B       		.uleb128 0x1b
+ 287 000a 0E       		.uleb128 0xe
+ 288 000b 10       		.uleb128 0x10
+ 289 000c 17       		.uleb128 0x17
+ 290 000d 00       		.byte	0
+ 291 000e 00       		.byte	0
+ 292 000f 02       		.uleb128 0x2
+ 293 0010 24       		.uleb128 0x24
+ 294 0011 00       		.byte	0
+ 295 0012 0B       		.uleb128 0xb
+ 296 0013 0B       		.uleb128 0xb
+ 297 0014 3E       		.uleb128 0x3e
+ 298 0015 0B       		.uleb128 0xb
+ 299 0016 03       		.uleb128 0x3
+ 300 0017 0E       		.uleb128 0xe
+ 301 0018 00       		.byte	0
+ 302 0019 00       		.byte	0
+ 303 001a 03       		.uleb128 0x3
+ 304 001b 16       		.uleb128 0x16
+ 305 001c 00       		.byte	0
+ 306 001d 03       		.uleb128 0x3
+ 307 001e 0E       		.uleb128 0xe
+ 308 001f 3A       		.uleb128 0x3a
+ 309 0020 0B       		.uleb128 0xb
+ 310 0021 3B       		.uleb128 0x3b
+ 311 0022 0B       		.uleb128 0xb
+ 312 0023 49       		.uleb128 0x49
+ 313 0024 13       		.uleb128 0x13
+ 314 0025 00       		.byte	0
+ 315 0026 00       		.byte	0
+ 316 0027 04       		.uleb128 0x4
+ 317 0028 24       		.uleb128 0x24
+ 318 0029 00       		.byte	0
+ 319 002a 0B       		.uleb128 0xb
+ 320 002b 0B       		.uleb128 0xb
+ 321 002c 3E       		.uleb128 0x3e
+ 322 002d 0B       		.uleb128 0xb
+ 323 002e 03       		.uleb128 0x3
+ 324 002f 08       		.uleb128 0x8
+ 325 0030 00       		.byte	0
+ 326 0031 00       		.byte	0
+ 327 0032 05       		.uleb128 0x5
+ 328 0033 01       		.uleb128 0x1
+ 329 0034 01       		.byte	0x1
+ 330 0035 49       		.uleb128 0x49
+ 331 0036 13       		.uleb128 0x13
+ 332 0037 01       		.uleb128 0x1
+ 333 0038 13       		.uleb128 0x13
+ 334 0039 00       		.byte	0
+ 335 003a 00       		.byte	0
+ 336 003b 06       		.uleb128 0x6
+ 337 003c 21       		.uleb128 0x21
+ 338 003d 00       		.byte	0
+ 339 003e 49       		.uleb128 0x49
+ 340 003f 13       		.uleb128 0x13
+ 341 0040 2F       		.uleb128 0x2f
+ 342 0041 0B       		.uleb128 0xb
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 7
+
+
+ 343 0042 00       		.byte	0
+ 344 0043 00       		.byte	0
+ 345 0044 07       		.uleb128 0x7
+ 346 0045 26       		.uleb128 0x26
+ 347 0046 00       		.byte	0
+ 348 0047 49       		.uleb128 0x49
+ 349 0048 13       		.uleb128 0x13
+ 350 0049 00       		.byte	0
+ 351 004a 00       		.byte	0
+ 352 004b 08       		.uleb128 0x8
+ 353 004c 34       		.uleb128 0x34
+ 354 004d 00       		.byte	0
+ 355 004e 03       		.uleb128 0x3
+ 356 004f 0E       		.uleb128 0xe
+ 357 0050 3A       		.uleb128 0x3a
+ 358 0051 0B       		.uleb128 0xb
+ 359 0052 3B       		.uleb128 0x3b
+ 360 0053 0B       		.uleb128 0xb
+ 361 0054 49       		.uleb128 0x49
+ 362 0055 13       		.uleb128 0x13
+ 363 0056 3F       		.uleb128 0x3f
+ 364 0057 19       		.uleb128 0x19
+ 365 0058 02       		.uleb128 0x2
+ 366 0059 18       		.uleb128 0x18
+ 367 005a 00       		.byte	0
+ 368 005b 00       		.byte	0
+ 369 005c 00       		.byte	0
+ 370              		.section	.debug_aranges,"",%progbits
+ 371 0000 14000000 		.4byte	0x14
+ 372 0004 0200     		.2byte	0x2
+ 373 0006 00000000 		.4byte	.Ldebug_info0
+ 374 000a 04       		.byte	0x4
+ 375 000b 00       		.byte	0
+ 376 000c 0000     		.2byte	0
+ 377 000e 0000     		.2byte	0
+ 378 0010 00000000 		.4byte	0
+ 379 0014 00000000 		.4byte	0
+ 380              		.section	.debug_line,"",%progbits
+ 381              	.Ldebug_line0:
+ 382 0000 41010000 		.section	.debug_str,"MS",%progbits,1
+ 382      02003B01 
+ 382      00000201 
+ 382      FB0E0D00 
+ 382      01010101 
+ 383              	.LASF9:
+ 384 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 384      6E74385F 
+ 384      7400
+ 385              	.LASF13:
+ 386 000a 2E2E5C2E 		.ascii	"..\\..\\mruby_c2\\Design01.cydsn\\sample1.c\000"
+ 386      2E5C6D72 
+ 386      7562795F 
+ 386      63325C44 
+ 386      65736967 
+ 387              	.LASF1:
+ 388 0032 756E7369 		.ascii	"unsigned char\000"
+ 388      676E6564 
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 8
+
+
+ 388      20636861 
+ 388      7200
+ 389              	.LASF12:
+ 390 0040 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 390      43313120 
+ 390      352E342E 
+ 390      31203230 
+ 390      31363036 
+ 391 0073 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 391      20726576 
+ 391      6973696F 
+ 391      6E203233 
+ 391      37373135 
+ 392 00a6 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 392      66756E63 
+ 392      74696F6E 
+ 392      2D736563 
+ 392      74696F6E 
+ 393              	.LASF5:
+ 394 00ce 6C6F6E67 		.ascii	"long unsigned int\000"
+ 394      20756E73 
+ 394      69676E65 
+ 394      6420696E 
+ 394      7400
+ 395              	.LASF3:
+ 396 00e0 73686F72 		.ascii	"short unsigned int\000"
+ 396      7420756E 
+ 396      7369676E 
+ 396      65642069 
+ 396      6E7400
+ 397              	.LASF15:
+ 398 00f3 73616D70 		.ascii	"sample1\000"
+ 398      6C653100 
+ 399              	.LASF14:
+ 400 00fb 433A5C55 		.ascii	"C:\\Users\\164\\Documents\\PSoC Creator\\mcmc\\Desi"
+ 400      73657273 
+ 400      5C313634 
+ 400      5C446F63 
+ 400      756D656E 
+ 401 0128 676E3031 		.ascii	"gn01.cydsn\000"
+ 401      2E637964 
+ 401      736E00
+ 402              	.LASF8:
+ 403 0133 756E7369 		.ascii	"unsigned int\000"
+ 403      676E6564 
+ 403      20696E74 
+ 403      00
+ 404              	.LASF7:
+ 405 0140 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 405      206C6F6E 
+ 405      6720756E 
+ 405      7369676E 
+ 405      65642069 
+ 406              	.LASF10:
+ 407 0157 75696E74 		.ascii	"uint8_t\000"
+ 407      385F7400 
+ 408              	.LASF11:
+ARM GAS  C:\Users\164\AppData\Local\Temp\cchIsOmj.s 			page 9
+
+
+ 409 015f 73697A65 		.ascii	"sizetype\000"
+ 409      74797065 
+ 409      00
+ 410              	.LASF6:
+ 411 0168 6C6F6E67 		.ascii	"long long int\000"
+ 411      206C6F6E 
+ 411      6720696E 
+ 411      7400
+ 412              	.LASF2:
+ 413 0176 73686F72 		.ascii	"short int\000"
+ 413      7420696E 
+ 413      7400
+ 414              	.LASF4:
+ 415 0180 6C6F6E67 		.ascii	"long int\000"
+ 415      20696E74 
+ 415      00
+ 416              	.LASF0:
+ 417 0189 7369676E 		.ascii	"signed char\000"
+ 417      65642063 
+ 417      68617200 
+ 418              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

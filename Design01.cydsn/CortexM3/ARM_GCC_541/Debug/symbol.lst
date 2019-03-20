@@ -1,0 +1,4627 @@
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"symbol.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.search_index,"ax",%progbits
+  20              		.align	2
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	search_index, %function
+  24              	search_index:
+  25              	.LFB81:
+  26              		.file 1 "..\\..\\mruby_c2\\Design01.cydsn\\symbol.c"
+   1:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! @file
+   2:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @brief
+   3:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mruby/c Symbol class
+   4:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+   5:..\..\mruby_c2\Design01.cydsn/symbol.c ****   <pre>
+   6:..\..\mruby_c2\Design01.cydsn/symbol.c ****   Copyright (C) 2015-2018 Kyushu Institute of Technology.
+   7:..\..\mruby_c2\Design01.cydsn/symbol.c ****   Copyright (C) 2015-2018 Shimane IT Open-Innovation Center.
+   8:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+   9:..\..\mruby_c2\Design01.cydsn/symbol.c ****   This file is distributed under BSD 3-Clause License.
+  10:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  11:..\..\mruby_c2\Design01.cydsn/symbol.c ****   </pre>
+  12:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+  13:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  14:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "vm_config.h"
+  15:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include <stdint.h>
+  16:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include <string.h>
+  17:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include <assert.h>
+  18:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  19:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "value.h"
+  20:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "vm.h"
+  21:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "alloc.h"
+  22:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "static.h"
+  23:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "class.h"
+  24:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "symbol.h"
+  25:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "c_string.h"
+  26:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "c_array.h"
+  27:..\..\mruby_c2\Design01.cydsn/symbol.c **** #include "console.h"
+  28:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  29:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  30:..\..\mruby_c2\Design01.cydsn/symbol.c **** #if !defined(MRBC_SYMBOL_SEARCH_LINER) && !defined(MRBC_SYMBOL_SEARCH_BTREE)
+  31:..\..\mruby_c2\Design01.cydsn/symbol.c **** #define MRBC_SYMBOL_SEARCH_BTREE
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 2
+
+
+  32:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+  33:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  34:..\..\mruby_c2\Design01.cydsn/symbol.c **** #ifndef MRBC_SYMBOL_TABLE_INDEX_TYPE
+  35:..\..\mruby_c2\Design01.cydsn/symbol.c **** #define MRBC_SYMBOL_TABLE_INDEX_TYPE	uint16_t
+  36:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+  37:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  38:..\..\mruby_c2\Design01.cydsn/symbol.c **** struct SYM_INDEX {
+  39:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t hash;	//!< hash value, returned by calc_hash().
+  40:..\..\mruby_c2\Design01.cydsn/symbol.c **** #ifdef MRBC_SYMBOL_SEARCH_BTREE
+  41:..\..\mruby_c2\Design01.cydsn/symbol.c ****   MRBC_SYMBOL_TABLE_INDEX_TYPE left;
+  42:..\..\mruby_c2\Design01.cydsn/symbol.c ****   MRBC_SYMBOL_TABLE_INDEX_TYPE right;
+  43:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+  44:..\..\mruby_c2\Design01.cydsn/symbol.c ****   const char *cstr;	//!< point to the symbol string.
+  45:..\..\mruby_c2\Design01.cydsn/symbol.c **** };
+  46:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  47:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  48:..\..\mruby_c2\Design01.cydsn/symbol.c **** static struct SYM_INDEX sym_index[MAX_SYMBOLS_COUNT];
+  49:..\..\mruby_c2\Design01.cydsn/symbol.c **** static int sym_index_pos;	// point to the last(free) sym_index array.
+  50:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  51:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  52:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+  53:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! search index table
+  54:..\..\mruby_c2\Design01.cydsn/symbol.c ****  */
+  55:..\..\mruby_c2\Design01.cydsn/symbol.c **** static int search_index( uint16_t hash, const char *str )
+  56:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+  27              		.loc 1 56 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  33              		.cfi_def_cfa_offset 24
+  34              		.cfi_offset 3, -24
+  35              		.cfi_offset 4, -20
+  36              		.cfi_offset 5, -16
+  37              		.cfi_offset 6, -12
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 0646     		mov	r6, r0
+  41 0004 0F46     		mov	r7, r1
+  42              	.LVL1:
+  57:..\..\mruby_c2\Design01.cydsn/symbol.c **** #ifdef MRBC_SYMBOL_SEARCH_LINER
+  58:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int i;
+  59:..\..\mruby_c2\Design01.cydsn/symbol.c ****   for( i = 0; i < sym_index_pos; i++ ) {
+  60:..\..\mruby_c2\Design01.cydsn/symbol.c ****     if( sym_index[i].hash == hash && strcmp(str, sym_index[i].cstr) == 0 ) {
+  61:..\..\mruby_c2\Design01.cydsn/symbol.c ****       return i;
+  62:..\..\mruby_c2\Design01.cydsn/symbol.c ****     }
+  63:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+  64:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return -1;
+  65:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+  66:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  67:..\..\mruby_c2\Design01.cydsn/symbol.c **** #ifdef MRBC_SYMBOL_SEARCH_BTREE
+  68:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int i = 0;
+  43              		.loc 1 68 0
+  44 0006 0024     		movs	r4, #0
+  45              	.LVL2:
+  46              	.L6:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 3
+
+
+  69:..\..\mruby_c2\Design01.cydsn/symbol.c ****   do {
+  70:..\..\mruby_c2\Design01.cydsn/symbol.c ****     if( sym_index[i].hash == hash && strcmp(str, sym_index[i].cstr) == 0 ) {
+  47              		.loc 1 70 0
+  48 0008 04EB4402 		add	r2, r4, r4, lsl #1
+  49 000c 9300     		lsls	r3, r2, #2
+  50 000e 104A     		ldr	r2, .L9
+  51 0010 D55A     		ldrh	r5, [r2, r3]
+  52 0012 B542     		cmp	r5, r6
+  53 0014 06D1     		bne	.L2
+  54              		.loc 1 70 0 is_stmt 0 discriminator 1
+  55 0016 0E4A     		ldr	r2, .L9
+  56 0018 1344     		add	r3, r3, r2
+  57 001a 9968     		ldr	r1, [r3, #8]
+  58 001c 3846     		mov	r0, r7
+  59 001e FFF7FEFF 		bl	strcmp
+  60              	.LVL3:
+  61 0022 98B1     		cbz	r0, .L7
+  62              	.L2:
+  71:..\..\mruby_c2\Design01.cydsn/symbol.c ****       return i;
+  72:..\..\mruby_c2\Design01.cydsn/symbol.c ****     }
+  73:..\..\mruby_c2\Design01.cydsn/symbol.c ****     if( hash < sym_index[i].hash ) {
+  63              		.loc 1 73 0 is_stmt 1
+  64 0024 B542     		cmp	r5, r6
+  65 0026 06D9     		bls	.L4
+  74:..\..\mruby_c2\Design01.cydsn/symbol.c ****       i = sym_index[i].left;
+  66              		.loc 1 74 0
+  67 0028 04EB4404 		add	r4, r4, r4, lsl #1
+  68              	.LVL4:
+  69 002c A300     		lsls	r3, r4, #2
+  70 002e 084A     		ldr	r2, .L9
+  71 0030 1344     		add	r3, r3, r2
+  72 0032 5C88     		ldrh	r4, [r3, #2]
+  73              	.LVL5:
+  74 0034 05E0     		b	.L5
+  75              	.L4:
+  75:..\..\mruby_c2\Design01.cydsn/symbol.c ****     } else {
+  76:..\..\mruby_c2\Design01.cydsn/symbol.c ****       i = sym_index[i].right;
+  76              		.loc 1 76 0
+  77 0036 04EB4404 		add	r4, r4, r4, lsl #1
+  78              	.LVL6:
+  79 003a A300     		lsls	r3, r4, #2
+  80 003c 044A     		ldr	r2, .L9
+  81 003e 1344     		add	r3, r3, r2
+  82 0040 9C88     		ldrh	r4, [r3, #4]
+  83              	.LVL7:
+  84              	.L5:
+  77:..\..\mruby_c2\Design01.cydsn/symbol.c ****     }
+  78:..\..\mruby_c2\Design01.cydsn/symbol.c ****   } while( i != 0 );
+  85              		.loc 1 78 0
+  86 0042 002C     		cmp	r4, #0
+  87 0044 E0D1     		bne	.L6
+  79:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return -1;
+  88              		.loc 1 79 0
+  89 0046 4FF0FF30 		mov	r0, #-1
+  90 004a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  91              	.LVL8:
+  92              	.L7:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 4
+
+
+  71:..\..\mruby_c2\Design01.cydsn/symbol.c ****     }
+  93              		.loc 1 71 0
+  94 004c 2046     		mov	r0, r4
+  80:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+  81:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+  95              		.loc 1 81 0
+  96 004e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  97              	.LVL9:
+  98              	.L10:
+  99              		.align	2
+ 100              	.L9:
+ 101 0050 00000000 		.word	.LANCHOR0
+ 102              		.cfi_endproc
+ 103              	.LFE81:
+ 104              		.size	search_index, .-search_index
+ 105              		.section	.text.add_index,"ax",%progbits
+ 106              		.align	2
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.type	add_index, %function
+ 110              	add_index:
+ 111              	.LFB82:
+  82:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  83:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  84:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+  85:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! add to index table
+  86:..\..\mruby_c2\Design01.cydsn/symbol.c ****  */
+  87:..\..\mruby_c2\Design01.cydsn/symbol.c **** static int add_index( uint16_t hash, const char *str )
+  88:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 112              		.loc 1 88 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              	.LVL10:
+ 117 0000 38B5     		push	{r3, r4, r5, lr}
+ 118              		.cfi_def_cfa_offset 16
+ 119              		.cfi_offset 3, -16
+ 120              		.cfi_offset 4, -12
+ 121              		.cfi_offset 5, -8
+ 122              		.cfi_offset 14, -4
+  89:..\..\mruby_c2\Design01.cydsn/symbol.c ****   // check overflow.
+  90:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_index_pos >= MAX_SYMBOLS_COUNT ) {
+ 123              		.loc 1 90 0
+ 124 0002 204B     		ldr	r3, .L20
+ 125 0004 D3F8104E 		ldr	r4, [r3, #3600]
+ 126 0008 B4F5967F 		cmp	r4, #300
+ 127 000c 07DB     		blt	.L12
+ 128 000e 0A46     		mov	r2, r1
+  91:..\..\mruby_c2\Design01.cydsn/symbol.c ****     console_printf( "Overflow %s for '%s'\n", "MAX_SYMBOLS_COUNT", str );
+ 129              		.loc 1 91 0
+ 130 0010 1D49     		ldr	r1, .L20+4
+ 131              	.LVL11:
+ 132 0012 1E48     		ldr	r0, .L20+8
+ 133              	.LVL12:
+ 134 0014 FFF7FEFF 		bl	console_printf
+ 135              	.LVL13:
+  92:..\..\mruby_c2\Design01.cydsn/symbol.c ****     return -1;
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 5
+
+
+ 136              		.loc 1 92 0
+ 137 0018 4FF0FF34 		mov	r4, #-1
+ 138 001c 2FE0     		b	.L13
+ 139              	.LVL14:
+ 140              	.L12:
+  93:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+  94:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  95:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int sym_id = sym_index_pos++;
+ 141              		.loc 1 95 0
+ 142 001e 194D     		ldr	r5, .L20
+ 143 0020 631C     		adds	r3, r4, #1
+ 144 0022 C5F8103E 		str	r3, [r5, #3600]
+ 145              	.LVL15:
+  96:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+  97:..\..\mruby_c2\Design01.cydsn/symbol.c ****   // append table.
+  98:..\..\mruby_c2\Design01.cydsn/symbol.c ****   sym_index[sym_id].hash = hash;
+ 146              		.loc 1 98 0
+ 147 0026 6300     		lsls	r3, r4, #1
+ 148 0028 2344     		add	r3, r3, r4
+ 149 002a 9A00     		lsls	r2, r3, #2
+ 150 002c AB18     		adds	r3, r5, r2
+ 151 002e A852     		strh	r0, [r5, r2]	@ movhi
+  99:..\..\mruby_c2\Design01.cydsn/symbol.c ****   sym_index[sym_id].cstr = str;
+ 152              		.loc 1 99 0
+ 153 0030 9960     		str	r1, [r3, #8]
+ 154              	.LVL16:
+ 100:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 101:..\..\mruby_c2\Design01.cydsn/symbol.c **** #ifdef MRBC_SYMBOL_SEARCH_BTREE
+ 102:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int i = 0;
+ 155              		.loc 1 102 0
+ 156 0032 0023     		movs	r3, #0
+ 157              	.LVL17:
+ 158              	.L14:
+ 103:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 104:..\..\mruby_c2\Design01.cydsn/symbol.c ****   while( 1 ) {
+ 105:..\..\mruby_c2\Design01.cydsn/symbol.c ****     if( hash < sym_index[i].hash ) {
+ 159              		.loc 1 105 0
+ 160 0034 03EB4301 		add	r1, r3, r3, lsl #1
+ 161 0038 8A00     		lsls	r2, r1, #2
+ 162 003a 1249     		ldr	r1, .L20
+ 163 003c 8A5A     		ldrh	r2, [r1, r2]
+ 164 003e 9042     		cmp	r0, r2
+ 165 0040 0ED2     		bcs	.L15
+ 106:..\..\mruby_c2\Design01.cydsn/symbol.c ****       // left side
+ 107:..\..\mruby_c2\Design01.cydsn/symbol.c ****       if( sym_index[i].left == 0 ) {	// left is empty?
+ 166              		.loc 1 107 0
+ 167 0042 03EB4301 		add	r1, r3, r3, lsl #1
+ 168 0046 8A00     		lsls	r2, r1, #2
+ 169 0048 0E49     		ldr	r1, .L20
+ 170 004a 0A44     		add	r2, r2, r1
+ 171 004c 5288     		ldrh	r2, [r2, #2]
+ 172 004e 2AB9     		cbnz	r2, .L16
+ 108:..\..\mruby_c2\Design01.cydsn/symbol.c ****         sym_index[i].left = sym_id;
+ 173              		.loc 1 108 0
+ 174 0050 03EB4303 		add	r3, r3, r3, lsl #1
+ 175              	.LVL18:
+ 176 0054 9A00     		lsls	r2, r3, #2
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 6
+
+
+ 177 0056 0A44     		add	r2, r2, r1
+ 178 0058 5480     		strh	r4, [r2, #2]	@ movhi
+ 109:..\..\mruby_c2\Design01.cydsn/symbol.c ****         break;
+ 179              		.loc 1 109 0
+ 180 005a 10E0     		b	.L13
+ 181              	.LVL19:
+ 182              	.L16:
+ 110:..\..\mruby_c2\Design01.cydsn/symbol.c ****       }
+ 111:..\..\mruby_c2\Design01.cydsn/symbol.c ****       i = sym_index[i].left;
+ 183              		.loc 1 111 0
+ 184 005c 1346     		mov	r3, r2
+ 185              	.LVL20:
+ 186 005e E9E7     		b	.L14
+ 187              	.L15:
+ 112:..\..\mruby_c2\Design01.cydsn/symbol.c ****     } else {
+ 113:..\..\mruby_c2\Design01.cydsn/symbol.c ****       // right side
+ 114:..\..\mruby_c2\Design01.cydsn/symbol.c ****       if( sym_index[i].right == 0 ) {	// right is empty?
+ 188              		.loc 1 114 0
+ 189 0060 03EB4301 		add	r1, r3, r3, lsl #1
+ 190 0064 8A00     		lsls	r2, r1, #2
+ 191 0066 0749     		ldr	r1, .L20
+ 192 0068 0A44     		add	r2, r2, r1
+ 193 006a 9288     		ldrh	r2, [r2, #4]
+ 194 006c 2AB9     		cbnz	r2, .L18
+ 115:..\..\mruby_c2\Design01.cydsn/symbol.c ****         sym_index[i].right = sym_id;
+ 195              		.loc 1 115 0
+ 196 006e 03EB4303 		add	r3, r3, r3, lsl #1
+ 197              	.LVL21:
+ 198 0072 9A00     		lsls	r2, r3, #2
+ 199 0074 0A44     		add	r2, r2, r1
+ 200 0076 9480     		strh	r4, [r2, #4]	@ movhi
+ 116:..\..\mruby_c2\Design01.cydsn/symbol.c ****         break;
+ 201              		.loc 1 116 0
+ 202 0078 01E0     		b	.L13
+ 203              	.LVL22:
+ 204              	.L18:
+ 117:..\..\mruby_c2\Design01.cydsn/symbol.c ****       }
+ 118:..\..\mruby_c2\Design01.cydsn/symbol.c ****       i = sym_index[i].right;
+ 205              		.loc 1 118 0
+ 206 007a 1346     		mov	r3, r2
+ 207              	.LVL23:
+ 208 007c DAE7     		b	.L14
+ 209              	.LVL24:
+ 210              	.L13:
+ 119:..\..\mruby_c2\Design01.cydsn/symbol.c ****     }
+ 120:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 121:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+ 122:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return sym_id;
+ 123:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 211              		.loc 1 123 0
+ 212 007e 2046     		mov	r0, r4
+ 213 0080 38BD     		pop	{r3, r4, r5, pc}
+ 214              	.L21:
+ 215 0082 00BF     		.align	2
+ 216              	.L20:
+ 217 0084 00000000 		.word	.LANCHOR0
+ 218 0088 00000000 		.word	.LC0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 7
+
+
+ 219 008c 14000000 		.word	.LC1
+ 220              		.cfi_endproc
+ 221              	.LFE82:
+ 222              		.size	add_index, .-add_index
+ 223              		.section	.text.c_equal3,"ax",%progbits
+ 224              		.align	2
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.type	c_equal3, %function
+ 228              	c_equal3:
+ 229              	.LFB89:
+ 124:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 125:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 126:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 127:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! constructor
+ 128:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 129:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @param  vm	pointer to VM.
+ 130:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @param  str	String
+ 131:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @return 	symbol object
+ 132:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 133:..\..\mruby_c2\Design01.cydsn/symbol.c **** mrb_value mrbc_symbol_new(struct VM *vm, const char *str)
+ 134:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 135:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_value ret = {.tt = MRB_TT_SYMBOL};
+ 136:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = calc_hash(str);
+ 137:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_sym sym_id = search_index(h, str);
+ 138:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 139:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= 0 ) {
+ 140:..\..\mruby_c2\Design01.cydsn/symbol.c ****     ret.i = sym_id;
+ 141:..\..\mruby_c2\Design01.cydsn/symbol.c ****     return ret;		// already exist.
+ 142:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 143:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 144:..\..\mruby_c2\Design01.cydsn/symbol.c ****   // create symbol object dynamically.
+ 145:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int size = strlen(str) + 1;
+ 146:..\..\mruby_c2\Design01.cydsn/symbol.c ****   char *buf = mrbc_raw_alloc(size);
+ 147:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( buf == NULL ) return ret;		// ENOMEM raise?
+ 148:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 149:..\..\mruby_c2\Design01.cydsn/symbol.c ****   memcpy(buf, str, size);
+ 150:..\..\mruby_c2\Design01.cydsn/symbol.c ****   ret.i = add_index( h, buf );
+ 151:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 152:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return ret;
+ 153:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 154:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 155:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 156:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 157:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! Calculate hash value.
+ 158:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 159:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @param  str		Target string.
+ 160:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @return uint16_t	Hash value.
+ 161:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 162:..\..\mruby_c2\Design01.cydsn/symbol.c **** uint16_t calc_hash(const char *str)
+ 163:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 164:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = 0;
+ 165:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 166:..\..\mruby_c2\Design01.cydsn/symbol.c ****   while( *str != '\0' ) {
+ 167:..\..\mruby_c2\Design01.cydsn/symbol.c ****     h = h * 37 + *str;
+ 168:..\..\mruby_c2\Design01.cydsn/symbol.c ****     str++;
+ 169:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 8
+
+
+ 170:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return h;
+ 171:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 172:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 173:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 174:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 175:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! Convert string to symbol value.
+ 176:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 177:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @param  str		Target string.
+ 178:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @return mrb_sym	Symbol value.
+ 179:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 180:..\..\mruby_c2\Design01.cydsn/symbol.c **** mrb_sym str_to_symid(const char *str)
+ 181:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 182:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = calc_hash(str);
+ 183:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_sym sym_id = search_index(h, str);
+ 184:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= 0 ) return sym_id;
+ 185:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 186:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return add_index( h, str );
+ 187:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 188:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 189:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 190:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 191:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! Convert symbol value to string.
+ 192:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 193:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @param  mrb_sym	Symbol value.
+ 194:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @return const char*	String.
+ 195:..\..\mruby_c2\Design01.cydsn/symbol.c ****   @retval NULL		Invalid sym_id was given.
+ 196:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 197:..\..\mruby_c2\Design01.cydsn/symbol.c **** const char * symid_to_str(mrb_sym sym_id)
+ 198:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 199:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id < 0 ) return NULL;
+ 200:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= sym_index_pos ) return NULL;
+ 201:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 202:..\..\mruby_c2\Design01.cydsn/symbol.c ****   return sym_index[sym_id].cstr;
+ 203:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 204:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 205:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 206:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 207:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 208:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! (method) all_symbols
+ 209:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 210:..\..\mruby_c2\Design01.cydsn/symbol.c **** static void c_all_symbols(mrb_vm *vm, mrb_value v[], int argc)
+ 211:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 212:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_value ret = mrbc_array_new(vm, sym_index_pos);
+ 213:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 214:..\..\mruby_c2\Design01.cydsn/symbol.c ****   int i;
+ 215:..\..\mruby_c2\Design01.cydsn/symbol.c ****   for( i = 0; i < sym_index_pos; i++ ) {
+ 216:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrb_value sym1 = {.tt = MRB_TT_SYMBOL};
+ 217:..\..\mruby_c2\Design01.cydsn/symbol.c ****     sym1.i = i;
+ 218:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrbc_array_push(&ret, &sym1);
+ 219:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 220:..\..\mruby_c2\Design01.cydsn/symbol.c ****   SET_RETURN(ret);
+ 221:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 222:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 223:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 224:..\..\mruby_c2\Design01.cydsn/symbol.c **** #if MRBC_USE_STRING
+ 225:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 226:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! (method) to_s
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 9
+
+
+ 227:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 228:..\..\mruby_c2\Design01.cydsn/symbol.c **** static void c_to_s(mrb_vm *vm, mrb_value v[], int argc)
+ 229:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 230:..\..\mruby_c2\Design01.cydsn/symbol.c ****   v[0] = mrbc_string_new_cstr(vm, symid_to_str(v[0].i));
+ 231:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 232:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+ 233:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 234:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 235:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 236:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 237:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! (method) ===
+ 238:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 239:..\..\mruby_c2\Design01.cydsn/symbol.c **** static void c_equal3(mrb_vm *vm, mrb_value v[], int argc)
+ 240:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 230              		.loc 1 240 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              	.LVL25:
+ 235 0000 10B5     		push	{r4, lr}
+ 236              		.cfi_def_cfa_offset 8
+ 237              		.cfi_offset 4, -8
+ 238              		.cfi_offset 14, -4
+ 239 0002 0C46     		mov	r4, r1
+ 241:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( mrbc_compare(&v[0], &v[1]) == 0 ) {
+ 240              		.loc 1 241 0
+ 241 0004 1031     		adds	r1, r1, #16
+ 242              	.LVL26:
+ 243 0006 2046     		mov	r0, r4
+ 244              	.LVL27:
+ 245 0008 FFF7FEFF 		bl	mrbc_compare
+ 246              	.LVL28:
+ 247 000c 28B9     		cbnz	r0, .L23
+ 242:..\..\mruby_c2\Design01.cydsn/symbol.c ****     SET_TRUE_RETURN();
+ 248              		.loc 1 242 0
+ 249 000e 2046     		mov	r0, r4
+ 250 0010 FFF7FEFF 		bl	mrbc_release
+ 251              	.LVL29:
+ 252 0014 0323     		movs	r3, #3
+ 253 0016 2370     		strb	r3, [r4]
+ 254 0018 10BD     		pop	{r4, pc}
+ 255              	.LVL30:
+ 256              	.L23:
+ 243:..\..\mruby_c2\Design01.cydsn/symbol.c ****   } else {
+ 244:..\..\mruby_c2\Design01.cydsn/symbol.c ****     SET_FALSE_RETURN();
+ 257              		.loc 1 244 0
+ 258 001a 2046     		mov	r0, r4
+ 259 001c FFF7FEFF 		bl	mrbc_release
+ 260              	.LVL31:
+ 261 0020 0223     		movs	r3, #2
+ 262 0022 2370     		strb	r3, [r4]
+ 263 0024 10BD     		pop	{r4, pc}
+ 264              		.cfi_endproc
+ 265              	.LFE89:
+ 266              		.size	c_equal3, .-c_equal3
+ 267 0026 00BF     		.section	.text.c_all_symbols,"ax",%progbits
+ 268              		.align	2
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 10
+
+
+ 269              		.thumb
+ 270              		.thumb_func
+ 271              		.type	c_all_symbols, %function
+ 272              	c_all_symbols:
+ 273              	.LFB87:
+ 211:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_value ret = mrbc_array_new(vm, sym_index_pos);
+ 274              		.loc 1 211 0
+ 275              		.cfi_startproc
+ 276              		@ args = 0, pretend = 0, frame = 32
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278              	.LVL32:
+ 279 0000 30B5     		push	{r4, r5, lr}
+ 280              		.cfi_def_cfa_offset 12
+ 281              		.cfi_offset 4, -12
+ 282              		.cfi_offset 5, -8
+ 283              		.cfi_offset 14, -4
+ 284 0002 89B0     		sub	sp, sp, #36
+ 285              		.cfi_def_cfa_offset 48
+ 286 0004 0D46     		mov	r5, r1
+ 212:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 287              		.loc 1 212 0
+ 288 0006 124B     		ldr	r3, .L30
+ 289 0008 D3F8102E 		ldr	r2, [r3, #3600]
+ 290              	.LVL33:
+ 291 000c 0146     		mov	r1, r0
+ 292              	.LVL34:
+ 293 000e 04A8     		add	r0, sp, #16
+ 294              	.LVL35:
+ 295 0010 FFF7FEFF 		bl	mrbc_array_new
+ 296              	.LVL36:
+ 215:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrb_value sym1 = {.tt = MRB_TT_SYMBOL};
+ 297              		.loc 1 215 0
+ 298 0014 0024     		movs	r4, #0
+ 299 0016 0CE0     		b	.L27
+ 300              	.LVL37:
+ 301              	.L28:
+ 302              	.LBB2:
+ 216:..\..\mruby_c2\Design01.cydsn/symbol.c ****     sym1.i = i;
+ 303              		.loc 1 216 0 discriminator 3
+ 304 0018 0023     		movs	r3, #0
+ 305 001a 0093     		str	r3, [sp]
+ 306 001c 0193     		str	r3, [sp, #4]
+ 307 001e 0393     		str	r3, [sp, #12]
+ 308 0020 0623     		movs	r3, #6
+ 309 0022 8DF80030 		strb	r3, [sp]
+ 217:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrbc_array_push(&ret, &sym1);
+ 310              		.loc 1 217 0 discriminator 3
+ 311 0026 0294     		str	r4, [sp, #8]
+ 218:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 312              		.loc 1 218 0 discriminator 3
+ 313 0028 6946     		mov	r1, sp
+ 314 002a 04A8     		add	r0, sp, #16
+ 315 002c FFF7FEFF 		bl	mrbc_array_push
+ 316              	.LVL38:
+ 317              	.LBE2:
+ 215:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrb_value sym1 = {.tt = MRB_TT_SYMBOL};
+ 318              		.loc 1 215 0 discriminator 3
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 11
+
+
+ 319 0030 0134     		adds	r4, r4, #1
+ 320              	.LVL39:
+ 321              	.L27:
+ 215:..\..\mruby_c2\Design01.cydsn/symbol.c ****     mrb_value sym1 = {.tt = MRB_TT_SYMBOL};
+ 322              		.loc 1 215 0 is_stmt 0 discriminator 1
+ 323 0032 074B     		ldr	r3, .L30
+ 324 0034 D3F8103E 		ldr	r3, [r3, #3600]
+ 325 0038 9C42     		cmp	r4, r3
+ 326 003a EDDB     		blt	.L28
+ 220:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 327              		.loc 1 220 0 is_stmt 1
+ 328 003c 2846     		mov	r0, r5
+ 329 003e FFF7FEFF 		bl	mrbc_release
+ 330              	.LVL40:
+ 331 0042 08AB     		add	r3, sp, #32
+ 332 0044 13E90F00 		ldmdb	r3, {r0, r1, r2, r3}
+ 333 0048 85E80F00 		stmia	r5, {r0, r1, r2, r3}
+ 221:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 334              		.loc 1 221 0
+ 335 004c 09B0     		add	sp, sp, #36
+ 336              		.cfi_def_cfa_offset 12
+ 337              		@ sp needed
+ 338 004e 30BD     		pop	{r4, r5, pc}
+ 339              	.LVL41:
+ 340              	.L31:
+ 341              		.align	2
+ 342              	.L30:
+ 343 0050 00000000 		.word	.LANCHOR0
+ 344              		.cfi_endproc
+ 345              	.LFE87:
+ 346              		.size	c_all_symbols, .-c_all_symbols
+ 347              		.section	.text.calc_hash,"ax",%progbits
+ 348              		.align	2
+ 349              		.global	calc_hash
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.type	calc_hash, %function
+ 353              	calc_hash:
+ 354              	.LFB84:
+ 163:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = 0;
+ 355              		.loc 1 163 0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359              		@ link register save eliminated.
+ 360              	.LVL42:
+ 164:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 361              		.loc 1 164 0
+ 362 0000 0023     		movs	r3, #0
+ 166:..\..\mruby_c2\Design01.cydsn/symbol.c ****     h = h * 37 + *str;
+ 363              		.loc 1 166 0
+ 364 0002 07E0     		b	.L33
+ 365              	.LVL43:
+ 366              	.L34:
+ 167:..\..\mruby_c2\Design01.cydsn/symbol.c ****     str++;
+ 367              		.loc 1 167 0
+ 368 0004 03EBC301 		add	r1, r3, r3, lsl #3
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 12
+
+
+ 369 0008 03EB8103 		add	r3, r3, r1, lsl #2
+ 370              	.LVL44:
+ 371 000c 9BB2     		uxth	r3, r3
+ 372 000e 1344     		add	r3, r3, r2
+ 373 0010 9BB2     		uxth	r3, r3
+ 374              	.LVL45:
+ 168:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 375              		.loc 1 168 0
+ 376 0012 0130     		adds	r0, r0, #1
+ 377              	.LVL46:
+ 378              	.L33:
+ 166:..\..\mruby_c2\Design01.cydsn/symbol.c ****     h = h * 37 + *str;
+ 379              		.loc 1 166 0
+ 380 0014 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 381 0016 002A     		cmp	r2, #0
+ 382 0018 F4D1     		bne	.L34
+ 171:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 383              		.loc 1 171 0
+ 384 001a 1846     		mov	r0, r3
+ 385              	.LVL47:
+ 386 001c 7047     		bx	lr
+ 387              		.cfi_endproc
+ 388              	.LFE84:
+ 389              		.size	calc_hash, .-calc_hash
+ 390 001e 00BF     		.section	.text.mrbc_symbol_new,"ax",%progbits
+ 391              		.align	2
+ 392              		.global	mrbc_symbol_new
+ 393              		.thumb
+ 394              		.thumb_func
+ 395              		.type	mrbc_symbol_new, %function
+ 396              	mrbc_symbol_new:
+ 397              	.LFB83:
+ 134:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_value ret = {.tt = MRB_TT_SYMBOL};
+ 398              		.loc 1 134 0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 0
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              	.LVL48:
+ 403 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 404              		.cfi_def_cfa_offset 24
+ 405              		.cfi_offset 4, -24
+ 406              		.cfi_offset 5, -20
+ 407              		.cfi_offset 6, -16
+ 408              		.cfi_offset 7, -12
+ 409              		.cfi_offset 8, -8
+ 410              		.cfi_offset 14, -4
+ 411 0004 0446     		mov	r4, r0
+ 412 0006 1546     		mov	r5, r2
+ 135:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = calc_hash(str);
+ 413              		.loc 1 135 0
+ 414 0008 0023     		movs	r3, #0
+ 415 000a 0360     		str	r3, [r0]
+ 416 000c 4360     		str	r3, [r0, #4]
+ 417 000e 8360     		str	r3, [r0, #8]
+ 418 0010 C360     		str	r3, [r0, #12]
+ 419 0012 0623     		movs	r3, #6
+ 420 0014 0370     		strb	r3, [r0]
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 13
+
+
+ 136:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_sym sym_id = search_index(h, str);
+ 421              		.loc 1 136 0
+ 422 0016 1046     		mov	r0, r2
+ 423              	.LVL49:
+ 424 0018 FFF7FEFF 		bl	calc_hash
+ 425              	.LVL50:
+ 426 001c 0646     		mov	r6, r0
+ 427              	.LVL51:
+ 137:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 428              		.loc 1 137 0
+ 429 001e 2946     		mov	r1, r5
+ 430 0020 FFF7FEFF 		bl	search_index
+ 431              	.LVL52:
+ 432 0024 00B2     		sxth	r0, r0
+ 433              	.LVL53:
+ 139:..\..\mruby_c2\Design01.cydsn/symbol.c ****     ret.i = sym_id;
+ 434              		.loc 1 139 0
+ 435 0026 0028     		cmp	r0, #0
+ 436 0028 01DB     		blt	.L36
+ 140:..\..\mruby_c2\Design01.cydsn/symbol.c ****     return ret;		// already exist.
+ 437              		.loc 1 140 0
+ 438 002a A060     		str	r0, [r4, #8]
+ 141:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 439              		.loc 1 141 0
+ 440 002c 11E0     		b	.L35
+ 441              	.L36:
+ 145:..\..\mruby_c2\Design01.cydsn/symbol.c ****   char *buf = mrbc_raw_alloc(size);
+ 442              		.loc 1 145 0
+ 443 002e 2846     		mov	r0, r5
+ 444              	.LVL54:
+ 445 0030 FFF7FEFF 		bl	strlen
+ 446              	.LVL55:
+ 447 0034 471C     		adds	r7, r0, #1
+ 448              	.LVL56:
+ 146:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( buf == NULL ) return ret;		// ENOMEM raise?
+ 449              		.loc 1 146 0
+ 450 0036 3846     		mov	r0, r7
+ 451 0038 FFF7FEFF 		bl	mrbc_raw_alloc
+ 452              	.LVL57:
+ 147:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 453              		.loc 1 147 0
+ 454 003c 8046     		mov	r8, r0
+ 455 003e 40B1     		cbz	r0, .L35
+ 149:..\..\mruby_c2\Design01.cydsn/symbol.c ****   ret.i = add_index( h, buf );
+ 456              		.loc 1 149 0
+ 457 0040 3A46     		mov	r2, r7
+ 458 0042 2946     		mov	r1, r5
+ 459 0044 FFF7FEFF 		bl	memcpy
+ 460              	.LVL58:
+ 150:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 461              		.loc 1 150 0
+ 462 0048 4146     		mov	r1, r8
+ 463 004a 3046     		mov	r0, r6
+ 464 004c FFF7FEFF 		bl	add_index
+ 465              	.LVL59:
+ 466 0050 A060     		str	r0, [r4, #8]
+ 467              	.LVL60:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 14
+
+
+ 468              	.L35:
+ 153:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 469              		.loc 1 153 0
+ 470 0052 2046     		mov	r0, r4
+ 471 0054 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 472              		.cfi_endproc
+ 473              	.LFE83:
+ 474              		.size	mrbc_symbol_new, .-mrbc_symbol_new
+ 475              		.section	.text.str_to_symid,"ax",%progbits
+ 476              		.align	2
+ 477              		.global	str_to_symid
+ 478              		.thumb
+ 479              		.thumb_func
+ 480              		.type	str_to_symid, %function
+ 481              	str_to_symid:
+ 482              	.LFB85:
+ 181:..\..\mruby_c2\Design01.cydsn/symbol.c ****   uint16_t h = calc_hash(str);
+ 483              		.loc 1 181 0
+ 484              		.cfi_startproc
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              	.LVL61:
+ 488 0000 38B5     		push	{r3, r4, r5, lr}
+ 489              		.cfi_def_cfa_offset 16
+ 490              		.cfi_offset 3, -16
+ 491              		.cfi_offset 4, -12
+ 492              		.cfi_offset 5, -8
+ 493              		.cfi_offset 14, -4
+ 494 0002 0446     		mov	r4, r0
+ 182:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrb_sym sym_id = search_index(h, str);
+ 495              		.loc 1 182 0
+ 496 0004 FFF7FEFF 		bl	calc_hash
+ 497              	.LVL62:
+ 498 0008 0546     		mov	r5, r0
+ 499              	.LVL63:
+ 183:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= 0 ) return sym_id;
+ 500              		.loc 1 183 0
+ 501 000a 2146     		mov	r1, r4
+ 502 000c FFF7FEFF 		bl	search_index
+ 503              	.LVL64:
+ 504 0010 00B2     		sxth	r0, r0
+ 505              	.LVL65:
+ 184:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 506              		.loc 1 184 0
+ 507 0012 0028     		cmp	r0, #0
+ 508 0014 04DA     		bge	.L40
+ 186:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 509              		.loc 1 186 0
+ 510 0016 2146     		mov	r1, r4
+ 511 0018 2846     		mov	r0, r5
+ 512              	.LVL66:
+ 513 001a FFF7FEFF 		bl	add_index
+ 514              	.LVL67:
+ 515 001e 00B2     		sxth	r0, r0
+ 516              	.L40:
+ 187:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 517              		.loc 1 187 0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 15
+
+
+ 518 0020 38BD     		pop	{r3, r4, r5, pc}
+ 519              		.cfi_endproc
+ 520              	.LFE85:
+ 521              		.size	str_to_symid, .-str_to_symid
+ 522 0022 00BF     		.section	.text.symid_to_str,"ax",%progbits
+ 523              		.align	2
+ 524              		.global	symid_to_str
+ 525              		.thumb
+ 526              		.thumb_func
+ 527              		.type	symid_to_str, %function
+ 528              	symid_to_str:
+ 529              	.LFB86:
+ 198:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id < 0 ) return NULL;
+ 530              		.loc 1 198 0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 0
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 534              		@ link register save eliminated.
+ 535              	.LVL68:
+ 199:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= sym_index_pos ) return NULL;
+ 536              		.loc 1 199 0
+ 537 0000 0028     		cmp	r0, #0
+ 538              	.LVL69:
+ 539 0002 0BDB     		blt	.L45
+ 200:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 540              		.loc 1 200 0
+ 541 0004 074B     		ldr	r3, .L47
+ 542 0006 D3F8103E 		ldr	r3, [r3, #3600]
+ 543 000a 9842     		cmp	r0, r3
+ 544 000c 08DA     		bge	.L46
+ 202:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 545              		.loc 1 202 0
+ 546 000e 00EB4000 		add	r0, r0, r0, lsl #1
+ 547 0012 8300     		lsls	r3, r0, #2
+ 548 0014 034A     		ldr	r2, .L47
+ 549 0016 1344     		add	r3, r3, r2
+ 550 0018 9868     		ldr	r0, [r3, #8]
+ 551 001a 7047     		bx	lr
+ 552              	.L45:
+ 199:..\..\mruby_c2\Design01.cydsn/symbol.c ****   if( sym_id >= sym_index_pos ) return NULL;
+ 553              		.loc 1 199 0
+ 554 001c 0020     		movs	r0, #0
+ 555 001e 7047     		bx	lr
+ 556              	.L46:
+ 200:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 557              		.loc 1 200 0
+ 558 0020 0020     		movs	r0, #0
+ 203:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 559              		.loc 1 203 0
+ 560 0022 7047     		bx	lr
+ 561              	.L48:
+ 562              		.align	2
+ 563              	.L47:
+ 564 0024 00000000 		.word	.LANCHOR0
+ 565              		.cfi_endproc
+ 566              	.LFE86:
+ 567              		.size	symid_to_str, .-symid_to_str
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 16
+
+
+ 568              		.section	.text.c_to_s,"ax",%progbits
+ 569              		.align	2
+ 570              		.thumb
+ 571              		.thumb_func
+ 572              		.type	c_to_s, %function
+ 573              	c_to_s:
+ 574              	.LFB88:
+ 229:..\..\mruby_c2\Design01.cydsn/symbol.c ****   v[0] = mrbc_string_new_cstr(vm, symid_to_str(v[0].i));
+ 575              		.loc 1 229 0
+ 576              		.cfi_startproc
+ 577              		@ args = 0, pretend = 0, frame = 16
+ 578              		@ frame_needed = 0, uses_anonymous_args = 0
+ 579              	.LVL70:
+ 580 0000 70B5     		push	{r4, r5, r6, lr}
+ 581              		.cfi_def_cfa_offset 16
+ 582              		.cfi_offset 4, -16
+ 583              		.cfi_offset 5, -12
+ 584              		.cfi_offset 6, -8
+ 585              		.cfi_offset 14, -4
+ 586 0002 84B0     		sub	sp, sp, #16
+ 587              		.cfi_def_cfa_offset 32
+ 588 0004 0646     		mov	r6, r0
+ 589 0006 0C46     		mov	r4, r1
+ 230:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 590              		.loc 1 230 0
+ 591 0008 B1F90800 		ldrsh	r0, [r1, #8]
+ 592              	.LVL71:
+ 593 000c FFF7FEFF 		bl	symid_to_str
+ 594              	.LVL72:
+ 595 0010 0246     		mov	r2, r0
+ 596 0012 3146     		mov	r1, r6
+ 597 0014 6846     		mov	r0, sp
+ 598 0016 FFF7FEFF 		bl	mrbc_string_new_cstr
+ 599              	.LVL73:
+ 600 001a 9DE80F00 		ldmia	sp, {r0, r1, r2, r3}
+ 601 001e 84E80F00 		stmia	r4, {r0, r1, r2, r3}
+ 231:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+ 602              		.loc 1 231 0
+ 603 0022 04B0     		add	sp, sp, #16
+ 604              		.cfi_def_cfa_offset 16
+ 605              		@ sp needed
+ 606 0024 70BD     		pop	{r4, r5, r6, pc}
+ 607              		.cfi_endproc
+ 608              	.LFE88:
+ 609              		.size	c_to_s, .-c_to_s
+ 610 0026 00BF     		.section	.text.mrbc_init_class_symbol,"ax",%progbits
+ 611              		.align	2
+ 612              		.global	mrbc_init_class_symbol
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.type	mrbc_init_class_symbol, %function
+ 616              	mrbc_init_class_symbol:
+ 617              	.LFB90:
+ 245:..\..\mruby_c2\Design01.cydsn/symbol.c ****   }
+ 246:..\..\mruby_c2\Design01.cydsn/symbol.c **** }
+ 247:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 248:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 17
+
+
+ 249:..\..\mruby_c2\Design01.cydsn/symbol.c **** //================================================================
+ 250:..\..\mruby_c2\Design01.cydsn/symbol.c **** /*! initialize
+ 251:..\..\mruby_c2\Design01.cydsn/symbol.c **** */
+ 252:..\..\mruby_c2\Design01.cydsn/symbol.c **** void mrbc_init_class_symbol(struct VM *vm)
+ 253:..\..\mruby_c2\Design01.cydsn/symbol.c **** {
+ 618              		.loc 1 253 0
+ 619              		.cfi_startproc
+ 620              		@ args = 0, pretend = 0, frame = 0
+ 621              		@ frame_needed = 0, uses_anonymous_args = 0
+ 622              	.LVL74:
+ 623 0000 70B5     		push	{r4, r5, r6, lr}
+ 624              		.cfi_def_cfa_offset 16
+ 625              		.cfi_offset 4, -16
+ 626              		.cfi_offset 5, -12
+ 627              		.cfi_offset 6, -8
+ 628              		.cfi_offset 14, -4
+ 629 0002 0446     		mov	r4, r0
+ 254:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_class_symbol = mrbc_define_class(vm, "Symbol", mrbc_class_object);
+ 630              		.loc 1 254 0
+ 631 0004 134B     		ldr	r3, .L53
+ 632 0006 1A68     		ldr	r2, [r3]
+ 633 0008 1349     		ldr	r1, .L53+4
+ 634 000a FFF7FEFF 		bl	mrbc_define_class
+ 635              	.LVL75:
+ 636 000e 0146     		mov	r1, r0
+ 637 0010 124D     		ldr	r5, .L53+8
+ 638 0012 2860     		str	r0, [r5]
+ 255:..\..\mruby_c2\Design01.cydsn/symbol.c **** 
+ 256:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_define_method(vm, mrbc_class_symbol, "all_symbols", c_all_symbols);
+ 639              		.loc 1 256 0
+ 640 0014 124B     		ldr	r3, .L53+12
+ 641 0016 134A     		ldr	r2, .L53+16
+ 642 0018 2046     		mov	r0, r4
+ 643 001a FFF7FEFF 		bl	mrbc_define_method
+ 644              	.LVL76:
+ 257:..\..\mruby_c2\Design01.cydsn/symbol.c **** #if MRBC_USE_STRING
+ 258:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_define_method(vm, mrbc_class_symbol, "to_s", c_to_s);
+ 645              		.loc 1 258 0
+ 646 001e 124E     		ldr	r6, .L53+20
+ 647 0020 3346     		mov	r3, r6
+ 648 0022 124A     		ldr	r2, .L53+24
+ 649 0024 2968     		ldr	r1, [r5]
+ 650 0026 2046     		mov	r0, r4
+ 651 0028 FFF7FEFF 		bl	mrbc_define_method
+ 652              	.LVL77:
+ 259:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_define_method(vm, mrbc_class_symbol, "id2name", c_to_s);
+ 653              		.loc 1 259 0
+ 654 002c 3346     		mov	r3, r6
+ 655 002e 104A     		ldr	r2, .L53+28
+ 656 0030 2968     		ldr	r1, [r5]
+ 657 0032 2046     		mov	r0, r4
+ 658 0034 FFF7FEFF 		bl	mrbc_define_method
+ 659              	.LVL78:
+ 260:..\..\mruby_c2\Design01.cydsn/symbol.c **** #endif
+ 261:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_define_method(vm, mrbc_class_symbol, "to_sym", c_ineffect);
+ 660              		.loc 1 261 0
+ 661 0038 0E4B     		ldr	r3, .L53+32
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 18
+
+
+ 662 003a 0F4A     		ldr	r2, .L53+36
+ 663 003c 2968     		ldr	r1, [r5]
+ 664 003e 2046     		mov	r0, r4
+ 665 0040 FFF7FEFF 		bl	mrbc_define_method
+ 666              	.LVL79:
+ 262:..\..\mruby_c2\Design01.cydsn/symbol.c ****   mrbc_define_method(vm, mrbc_class_symbol, "===", c_equal3);
+ 667              		.loc 1 262 0
+ 668 0044 0D4B     		ldr	r3, .L53+40
+ 669 0046 0E4A     		ldr	r2, .L53+44
+ 670 0048 2968     		ldr	r1, [r5]
+ 671 004a 2046     		mov	r0, r4
+ 672 004c FFF7FEFF 		bl	mrbc_define_method
+ 673              	.LVL80:
+ 674 0050 70BD     		pop	{r4, r5, r6, pc}
+ 675              	.LVL81:
+ 676              	.L54:
+ 677 0052 00BF     		.align	2
+ 678              	.L53:
+ 679 0054 00000000 		.word	mrbc_class_object
+ 680 0058 2C000000 		.word	.LC2
+ 681 005c 00000000 		.word	mrbc_class_symbol
+ 682 0060 00000000 		.word	c_all_symbols
+ 683 0064 34000000 		.word	.LC3
+ 684 0068 00000000 		.word	c_to_s
+ 685 006c 40000000 		.word	.LC4
+ 686 0070 48000000 		.word	.LC5
+ 687 0074 00000000 		.word	c_ineffect
+ 688 0078 50000000 		.word	.LC6
+ 689 007c 00000000 		.word	c_equal3
+ 690 0080 58000000 		.word	.LC7
+ 691              		.cfi_endproc
+ 692              	.LFE90:
+ 693              		.size	mrbc_init_class_symbol, .-mrbc_init_class_symbol
+ 694              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 695              		.align	2
+ 696              	.LC0:
+ 697 0000 4D41585F 		.ascii	"MAX_SYMBOLS_COUNT\000"
+ 697      53594D42 
+ 697      4F4C535F 
+ 697      434F554E 
+ 697      5400
+ 698 0012 0000     		.space	2
+ 699              	.LC1:
+ 700 0014 4F766572 		.ascii	"Overflow %s for '%s'\012\000"
+ 700      666C6F77 
+ 700      20257320 
+ 700      666F7220 
+ 700      27257327 
+ 701 002a 0000     		.space	2
+ 702              	.LC2:
+ 703 002c 53796D62 		.ascii	"Symbol\000"
+ 703      6F6C00
+ 704 0033 00       		.space	1
+ 705              	.LC3:
+ 706 0034 616C6C5F 		.ascii	"all_symbols\000"
+ 706      73796D62 
+ 706      6F6C7300 
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 19
+
+
+ 707              	.LC4:
+ 708 0040 746F5F73 		.ascii	"to_s\000"
+ 708      00
+ 709 0045 000000   		.space	3
+ 710              	.LC5:
+ 711 0048 6964326E 		.ascii	"id2name\000"
+ 711      616D6500 
+ 712              	.LC6:
+ 713 0050 746F5F73 		.ascii	"to_sym\000"
+ 713      796D00
+ 714 0057 00       		.space	1
+ 715              	.LC7:
+ 716 0058 3D3D3D00 		.ascii	"===\000"
+ 717              		.bss
+ 718              		.align	2
+ 719              		.set	.LANCHOR0,. + 0
+ 720              		.type	sym_index, %object
+ 721              		.size	sym_index, 3600
+ 722              	sym_index:
+ 723 0000 00000000 		.space	3600
+ 723      00000000 
+ 723      00000000 
+ 723      00000000 
+ 723      00000000 
+ 724              		.type	sym_index_pos, %object
+ 725              		.size	sym_index_pos, 4
+ 726              	sym_index_pos:
+ 727 0e10 00000000 		.space	4
+ 728              		.text
+ 729              	.Letext0:
+ 730              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 731              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 732              		.file 4 "..\\..\\mruby_c2\\Design01.cydsn\\value.h"
+ 733              		.file 5 "..\\..\\mruby_c2\\Design01.cydsn\\vm.h"
+ 734              		.file 6 "..\\..\\mruby_c2\\Design01.cydsn\\c_array.h"
+ 735              		.file 7 "..\\..\\mruby_c2\\Design01.cydsn\\c_string.h"
+ 736              		.file 8 "..\\..\\mruby_c2\\Design01.cydsn\\static.h"
+ 737              		.file 9 "Generated_Source\\PSoC5/core_cm3.h"
+ 738              		.file 10 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4
+ 739              		.file 11 "..\\..\\mruby_c2\\Design01.cydsn\\console.h"
+ 740              		.file 12 "..\\..\\mruby_c2\\Design01.cydsn\\alloc.h"
+ 741              		.file 13 "..\\..\\mruby_c2\\Design01.cydsn\\class.h"
+ 742              		.section	.debug_info,"",%progbits
+ 743              	.Ldebug_info0:
+ 744 0000 8D0C0000 		.4byte	0xc8d
+ 745 0004 0400     		.2byte	0x4
+ 746 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 747 000a 04       		.byte	0x4
+ 748 000b 01       		.uleb128 0x1
+ 749 000c 01020000 		.4byte	.LASF130
+ 750 0010 0C       		.byte	0xc
+ 751 0011 3F030000 		.4byte	.LASF131
+ 752 0015 3C050000 		.4byte	.LASF132
+ 753 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 754 001d 00000000 		.4byte	0
+ 755 0021 00000000 		.4byte	.Ldebug_line0
+ 756 0025 02       		.uleb128 0x2
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 20
+
+
+ 757 0026 1B040000 		.4byte	.LASF0
+ 758 002a 02       		.byte	0x2
+ 759 002b 1B       		.byte	0x1b
+ 760 002c 30000000 		.4byte	0x30
+ 761 0030 03       		.uleb128 0x3
+ 762 0031 01       		.byte	0x1
+ 763 0032 06       		.byte	0x6
+ 764 0033 A2050000 		.4byte	.LASF2
+ 765 0037 02       		.uleb128 0x2
+ 766 0038 AF040000 		.4byte	.LASF1
+ 767 003c 02       		.byte	0x2
+ 768 003d 1D       		.byte	0x1d
+ 769 003e 42000000 		.4byte	0x42
+ 770 0042 03       		.uleb128 0x3
+ 771 0043 01       		.byte	0x1
+ 772 0044 08       		.byte	0x8
+ 773 0045 27050000 		.4byte	.LASF3
+ 774 0049 02       		.uleb128 0x2
+ 775 004a EA030000 		.4byte	.LASF4
+ 776 004e 02       		.byte	0x2
+ 777 004f 29       		.byte	0x29
+ 778 0050 54000000 		.4byte	0x54
+ 779 0054 03       		.uleb128 0x3
+ 780 0055 02       		.byte	0x2
+ 781 0056 05       		.byte	0x5
+ 782 0057 7B040000 		.4byte	.LASF5
+ 783 005b 02       		.uleb128 0x2
+ 784 005c A3010000 		.4byte	.LASF6
+ 785 0060 02       		.byte	0x2
+ 786 0061 2B       		.byte	0x2b
+ 787 0062 66000000 		.4byte	0x66
+ 788 0066 03       		.uleb128 0x3
+ 789 0067 02       		.byte	0x2
+ 790 0068 07       		.byte	0x7
+ 791 0069 AE050000 		.4byte	.LASF7
+ 792 006d 02       		.uleb128 0x2
+ 793 006e BD000000 		.4byte	.LASF8
+ 794 0072 02       		.byte	0x2
+ 795 0073 3F       		.byte	0x3f
+ 796 0074 78000000 		.4byte	0x78
+ 797 0078 03       		.uleb128 0x3
+ 798 0079 04       		.byte	0x4
+ 799 007a 05       		.byte	0x5
+ 800 007b 85040000 		.4byte	.LASF9
+ 801 007f 03       		.uleb128 0x3
+ 802 0080 04       		.byte	0x4
+ 803 0081 07       		.byte	0x7
+ 804 0082 E3040000 		.4byte	.LASF10
+ 805 0086 03       		.uleb128 0x3
+ 806 0087 08       		.byte	0x8
+ 807 0088 05       		.byte	0x5
+ 808 0089 AC030000 		.4byte	.LASF11
+ 809 008d 03       		.uleb128 0x3
+ 810 008e 08       		.byte	0x8
+ 811 008f 07       		.byte	0x7
+ 812 0090 71010000 		.4byte	.LASF12
+ 813 0094 04       		.uleb128 0x4
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 21
+
+
+ 814 0095 04       		.byte	0x4
+ 815 0096 05       		.byte	0x5
+ 816 0097 696E7400 		.ascii	"int\000"
+ 817 009b 03       		.uleb128 0x3
+ 818 009c 04       		.byte	0x4
+ 819 009d 07       		.byte	0x7
+ 820 009e 8C000000 		.4byte	.LASF13
+ 821 00a2 02       		.uleb128 0x2
+ 822 00a3 2C010000 		.4byte	.LASF14
+ 823 00a7 03       		.byte	0x3
+ 824 00a8 14       		.byte	0x14
+ 825 00a9 25000000 		.4byte	0x25
+ 826 00ad 02       		.uleb128 0x2
+ 827 00ae 6D030000 		.4byte	.LASF15
+ 828 00b2 03       		.byte	0x3
+ 829 00b3 18       		.byte	0x18
+ 830 00b4 37000000 		.4byte	0x37
+ 831 00b8 02       		.uleb128 0x2
+ 832 00b9 52010000 		.4byte	.LASF16
+ 833 00bd 03       		.byte	0x3
+ 834 00be 20       		.byte	0x20
+ 835 00bf 49000000 		.4byte	0x49
+ 836 00c3 02       		.uleb128 0x2
+ 837 00c4 5D040000 		.4byte	.LASF17
+ 838 00c8 03       		.byte	0x3
+ 839 00c9 24       		.byte	0x24
+ 840 00ca 5B000000 		.4byte	0x5b
+ 841 00ce 02       		.uleb128 0x2
+ 842 00cf FF040000 		.4byte	.LASF18
+ 843 00d3 03       		.byte	0x3
+ 844 00d4 2C       		.byte	0x2c
+ 845 00d5 6D000000 		.4byte	0x6d
+ 846 00d9 03       		.uleb128 0x3
+ 847 00da 08       		.byte	0x8
+ 848 00db 04       		.byte	0x4
+ 849 00dc 51040000 		.4byte	.LASF19
+ 850 00e0 03       		.uleb128 0x3
+ 851 00e1 04       		.byte	0x4
+ 852 00e2 07       		.byte	0x7
+ 853 00e3 DA040000 		.4byte	.LASF20
+ 854 00e7 05       		.uleb128 0x5
+ 855 00e8 04       		.byte	0x4
+ 856 00e9 ED000000 		.4byte	0xed
+ 857 00ed 03       		.uleb128 0x3
+ 858 00ee 01       		.byte	0x1
+ 859 00ef 08       		.byte	0x8
+ 860 00f0 16030000 		.4byte	.LASF21
+ 861 00f4 05       		.uleb128 0x5
+ 862 00f5 04       		.byte	0x4
+ 863 00f6 FA000000 		.4byte	0xfa
+ 864 00fa 06       		.uleb128 0x6
+ 865 00fb ED000000 		.4byte	0xed
+ 866 00ff 02       		.uleb128 0x2
+ 867 0100 66040000 		.4byte	.LASF22
+ 868 0104 04       		.byte	0x4
+ 869 0105 1C       		.byte	0x1c
+ 870 0106 B8000000 		.4byte	0xb8
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 22
+
+
+ 871 010a 02       		.uleb128 0x2
+ 872 010b B8020000 		.4byte	.LASF23
+ 873 010f 04       		.byte	0x4
+ 874 0110 2C       		.byte	0x2c
+ 875 0111 15010000 		.4byte	0x115
+ 876 0115 05       		.uleb128 0x5
+ 877 0116 04       		.byte	0x4
+ 878 0117 1B010000 		.4byte	0x11b
+ 879 011b 07       		.uleb128 0x7
+ 880 011c 30010000 		.4byte	0x130
+ 881 0120 08       		.uleb128 0x8
+ 882 0121 30010000 		.4byte	0x130
+ 883 0125 08       		.uleb128 0x8
+ 884 0126 E5010000 		.4byte	0x1e5
+ 885 012a 08       		.uleb128 0x8
+ 886 012b 94000000 		.4byte	0x94
+ 887 012f 00       		.byte	0
+ 888 0130 05       		.uleb128 0x5
+ 889 0131 04       		.byte	0x4
+ 890 0132 36010000 		.4byte	0x136
+ 891 0136 09       		.uleb128 0x9
+ 892 0137 564D00   		.ascii	"VM\000"
+ 893 013a 400E     		.2byte	0xe40
+ 894 013c 05       		.byte	0x5
+ 895 013d 40       		.byte	0x40
+ 896 013e E5010000 		.4byte	0x1e5
+ 897 0142 0A       		.uleb128 0xa
+ 898 0143 C7000000 		.4byte	.LASF24
+ 899 0147 05       		.byte	0x5
+ 900 0148 41       		.byte	0x41
+ 901 0149 D5050000 		.4byte	0x5d5
+ 902 014d 00       		.byte	0
+ 903 014e 0A       		.uleb128 0xa
+ 904 014f BE010000 		.4byte	.LASF25
+ 905 0153 05       		.byte	0x5
+ 906 0154 43       		.byte	0x43
+ 907 0155 AD000000 		.4byte	0xad
+ 908 0159 04       		.byte	0x4
+ 909 015a 0B       		.uleb128 0xb
+ 910 015b 6D726200 		.ascii	"mrb\000"
+ 911 015f 05       		.byte	0x5
+ 912 0160 44       		.byte	0x44
+ 913 0161 F2050000 		.4byte	0x5f2
+ 914 0165 08       		.byte	0x8
+ 915 0166 0A       		.uleb128 0xa
+ 916 0167 F9010000 		.4byte	.LASF26
+ 917 016b 05       		.byte	0x5
+ 918 016c 46       		.byte	0x46
+ 919 016d D5050000 		.4byte	0x5d5
+ 920 0171 0C       		.byte	0xc
+ 921 0172 0B       		.uleb128 0xb
+ 922 0173 706300   		.ascii	"pc\000"
+ 923 0176 05       		.byte	0x5
+ 924 0177 47       		.byte	0x47
+ 925 0178 C3000000 		.4byte	0xc3
+ 926 017c 10       		.byte	0x10
+ 927 017d 0A       		.uleb128 0xa
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 23
+
+
+ 928 017e F4000000 		.4byte	.LASF27
+ 929 0182 05       		.byte	0x5
+ 930 0183 4A       		.byte	0x4a
+ 931 0184 FD050000 		.4byte	0x5fd
+ 932 0188 18       		.byte	0x18
+ 933 0189 0C       		.uleb128 0xc
+ 934 018a 1F010000 		.4byte	.LASF28
+ 935 018e 05       		.byte	0x5
+ 936 018f 4B       		.byte	0x4b
+ 937 0190 DB050000 		.4byte	0x5db
+ 938 0194 5806     		.2byte	0x658
+ 939 0196 0C       		.uleb128 0xc
+ 940 0197 8F030000 		.4byte	.LASF29
+ 941 019b 05       		.byte	0x5
+ 942 019c 4C       		.byte	0x4c
+ 943 019d C3000000 		.4byte	0xc3
+ 944 01a1 5C06     		.2byte	0x65c
+ 945 01a3 0C       		.uleb128 0xc
+ 946 01a4 C4010000 		.4byte	.LASF30
+ 947 01a8 05       		.byte	0x5
+ 948 01a9 4D       		.byte	0x4d
+ 949 01aa 0D060000 		.4byte	0x60d
+ 950 01ae 6006     		.2byte	0x660
+ 951 01b0 0C       		.uleb128 0xc
+ 952 01b1 75030000 		.4byte	.LASF31
+ 953 01b5 05       		.byte	0x5
+ 954 01b6 4F       		.byte	0x4f
+ 955 01b7 E1050000 		.4byte	0x5e1
+ 956 01bb 300E     		.2byte	0xe30
+ 957 01bd 0C       		.uleb128 0xc
+ 958 01be 74050000 		.4byte	.LASF32
+ 959 01c2 05       		.byte	0x5
+ 960 01c3 51       		.byte	0x51
+ 961 01c4 CE000000 		.4byte	0xce
+ 962 01c8 340E     		.2byte	0xe34
+ 963 01ca 0C       		.uleb128 0xc
+ 964 01cb 86050000 		.4byte	.LASF33
+ 965 01cf 05       		.byte	0x5
+ 966 01d0 53       		.byte	0x53
+ 967 01d1 1D060000 		.4byte	0x61d
+ 968 01d5 380E     		.2byte	0xe38
+ 969 01d7 0C       		.uleb128 0xc
+ 970 01d8 F9020000 		.4byte	.LASF34
+ 971 01dc 05       		.byte	0x5
+ 972 01dd 54       		.byte	0x54
+ 973 01de A2000000 		.4byte	0xa2
+ 974 01e2 390E     		.2byte	0xe39
+ 975 01e4 00       		.byte	0
+ 976 01e5 05       		.uleb128 0x5
+ 977 01e6 04       		.byte	0x4
+ 978 01e7 EB010000 		.4byte	0x1eb
+ 979 01eb 0D       		.uleb128 0xd
+ 980 01ec 93040000 		.4byte	.LASF35
+ 981 01f0 10       		.byte	0x10
+ 982 01f1 04       		.byte	0x4
+ 983 01f2 68       		.byte	0x68
+ 984 01f3 0C020000 		.4byte	0x20c
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 24
+
+
+ 985 01f7 0E       		.uleb128 0xe
+ 986 01f8 747400   		.ascii	"tt\000"
+ 987 01fb 04       		.byte	0x4
+ 988 01fc 69       		.byte	0x69
+ 989 01fd 73020000 		.4byte	0x273
+ 990 0201 01       		.byte	0x1
+ 991 0202 08       		.byte	0x8
+ 992 0203 00       		.byte	0
+ 993 0204 00       		.byte	0
+ 994 0205 0F       		.uleb128 0xf
+ 995 0206 7E020000 		.4byte	0x27e
+ 996 020a 08       		.byte	0x8
+ 997 020b 00       		.byte	0
+ 998 020c 10       		.uleb128 0x10
+ 999 020d 01       		.byte	0x1
+ 1000 020e 30000000 		.4byte	0x30
+ 1001 0212 04       		.byte	0x4
+ 1002 0213 33       		.byte	0x33
+ 1003 0214 73020000 		.4byte	0x273
+ 1004 0218 11       		.uleb128 0x11
+ 1005 0219 F7050000 		.4byte	.LASF36
+ 1006 021d 7F       		.sleb128 -1
+ 1007 021e 12       		.uleb128 0x12
+ 1008 021f F9030000 		.4byte	.LASF37
+ 1009 0223 00       		.byte	0
+ 1010 0224 12       		.uleb128 0x12
+ 1011 0225 0E010000 		.4byte	.LASF38
+ 1012 0229 01       		.byte	0x1
+ 1013 022a 12       		.uleb128 0x12
+ 1014 022b 3D040000 		.4byte	.LASF39
+ 1015 022f 02       		.byte	0x2
+ 1016 0230 12       		.uleb128 0x12
+ 1017 0231 24040000 		.4byte	.LASF40
+ 1018 0235 03       		.byte	0x3
+ 1019 0236 12       		.uleb128 0x12
+ 1020 0237 5A010000 		.4byte	.LASF41
+ 1021 023b 04       		.byte	0x4
+ 1022 023c 12       		.uleb128 0x12
+ 1023 023d 1E060000 		.4byte	.LASF42
+ 1024 0241 05       		.byte	0x5
+ 1025 0242 12       		.uleb128 0x12
+ 1026 0243 3E000000 		.4byte	.LASF43
+ 1027 0247 06       		.byte	0x6
+ 1028 0248 12       		.uleb128 0x12
+ 1029 0249 6E040000 		.4byte	.LASF44
+ 1030 024d 07       		.byte	0x7
+ 1031 024e 12       		.uleb128 0x12
+ 1032 024f E2010000 		.4byte	.LASF45
+ 1033 0253 14       		.byte	0x14
+ 1034 0254 12       		.uleb128 0x12
+ 1035 0255 96050000 		.4byte	.LASF46
+ 1036 0259 15       		.byte	0x15
+ 1037 025a 12       		.uleb128 0x12
+ 1038 025b E3020000 		.4byte	.LASF47
+ 1039 025f 16       		.byte	0x16
+ 1040 0260 12       		.uleb128 0x12
+ 1041 0261 D0020000 		.4byte	.LASF48
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 25
+
+
+ 1042 0265 17       		.byte	0x17
+ 1043 0266 12       		.uleb128 0x12
+ 1044 0267 2D030000 		.4byte	.LASF49
+ 1045 026b 18       		.byte	0x18
+ 1046 026c 12       		.uleb128 0x12
+ 1047 026d 11050000 		.4byte	.LASF50
+ 1048 0271 19       		.byte	0x19
+ 1049 0272 00       		.byte	0
+ 1050 0273 02       		.uleb128 0x2
+ 1051 0274 B3000000 		.4byte	.LASF51
+ 1052 0278 04       		.byte	0x4
+ 1053 0279 49       		.byte	0x49
+ 1054 027a 0C020000 		.4byte	0x20c
+ 1055 027e 13       		.uleb128 0x13
+ 1056 027f 08       		.byte	0x8
+ 1057 0280 04       		.byte	0x4
+ 1058 0281 6A       		.byte	0x6a
+ 1059 0282 FC020000 		.4byte	0x2fc
+ 1060 0286 14       		.uleb128 0x14
+ 1061 0287 6900     		.ascii	"i\000"
+ 1062 0289 04       		.byte	0x4
+ 1063 028a 6B       		.byte	0x6b
+ 1064 028b CE000000 		.4byte	0xce
+ 1065 028f 14       		.uleb128 0x14
+ 1066 0290 6400     		.ascii	"d\000"
+ 1067 0292 04       		.byte	0x4
+ 1068 0293 6D       		.byte	0x6d
+ 1069 0294 FC020000 		.4byte	0x2fc
+ 1070 0298 14       		.uleb128 0x14
+ 1071 0299 636C7300 		.ascii	"cls\000"
+ 1072 029d 04       		.byte	0x4
+ 1073 029e 6F       		.byte	0x6f
+ 1074 029f 34030000 		.4byte	0x334
+ 1075 02a3 15       		.uleb128 0x15
+ 1076 02a4 C1050000 		.4byte	.LASF52
+ 1077 02a8 04       		.byte	0x4
+ 1078 02a9 70       		.byte	0x70
+ 1079 02aa E5010000 		.4byte	0x1e5
+ 1080 02ae 15       		.uleb128 0x15
+ 1081 02af F0010000 		.4byte	.LASF53
+ 1082 02b3 04       		.byte	0x4
+ 1083 02b4 71       		.byte	0x71
+ 1084 02b5 85030000 		.4byte	0x385
+ 1085 02b9 15       		.uleb128 0x15
+ 1086 02ba D5040000 		.4byte	.LASF54
+ 1087 02be 04       		.byte	0x4
+ 1088 02bf 72       		.byte	0x72
+ 1089 02c0 DF030000 		.4byte	0x3df
+ 1090 02c4 15       		.uleb128 0x15
+ 1091 02c5 37040000 		.4byte	.LASF55
+ 1092 02c9 04       		.byte	0x4
+ 1093 02ca 73       		.byte	0x73
+ 1094 02cb 30040000 		.4byte	0x430
+ 1095 02cf 15       		.uleb128 0x15
+ 1096 02d0 26030000 		.4byte	.LASF56
+ 1097 02d4 04       		.byte	0x4
+ 1098 02d5 74       		.byte	0x74
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 26
+
+
+ 1099 02d6 75040000 		.4byte	0x475
+ 1100 02da 14       		.uleb128 0x14
+ 1101 02db 73747200 		.ascii	"str\000"
+ 1102 02df 04       		.byte	0x4
+ 1103 02e0 75       		.byte	0x75
+ 1104 02e1 F4000000 		.4byte	0xf4
+ 1105 02e5 15       		.uleb128 0x15
+ 1106 02e6 06040000 		.4byte	.LASF57
+ 1107 02ea 04       		.byte	0x4
+ 1108 02eb 76       		.byte	0x76
+ 1109 02ec 80040000 		.4byte	0x480
+ 1110 02f0 15       		.uleb128 0x15
+ 1111 02f1 8E040000 		.4byte	.LASF58
+ 1112 02f5 04       		.byte	0x4
+ 1113 02f6 77       		.byte	0x77
+ 1114 02f7 8B040000 		.4byte	0x48b
+ 1115 02fb 00       		.byte	0
+ 1116 02fc 03       		.uleb128 0x3
+ 1117 02fd 08       		.byte	0x8
+ 1118 02fe 04       		.byte	0x4
+ 1119 02ff F0050000 		.4byte	.LASF59
+ 1120 0303 0D       		.uleb128 0xd
+ 1121 0304 33010000 		.4byte	.LASF60
+ 1122 0308 0C       		.byte	0xc
+ 1123 0309 04       		.byte	0x4
+ 1124 030a 81       		.byte	0x81
+ 1125 030b 34030000 		.4byte	0x334
+ 1126 030f 0A       		.uleb128 0xa
+ 1127 0310 C3030000 		.4byte	.LASF61
+ 1128 0314 04       		.byte	0x4
+ 1129 0315 82       		.byte	0x82
+ 1130 0316 FF000000 		.4byte	0xff
+ 1131 031a 00       		.byte	0
+ 1132 031b 0A       		.uleb128 0xa
+ 1133 031c 20030000 		.4byte	.LASF62
+ 1134 0320 04       		.byte	0x4
+ 1135 0321 86       		.byte	0x86
+ 1136 0322 34030000 		.4byte	0x334
+ 1137 0326 04       		.byte	0x4
+ 1138 0327 0A       		.uleb128 0xa
+ 1139 0328 A9020000 		.4byte	.LASF63
+ 1140 032c 04       		.byte	0x4
+ 1141 032d 87       		.byte	0x87
+ 1142 032e DF030000 		.4byte	0x3df
+ 1143 0332 08       		.byte	0x8
+ 1144 0333 00       		.byte	0
+ 1145 0334 05       		.uleb128 0x5
+ 1146 0335 04       		.byte	0x4
+ 1147 0336 03030000 		.4byte	0x303
+ 1148 033a 0D       		.uleb128 0xd
+ 1149 033b 0C040000 		.4byte	.LASF64
+ 1150 033f 0C       		.byte	0xc
+ 1151 0340 04       		.byte	0x4
+ 1152 0341 8F       		.byte	0x8f
+ 1153 0342 85030000 		.4byte	0x385
+ 1154 0346 0A       		.uleb128 0xa
+ 1155 0347 70000000 		.4byte	.LASF65
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 27
+
+
+ 1156 034b 04       		.byte	0x4
+ 1157 034c 90       		.byte	0x90
+ 1158 034d C3000000 		.4byte	0xc3
+ 1159 0351 00       		.byte	0
+ 1160 0352 0E       		.uleb128 0xe
+ 1161 0353 747400   		.ascii	"tt\000"
+ 1162 0356 04       		.byte	0x4
+ 1163 0357 90       		.byte	0x90
+ 1164 0358 73020000 		.4byte	0x273
+ 1165 035c 01       		.byte	0x1
+ 1166 035d 08       		.byte	0x8
+ 1167 035e 00       		.byte	0
+ 1168 035f 02       		.byte	0x2
+ 1169 0360 0B       		.uleb128 0xb
+ 1170 0361 636C7300 		.ascii	"cls\000"
+ 1171 0365 04       		.byte	0x4
+ 1172 0366 92       		.byte	0x92
+ 1173 0367 34030000 		.4byte	0x334
+ 1174 036b 04       		.byte	0x4
+ 1175 036c 0A       		.uleb128 0xa
+ 1176 036d 1B030000 		.4byte	.LASF66
+ 1177 0371 04       		.byte	0x4
+ 1178 0372 93       		.byte	0x93
+ 1179 0373 B7040000 		.4byte	0x4b7
+ 1180 0377 08       		.byte	0x8
+ 1181 0378 0A       		.uleb128 0xa
+ 1182 0379 3A030000 		.4byte	.LASF67
+ 1183 037d 04       		.byte	0x4
+ 1184 037e 94       		.byte	0x94
+ 1185 037f BD040000 		.4byte	0x4bd
+ 1186 0383 0C       		.byte	0xc
+ 1187 0384 00       		.byte	0
+ 1188 0385 05       		.uleb128 0x5
+ 1189 0386 04       		.byte	0x4
+ 1190 0387 3A030000 		.4byte	0x33a
+ 1191 038b 0D       		.uleb128 0xd
+ 1192 038c E9000000 		.4byte	.LASF68
+ 1193 0390 10       		.byte	0x10
+ 1194 0391 04       		.byte	0x4
+ 1195 0392 9C       		.byte	0x9c
+ 1196 0393 DF030000 		.4byte	0x3df
+ 1197 0397 0A       		.uleb128 0xa
+ 1198 0398 70000000 		.4byte	.LASF65
+ 1199 039c 04       		.byte	0x4
+ 1200 039d 9D       		.byte	0x9d
+ 1201 039e C3000000 		.4byte	0xc3
+ 1202 03a2 00       		.byte	0
+ 1203 03a3 0E       		.uleb128 0xe
+ 1204 03a4 747400   		.ascii	"tt\000"
+ 1205 03a7 04       		.byte	0x4
+ 1206 03a8 9D       		.byte	0x9d
+ 1207 03a9 73020000 		.4byte	0x273
+ 1208 03ad 01       		.byte	0x1
+ 1209 03ae 08       		.byte	0x8
+ 1210 03af 00       		.byte	0
+ 1211 03b0 02       		.byte	0x2
+ 1212 03b1 16       		.uleb128 0x16
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 28
+
+
+ 1213 03b2 7F050000 		.4byte	.LASF69
+ 1214 03b6 04       		.byte	0x4
+ 1215 03b7 9F       		.byte	0x9f
+ 1216 03b8 9B000000 		.4byte	0x9b
+ 1217 03bc 04       		.byte	0x4
+ 1218 03bd 01       		.byte	0x1
+ 1219 03be 07       		.byte	0x7
+ 1220 03bf 00       		.byte	0
+ 1221 03c0 0A       		.uleb128 0xa
+ 1222 03c1 C3030000 		.4byte	.LASF61
+ 1223 03c5 04       		.byte	0x4
+ 1224 03c6 A0       		.byte	0xa0
+ 1225 03c7 FF000000 		.4byte	0xff
+ 1226 03cb 04       		.byte	0x4
+ 1227 03cc 0A       		.uleb128 0xa
+ 1228 03cd 99000000 		.4byte	.LASF70
+ 1229 03d1 04       		.byte	0x4
+ 1230 03d2 A4       		.byte	0xa4
+ 1231 03d3 DF030000 		.4byte	0x3df
+ 1232 03d7 08       		.byte	0x8
+ 1233 03d8 0F       		.uleb128 0xf
+ 1234 03d9 CC040000 		.4byte	0x4cc
+ 1235 03dd 0C       		.byte	0xc
+ 1236 03de 00       		.byte	0
+ 1237 03df 05       		.uleb128 0x5
+ 1238 03e0 04       		.byte	0x4
+ 1239 03e1 8B030000 		.4byte	0x38b
+ 1240 03e5 0D       		.uleb128 0xd
+ 1241 03e6 E9050000 		.4byte	.LASF71
+ 1242 03ea 0C       		.byte	0xc
+ 1243 03eb 06       		.byte	0x6
+ 1244 03ec 1B       		.byte	0x1b
+ 1245 03ed 30040000 		.4byte	0x430
+ 1246 03f1 0A       		.uleb128 0xa
+ 1247 03f2 70000000 		.4byte	.LASF65
+ 1248 03f6 06       		.byte	0x6
+ 1249 03f7 1C       		.byte	0x1c
+ 1250 03f8 C3000000 		.4byte	0xc3
+ 1251 03fc 00       		.byte	0
+ 1252 03fd 0E       		.uleb128 0xe
+ 1253 03fe 747400   		.ascii	"tt\000"
+ 1254 0401 06       		.byte	0x6
+ 1255 0402 1C       		.byte	0x1c
+ 1256 0403 73020000 		.4byte	0x273
+ 1257 0407 01       		.byte	0x1
+ 1258 0408 08       		.byte	0x8
+ 1259 0409 00       		.byte	0
+ 1260 040a 02       		.byte	0x2
+ 1261 040b 0A       		.uleb128 0xa
+ 1262 040c 9F020000 		.4byte	.LASF72
+ 1263 0410 06       		.byte	0x6
+ 1264 0411 1E       		.byte	0x1e
+ 1265 0412 C3000000 		.4byte	0xc3
+ 1266 0416 04       		.byte	0x4
+ 1267 0417 0A       		.uleb128 0xa
+ 1268 0418 BA030000 		.4byte	.LASF73
+ 1269 041c 06       		.byte	0x6
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 29
+
+
+ 1270 041d 1F       		.byte	0x1f
+ 1271 041e C3000000 		.4byte	0xc3
+ 1272 0422 06       		.byte	0x6
+ 1273 0423 0A       		.uleb128 0xa
+ 1274 0424 3A030000 		.4byte	.LASF67
+ 1275 0428 06       		.byte	0x6
+ 1276 0429 20       		.byte	0x20
+ 1277 042a DB050000 		.4byte	0x5db
+ 1278 042e 08       		.byte	0x8
+ 1279 042f 00       		.byte	0
+ 1280 0430 05       		.uleb128 0x5
+ 1281 0431 04       		.byte	0x4
+ 1282 0432 E5030000 		.4byte	0x3e5
+ 1283 0436 0D       		.uleb128 0xd
+ 1284 0437 C3040000 		.4byte	.LASF74
+ 1285 043b 0C       		.byte	0xc
+ 1286 043c 07       		.byte	0x7
+ 1287 043d 1D       		.byte	0x1d
+ 1288 043e 75040000 		.4byte	0x475
+ 1289 0442 0A       		.uleb128 0xa
+ 1290 0443 70000000 		.4byte	.LASF65
+ 1291 0447 07       		.byte	0x7
+ 1292 0448 1E       		.byte	0x1e
+ 1293 0449 C3000000 		.4byte	0xc3
+ 1294 044d 00       		.byte	0
+ 1295 044e 0E       		.uleb128 0xe
+ 1296 044f 747400   		.ascii	"tt\000"
+ 1297 0452 07       		.byte	0x7
+ 1298 0453 1E       		.byte	0x1e
+ 1299 0454 73020000 		.4byte	0x273
+ 1300 0458 01       		.byte	0x1
+ 1301 0459 08       		.byte	0x8
+ 1302 045a 00       		.byte	0
+ 1303 045b 02       		.byte	0x2
+ 1304 045c 0A       		.uleb128 0xa
+ 1305 045d F4030000 		.4byte	.LASF75
+ 1306 0461 07       		.byte	0x7
+ 1307 0462 20       		.byte	0x20
+ 1308 0463 C3000000 		.4byte	0xc3
+ 1309 0467 04       		.byte	0x4
+ 1310 0468 0A       		.uleb128 0xa
+ 1311 0469 3A030000 		.4byte	.LASF67
+ 1312 046d 07       		.byte	0x7
+ 1313 046e 21       		.byte	0x21
+ 1314 046f 6A050000 		.4byte	0x56a
+ 1315 0473 08       		.byte	0x8
+ 1316 0474 00       		.byte	0
+ 1317 0475 05       		.uleb128 0x5
+ 1318 0476 04       		.byte	0x4
+ 1319 0477 36040000 		.4byte	0x436
+ 1320 047b 17       		.uleb128 0x17
+ 1321 047c 05060000 		.4byte	.LASF76
+ 1322 0480 05       		.uleb128 0x5
+ 1323 0481 04       		.byte	0x4
+ 1324 0482 7B040000 		.4byte	0x47b
+ 1325 0486 17       		.uleb128 0x17
+ 1326 0487 5B000000 		.4byte	.LASF77
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 30
+
+
+ 1327 048b 05       		.uleb128 0x5
+ 1328 048c 04       		.byte	0x4
+ 1329 048d 86040000 		.4byte	0x486
+ 1330 0491 02       		.uleb128 0x2
+ 1331 0492 98010000 		.4byte	.LASF78
+ 1332 0496 04       		.byte	0x4
+ 1333 0497 79       		.byte	0x79
+ 1334 0498 EB010000 		.4byte	0x1eb
+ 1335 049c 02       		.uleb128 0x2
+ 1336 049d 8F020000 		.4byte	.LASF79
+ 1337 04a1 04       		.byte	0x4
+ 1338 04a2 7A       		.byte	0x7a
+ 1339 04a3 EB010000 		.4byte	0x1eb
+ 1340 04a7 02       		.uleb128 0x2
+ 1341 04a8 F5040000 		.4byte	.LASF80
+ 1342 04ac 04       		.byte	0x4
+ 1343 04ad 88       		.byte	0x88
+ 1344 04ae 03030000 		.4byte	0x303
+ 1345 04b2 17       		.uleb128 0x17
+ 1346 04b3 CC000000 		.4byte	.LASF81
+ 1347 04b7 05       		.uleb128 0x5
+ 1348 04b8 04       		.byte	0x4
+ 1349 04b9 B2040000 		.4byte	0x4b2
+ 1350 04bd 18       		.uleb128 0x18
+ 1351 04be AD000000 		.4byte	0xad
+ 1352 04c2 CC040000 		.4byte	0x4cc
+ 1353 04c6 19       		.uleb128 0x19
+ 1354 04c7 E0000000 		.4byte	0xe0
+ 1355 04cb 00       		.byte	0
+ 1356 04cc 13       		.uleb128 0x13
+ 1357 04cd 04       		.byte	0x4
+ 1358 04ce 04       		.byte	0x4
+ 1359 04cf A5       		.byte	0xa5
+ 1360 04d0 EB040000 		.4byte	0x4eb
+ 1361 04d4 15       		.uleb128 0x15
+ 1362 04d5 C7000000 		.4byte	.LASF24
+ 1363 04d9 04       		.byte	0x4
+ 1364 04da A6       		.byte	0xa6
+ 1365 04db 64050000 		.4byte	0x564
+ 1366 04df 15       		.uleb128 0x15
+ 1367 04e0 EF000000 		.4byte	.LASF82
+ 1368 04e4 04       		.byte	0x4
+ 1369 04e5 A7       		.byte	0xa7
+ 1370 04e6 0A010000 		.4byte	0x10a
+ 1371 04ea 00       		.byte	0
+ 1372 04eb 0D       		.uleb128 0xd
+ 1373 04ec 0C050000 		.4byte	.LASF83
+ 1374 04f0 1C       		.byte	0x1c
+ 1375 04f1 05       		.byte	0x5
+ 1376 04f2 20       		.byte	0x20
+ 1377 04f3 64050000 		.4byte	0x564
+ 1378 04f7 0A       		.uleb128 0xa
+ 1379 04f8 CD010000 		.4byte	.LASF84
+ 1380 04fc 05       		.byte	0x5
+ 1381 04fd 21       		.byte	0x21
+ 1382 04fe C3000000 		.4byte	0xc3
+ 1383 0502 00       		.byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 31
+
+
+ 1384 0503 0A       		.uleb128 0xa
+ 1385 0504 99020000 		.4byte	.LASF85
+ 1386 0508 05       		.byte	0x5
+ 1387 0509 22       		.byte	0x22
+ 1388 050a C3000000 		.4byte	0xc3
+ 1389 050e 02       		.byte	0x2
+ 1390 050f 0A       		.uleb128 0xa
+ 1391 0510 07050000 		.4byte	.LASF86
+ 1392 0514 05       		.byte	0x5
+ 1393 0515 23       		.byte	0x23
+ 1394 0516 C3000000 		.4byte	0xc3
+ 1395 051a 04       		.byte	0x4
+ 1396 051b 0A       		.uleb128 0xa
+ 1397 051c 9B040000 		.4byte	.LASF87
+ 1398 0520 05       		.byte	0x5
+ 1399 0521 24       		.byte	0x24
+ 1400 0522 C3000000 		.4byte	0xc3
+ 1401 0526 06       		.byte	0x6
+ 1402 0527 0A       		.uleb128 0xa
+ 1403 0528 BE040000 		.4byte	.LASF88
+ 1404 052c 05       		.byte	0x5
+ 1405 052d 25       		.byte	0x25
+ 1406 052e C3000000 		.4byte	0xc3
+ 1407 0532 08       		.byte	0x8
+ 1408 0533 0A       		.uleb128 0xa
+ 1409 0534 DE020000 		.4byte	.LASF89
+ 1410 0538 05       		.byte	0x5
+ 1411 0539 27       		.byte	0x27
+ 1412 053a 6A050000 		.4byte	0x56a
+ 1413 053e 0C       		.byte	0xc
+ 1414 053f 0A       		.uleb128 0xa
+ 1415 0540 19010000 		.4byte	.LASF90
+ 1416 0544 05       		.byte	0x5
+ 1417 0545 28       		.byte	0x28
+ 1418 0546 70050000 		.4byte	0x570
+ 1419 054a 10       		.byte	0x10
+ 1420 054b 0A       		.uleb128 0xa
+ 1421 054c 0B030000 		.4byte	.LASF91
+ 1422 0550 05       		.byte	0x5
+ 1423 0551 29       		.byte	0x29
+ 1424 0552 6A050000 		.4byte	0x56a
+ 1425 0556 14       		.byte	0x14
+ 1426 0557 0A       		.uleb128 0xa
+ 1427 0558 B9040000 		.4byte	.LASF92
+ 1428 055c 05       		.byte	0x5
+ 1429 055d 2A       		.byte	0x2a
+ 1430 055e 7C050000 		.4byte	0x57c
+ 1431 0562 18       		.byte	0x18
+ 1432 0563 00       		.byte	0
+ 1433 0564 05       		.uleb128 0x5
+ 1434 0565 04       		.byte	0x4
+ 1435 0566 EB040000 		.4byte	0x4eb
+ 1436 056a 05       		.uleb128 0x5
+ 1437 056b 04       		.byte	0x4
+ 1438 056c AD000000 		.4byte	0xad
+ 1439 0570 05       		.uleb128 0x5
+ 1440 0571 04       		.byte	0x4
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 32
+
+
+ 1441 0572 76050000 		.4byte	0x576
+ 1442 0576 05       		.uleb128 0x5
+ 1443 0577 04       		.byte	0x4
+ 1444 0578 91040000 		.4byte	0x491
+ 1445 057c 05       		.uleb128 0x5
+ 1446 057d 04       		.byte	0x4
+ 1447 057e 64050000 		.4byte	0x564
+ 1448 0582 02       		.uleb128 0x2
+ 1449 0583 F0020000 		.4byte	.LASF93
+ 1450 0587 05       		.byte	0x5
+ 1451 0588 2C       		.byte	0x2c
+ 1452 0589 EB040000 		.4byte	0x4eb
+ 1453 058d 0D       		.uleb128 0xd
+ 1454 058e AF020000 		.4byte	.LASF94
+ 1455 0592 14       		.byte	0x14
+ 1456 0593 05       		.byte	0x5
+ 1457 0594 33       		.byte	0x33
+ 1458 0595 D5050000 		.4byte	0x5d5
+ 1459 0599 0A       		.uleb128 0xa
+ 1460 059a F9010000 		.4byte	.LASF26
+ 1461 059e 05       		.byte	0x5
+ 1462 059f 34       		.byte	0x34
+ 1463 05a0 D5050000 		.4byte	0x5d5
+ 1464 05a4 00       		.byte	0
+ 1465 05a5 0B       		.uleb128 0xb
+ 1466 05a6 706300   		.ascii	"pc\000"
+ 1467 05a9 05       		.byte	0x5
+ 1468 05aa 35       		.byte	0x35
+ 1469 05ab C3000000 		.4byte	0xc3
+ 1470 05af 04       		.byte	0x4
+ 1471 05b0 0A       		.uleb128 0xa
+ 1472 05b1 1F010000 		.4byte	.LASF28
+ 1473 05b5 05       		.byte	0x5
+ 1474 05b6 36       		.byte	0x36
+ 1475 05b7 DB050000 		.4byte	0x5db
+ 1476 05bb 08       		.byte	0x8
+ 1477 05bc 0A       		.uleb128 0xa
+ 1478 05bd 75030000 		.4byte	.LASF31
+ 1479 05c1 05       		.byte	0x5
+ 1480 05c2 37       		.byte	0x37
+ 1481 05c3 E1050000 		.4byte	0x5e1
+ 1482 05c7 0C       		.byte	0xc
+ 1483 05c8 0A       		.uleb128 0xa
+ 1484 05c9 9E000000 		.4byte	.LASF95
+ 1485 05cd 05       		.byte	0x5
+ 1486 05ce 38       		.byte	0x38
+ 1487 05cf AD000000 		.4byte	0xad
+ 1488 05d3 10       		.byte	0x10
+ 1489 05d4 00       		.byte	0
+ 1490 05d5 05       		.uleb128 0x5
+ 1491 05d6 04       		.byte	0x4
+ 1492 05d7 82050000 		.4byte	0x582
+ 1493 05db 05       		.uleb128 0x5
+ 1494 05dc 04       		.byte	0x4
+ 1495 05dd 9C040000 		.4byte	0x49c
+ 1496 05e1 05       		.uleb128 0x5
+ 1497 05e2 04       		.byte	0x4
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 33
+
+
+ 1498 05e3 A7040000 		.4byte	0x4a7
+ 1499 05e7 02       		.uleb128 0x2
+ 1500 05e8 CF050000 		.4byte	.LASF96
+ 1501 05ec 05       		.byte	0x5
+ 1502 05ed 39       		.byte	0x39
+ 1503 05ee 8D050000 		.4byte	0x58d
+ 1504 05f2 05       		.uleb128 0x5
+ 1505 05f3 04       		.byte	0x4
+ 1506 05f4 F8050000 		.4byte	0x5f8
+ 1507 05f8 06       		.uleb128 0x6
+ 1508 05f9 AD000000 		.4byte	0xad
+ 1509 05fd 18       		.uleb128 0x18
+ 1510 05fe 9C040000 		.4byte	0x49c
+ 1511 0602 0D060000 		.4byte	0x60d
+ 1512 0606 1A       		.uleb128 0x1a
+ 1513 0607 E0000000 		.4byte	0xe0
+ 1514 060b 63       		.byte	0x63
+ 1515 060c 00       		.byte	0
+ 1516 060d 18       		.uleb128 0x18
+ 1517 060e E7050000 		.4byte	0x5e7
+ 1518 0612 1D060000 		.4byte	0x61d
+ 1519 0616 1A       		.uleb128 0x1a
+ 1520 0617 E0000000 		.4byte	0xe0
+ 1521 061b 63       		.byte	0x63
+ 1522 061c 00       		.byte	0
+ 1523 061d 1B       		.uleb128 0x1b
+ 1524 061e A2000000 		.4byte	0xa2
+ 1525 0622 02       		.uleb128 0x2
+ 1526 0623 35050000 		.4byte	.LASF97
+ 1527 0627 05       		.byte	0x5
+ 1528 0628 55       		.byte	0x55
+ 1529 0629 36010000 		.4byte	0x136
+ 1530 062d 03       		.uleb128 0x3
+ 1531 062e 04       		.byte	0x4
+ 1532 062f 04       		.byte	0x4
+ 1533 0630 3A010000 		.4byte	.LASF98
+ 1534 0634 0D       		.uleb128 0xd
+ 1535 0635 A0040000 		.4byte	.LASF99
+ 1536 0639 0C       		.byte	0xc
+ 1537 063a 01       		.byte	0x1
+ 1538 063b 26       		.byte	0x26
+ 1539 063c 71060000 		.4byte	0x671
+ 1540 0640 0A       		.uleb128 0xa
+ 1541 0641 8E040000 		.4byte	.LASF58
+ 1542 0645 01       		.byte	0x1
+ 1543 0646 27       		.byte	0x27
+ 1544 0647 C3000000 		.4byte	0xc3
+ 1545 064b 00       		.byte	0
+ 1546 064c 0A       		.uleb128 0xa
+ 1547 064d AA040000 		.4byte	.LASF100
+ 1548 0651 01       		.byte	0x1
+ 1549 0652 29       		.byte	0x29
+ 1550 0653 C3000000 		.4byte	0xc3
+ 1551 0657 02       		.byte	0x2
+ 1552 0658 0A       		.uleb128 0xa
+ 1553 0659 A6030000 		.4byte	.LASF101
+ 1554 065d 01       		.byte	0x1
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 34
+
+
+ 1555 065e 2A       		.byte	0x2a
+ 1556 065f C3000000 		.4byte	0xc3
+ 1557 0663 04       		.byte	0x4
+ 1558 0664 0A       		.uleb128 0xa
+ 1559 0665 2B000000 		.4byte	.LASF102
+ 1560 0669 01       		.byte	0x1
+ 1561 066a 2C       		.byte	0x2c
+ 1562 066b F4000000 		.4byte	0xf4
+ 1563 066f 08       		.byte	0x8
+ 1564 0670 00       		.byte	0
+ 1565 0671 1C       		.uleb128 0x1c
+ 1566 0672 82030000 		.4byte	.LASF103
+ 1567 0676 01       		.byte	0x1
+ 1568 0677 37       		.byte	0x37
+ 1569 0678 94000000 		.4byte	0x94
+ 1570 067c 00000000 		.4byte	.LFB81
+ 1571 0680 54000000 		.4byte	.LFE81-.LFB81
+ 1572 0684 01       		.uleb128 0x1
+ 1573 0685 9C       		.byte	0x9c
+ 1574 0686 C6060000 		.4byte	0x6c6
+ 1575 068a 1D       		.uleb128 0x1d
+ 1576 068b 8E040000 		.4byte	.LASF58
+ 1577 068f 01       		.byte	0x1
+ 1578 0690 37       		.byte	0x37
+ 1579 0691 C3000000 		.4byte	0xc3
+ 1580 0695 00000000 		.4byte	.LLST0
+ 1581 0699 1E       		.uleb128 0x1e
+ 1582 069a 73747200 		.ascii	"str\000"
+ 1583 069e 01       		.byte	0x1
+ 1584 069f 37       		.byte	0x37
+ 1585 06a0 F4000000 		.4byte	0xf4
+ 1586 06a4 21000000 		.4byte	.LLST1
+ 1587 06a8 1F       		.uleb128 0x1f
+ 1588 06a9 6900     		.ascii	"i\000"
+ 1589 06ab 01       		.byte	0x1
+ 1590 06ac 44       		.byte	0x44
+ 1591 06ad 94000000 		.4byte	0x94
+ 1592 06b1 4D000000 		.4byte	.LLST2
+ 1593 06b5 20       		.uleb128 0x20
+ 1594 06b6 22000000 		.4byte	.LVL3
+ 1595 06ba 0E0C0000 		.4byte	0xc0e
+ 1596 06be 21       		.uleb128 0x21
+ 1597 06bf 01       		.uleb128 0x1
+ 1598 06c0 50       		.byte	0x50
+ 1599 06c1 02       		.uleb128 0x2
+ 1600 06c2 77       		.byte	0x77
+ 1601 06c3 00       		.sleb128 0
+ 1602 06c4 00       		.byte	0
+ 1603 06c5 00       		.byte	0
+ 1604 06c6 1C       		.uleb128 0x1c
+ 1605 06c7 CB040000 		.4byte	.LASF104
+ 1606 06cb 01       		.byte	0x1
+ 1607 06cc 57       		.byte	0x57
+ 1608 06cd 94000000 		.4byte	0x94
+ 1609 06d1 00000000 		.4byte	.LFB82
+ 1610 06d5 90000000 		.4byte	.LFE82-.LFB82
+ 1611 06d9 01       		.uleb128 0x1
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 35
+
+
+ 1612 06da 9C       		.byte	0x9c
+ 1613 06db 3D070000 		.4byte	0x73d
+ 1614 06df 1D       		.uleb128 0x1d
+ 1615 06e0 8E040000 		.4byte	.LASF58
+ 1616 06e4 01       		.byte	0x1
+ 1617 06e5 57       		.byte	0x57
+ 1618 06e6 C3000000 		.4byte	0xc3
+ 1619 06ea 8D000000 		.4byte	.LLST3
+ 1620 06ee 1E       		.uleb128 0x1e
+ 1621 06ef 73747200 		.ascii	"str\000"
+ 1622 06f3 01       		.byte	0x1
+ 1623 06f4 57       		.byte	0x57
+ 1624 06f5 F4000000 		.4byte	0xf4
+ 1625 06f9 C7000000 		.4byte	.LLST4
+ 1626 06fd 22       		.uleb128 0x22
+ 1627 06fe C3030000 		.4byte	.LASF61
+ 1628 0702 01       		.byte	0x1
+ 1629 0703 5F       		.byte	0x5f
+ 1630 0704 94000000 		.4byte	0x94
+ 1631 0708 24010000 		.4byte	.LLST5
+ 1632 070c 1F       		.uleb128 0x1f
+ 1633 070d 6900     		.ascii	"i\000"
+ 1634 070f 01       		.byte	0x1
+ 1635 0710 66       		.byte	0x66
+ 1636 0711 94000000 		.4byte	0x94
+ 1637 0715 37010000 		.4byte	.LLST6
+ 1638 0719 20       		.uleb128 0x20
+ 1639 071a 18000000 		.4byte	.LVL13
+ 1640 071e 190C0000 		.4byte	0xc19
+ 1641 0722 21       		.uleb128 0x21
+ 1642 0723 01       		.uleb128 0x1
+ 1643 0724 50       		.byte	0x50
+ 1644 0725 05       		.uleb128 0x5
+ 1645 0726 03       		.byte	0x3
+ 1646 0727 14000000 		.4byte	.LC1
+ 1647 072b 21       		.uleb128 0x21
+ 1648 072c 01       		.uleb128 0x1
+ 1649 072d 51       		.byte	0x51
+ 1650 072e 05       		.uleb128 0x5
+ 1651 072f 03       		.byte	0x3
+ 1652 0730 00000000 		.4byte	.LC0
+ 1653 0734 21       		.uleb128 0x21
+ 1654 0735 01       		.uleb128 0x1
+ 1655 0736 52       		.byte	0x52
+ 1656 0737 03       		.uleb128 0x3
+ 1657 0738 F3       		.byte	0xf3
+ 1658 0739 01       		.uleb128 0x1
+ 1659 073a 51       		.byte	0x51
+ 1660 073b 00       		.byte	0
+ 1661 073c 00       		.byte	0
+ 1662 073d 23       		.uleb128 0x23
+ 1663 073e 68010000 		.4byte	.LASF106
+ 1664 0742 01       		.byte	0x1
+ 1665 0743 EF       		.byte	0xef
+ 1666 0744 00000000 		.4byte	.LFB89
+ 1667 0748 26000000 		.4byte	.LFE89-.LFB89
+ 1668 074c 01       		.uleb128 0x1
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 36
+
+
+ 1669 074d 9C       		.byte	0x9c
+ 1670 074e BB070000 		.4byte	0x7bb
+ 1671 0752 1E       		.uleb128 0x1e
+ 1672 0753 766D00   		.ascii	"vm\000"
+ 1673 0756 01       		.byte	0x1
+ 1674 0757 EF       		.byte	0xef
+ 1675 0758 BB070000 		.4byte	0x7bb
+ 1676 075c 6C010000 		.4byte	.LLST7
+ 1677 0760 1E       		.uleb128 0x1e
+ 1678 0761 7600     		.ascii	"v\000"
+ 1679 0763 01       		.byte	0x1
+ 1680 0764 EF       		.byte	0xef
+ 1681 0765 DB050000 		.4byte	0x5db
+ 1682 0769 8D010000 		.4byte	.LLST8
+ 1683 076d 1D       		.uleb128 0x1d
+ 1684 076e 16040000 		.4byte	.LASF105
+ 1685 0772 01       		.byte	0x1
+ 1686 0773 EF       		.byte	0xef
+ 1687 0774 94000000 		.4byte	0x94
+ 1688 0778 AB010000 		.4byte	.LLST9
+ 1689 077c 24       		.uleb128 0x24
+ 1690 077d 0C000000 		.4byte	.LVL28
+ 1691 0781 240C0000 		.4byte	0xc24
+ 1692 0785 96070000 		.4byte	0x796
+ 1693 0789 21       		.uleb128 0x21
+ 1694 078a 01       		.uleb128 0x1
+ 1695 078b 50       		.byte	0x50
+ 1696 078c 02       		.uleb128 0x2
+ 1697 078d 74       		.byte	0x74
+ 1698 078e 00       		.sleb128 0
+ 1699 078f 21       		.uleb128 0x21
+ 1700 0790 01       		.uleb128 0x1
+ 1701 0791 51       		.byte	0x51
+ 1702 0792 02       		.uleb128 0x2
+ 1703 0793 74       		.byte	0x74
+ 1704 0794 10       		.sleb128 16
+ 1705 0795 00       		.byte	0
+ 1706 0796 24       		.uleb128 0x24
+ 1707 0797 14000000 		.4byte	.LVL29
+ 1708 079b 2F0C0000 		.4byte	0xc2f
+ 1709 079f AA070000 		.4byte	0x7aa
+ 1710 07a3 21       		.uleb128 0x21
+ 1711 07a4 01       		.uleb128 0x1
+ 1712 07a5 50       		.byte	0x50
+ 1713 07a6 02       		.uleb128 0x2
+ 1714 07a7 74       		.byte	0x74
+ 1715 07a8 00       		.sleb128 0
+ 1716 07a9 00       		.byte	0
+ 1717 07aa 20       		.uleb128 0x20
+ 1718 07ab 20000000 		.4byte	.LVL31
+ 1719 07af 2F0C0000 		.4byte	0xc2f
+ 1720 07b3 21       		.uleb128 0x21
+ 1721 07b4 01       		.uleb128 0x1
+ 1722 07b5 50       		.byte	0x50
+ 1723 07b6 02       		.uleb128 0x2
+ 1724 07b7 74       		.byte	0x74
+ 1725 07b8 00       		.sleb128 0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 37
+
+
+ 1726 07b9 00       		.byte	0
+ 1727 07ba 00       		.byte	0
+ 1728 07bb 05       		.uleb128 0x5
+ 1729 07bc 04       		.byte	0x4
+ 1730 07bd 22060000 		.4byte	0x622
+ 1731 07c1 23       		.uleb128 0x23
+ 1732 07c2 A5000000 		.4byte	.LASF107
+ 1733 07c6 01       		.byte	0x1
+ 1734 07c7 D2       		.byte	0xd2
+ 1735 07c8 00000000 		.4byte	.LFB87
+ 1736 07cc 54000000 		.4byte	.LFE87-.LFB87
+ 1737 07d0 01       		.uleb128 0x1
+ 1738 07d1 9C       		.byte	0x9c
+ 1739 07d2 79080000 		.4byte	0x879
+ 1740 07d6 1E       		.uleb128 0x1e
+ 1741 07d7 766D00   		.ascii	"vm\000"
+ 1742 07da 01       		.byte	0x1
+ 1743 07db D2       		.byte	0xd2
+ 1744 07dc BB070000 		.4byte	0x7bb
+ 1745 07e0 CC010000 		.4byte	.LLST10
+ 1746 07e4 1E       		.uleb128 0x1e
+ 1747 07e5 7600     		.ascii	"v\000"
+ 1748 07e7 01       		.byte	0x1
+ 1749 07e8 D2       		.byte	0xd2
+ 1750 07e9 DB050000 		.4byte	0x5db
+ 1751 07ed F8010000 		.4byte	.LLST11
+ 1752 07f1 1D       		.uleb128 0x1d
+ 1753 07f2 16040000 		.4byte	.LASF105
+ 1754 07f6 01       		.byte	0x1
+ 1755 07f7 D2       		.byte	0xd2
+ 1756 07f8 94000000 		.4byte	0x94
+ 1757 07fc 24020000 		.4byte	.LLST12
+ 1758 0800 25       		.uleb128 0x25
+ 1759 0801 72657400 		.ascii	"ret\000"
+ 1760 0805 01       		.byte	0x1
+ 1761 0806 D4       		.byte	0xd4
+ 1762 0807 9C040000 		.4byte	0x49c
+ 1763 080b 02       		.uleb128 0x2
+ 1764 080c 91       		.byte	0x91
+ 1765 080d 60       		.sleb128 -32
+ 1766 080e 1F       		.uleb128 0x1f
+ 1767 080f 6900     		.ascii	"i\000"
+ 1768 0811 01       		.byte	0x1
+ 1769 0812 D6       		.byte	0xd6
+ 1770 0813 94000000 		.4byte	0x94
+ 1771 0817 45020000 		.4byte	.LLST13
+ 1772 081b 26       		.uleb128 0x26
+ 1773 081c 18000000 		.4byte	.LBB2
+ 1774 0820 18000000 		.4byte	.LBE2-.LBB2
+ 1775 0824 4D080000 		.4byte	0x84d
+ 1776 0828 27       		.uleb128 0x27
+ 1777 0829 00000000 		.4byte	.LASF108
+ 1778 082d 01       		.byte	0x1
+ 1779 082e D8       		.byte	0xd8
+ 1780 082f 9C040000 		.4byte	0x49c
+ 1781 0833 02       		.uleb128 0x2
+ 1782 0834 91       		.byte	0x91
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 38
+
+
+ 1783 0835 50       		.sleb128 -48
+ 1784 0836 20       		.uleb128 0x20
+ 1785 0837 30000000 		.4byte	.LVL38
+ 1786 083b 3A0C0000 		.4byte	0xc3a
+ 1787 083f 21       		.uleb128 0x21
+ 1788 0840 01       		.uleb128 0x1
+ 1789 0841 50       		.byte	0x50
+ 1790 0842 02       		.uleb128 0x2
+ 1791 0843 91       		.byte	0x91
+ 1792 0844 60       		.sleb128 -32
+ 1793 0845 21       		.uleb128 0x21
+ 1794 0846 01       		.uleb128 0x1
+ 1795 0847 51       		.byte	0x51
+ 1796 0848 02       		.uleb128 0x2
+ 1797 0849 7D       		.byte	0x7d
+ 1798 084a 00       		.sleb128 0
+ 1799 084b 00       		.byte	0
+ 1800 084c 00       		.byte	0
+ 1801 084d 24       		.uleb128 0x24
+ 1802 084e 14000000 		.4byte	.LVL36
+ 1803 0852 450C0000 		.4byte	0xc45
+ 1804 0856 68080000 		.4byte	0x868
+ 1805 085a 21       		.uleb128 0x21
+ 1806 085b 01       		.uleb128 0x1
+ 1807 085c 50       		.byte	0x50
+ 1808 085d 02       		.uleb128 0x2
+ 1809 085e 91       		.byte	0x91
+ 1810 085f 60       		.sleb128 -32
+ 1811 0860 21       		.uleb128 0x21
+ 1812 0861 01       		.uleb128 0x1
+ 1813 0862 51       		.byte	0x51
+ 1814 0863 03       		.uleb128 0x3
+ 1815 0864 F3       		.byte	0xf3
+ 1816 0865 01       		.uleb128 0x1
+ 1817 0866 50       		.byte	0x50
+ 1818 0867 00       		.byte	0
+ 1819 0868 20       		.uleb128 0x20
+ 1820 0869 42000000 		.4byte	.LVL40
+ 1821 086d 2F0C0000 		.4byte	0xc2f
+ 1822 0871 21       		.uleb128 0x21
+ 1823 0872 01       		.uleb128 0x1
+ 1824 0873 50       		.byte	0x50
+ 1825 0874 02       		.uleb128 0x2
+ 1826 0875 75       		.byte	0x75
+ 1827 0876 00       		.sleb128 0
+ 1828 0877 00       		.byte	0
+ 1829 0878 00       		.byte	0
+ 1830 0879 28       		.uleb128 0x28
+ 1831 087a 1D050000 		.4byte	.LASF109
+ 1832 087e 01       		.byte	0x1
+ 1833 087f A2       		.byte	0xa2
+ 1834 0880 C3000000 		.4byte	0xc3
+ 1835 0884 00000000 		.4byte	.LFB84
+ 1836 0888 1E000000 		.4byte	.LFE84-.LFB84
+ 1837 088c 01       		.uleb128 0x1
+ 1838 088d 9C       		.byte	0x9c
+ 1839 088e AF080000 		.4byte	0x8af
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 39
+
+
+ 1840 0892 1E       		.uleb128 0x1e
+ 1841 0893 73747200 		.ascii	"str\000"
+ 1842 0897 01       		.byte	0x1
+ 1843 0898 A2       		.byte	0xa2
+ 1844 0899 F4000000 		.4byte	0xf4
+ 1845 089d 64020000 		.4byte	.LLST14
+ 1846 08a1 1F       		.uleb128 0x1f
+ 1847 08a2 6800     		.ascii	"h\000"
+ 1848 08a4 01       		.byte	0x1
+ 1849 08a5 A4       		.byte	0xa4
+ 1850 08a6 C3000000 		.4byte	0xc3
+ 1851 08aa 82020000 		.4byte	.LLST15
+ 1852 08ae 00       		.byte	0
+ 1853 08af 28       		.uleb128 0x28
+ 1854 08b0 AE010000 		.4byte	.LASF110
+ 1855 08b4 01       		.byte	0x1
+ 1856 08b5 85       		.byte	0x85
+ 1857 08b6 9C040000 		.4byte	0x49c
+ 1858 08ba 00000000 		.4byte	.LFB83
+ 1859 08be 58000000 		.4byte	.LFE83-.LFB83
+ 1860 08c2 01       		.uleb128 0x1
+ 1861 08c3 9C       		.byte	0x9c
+ 1862 08c4 B9090000 		.4byte	0x9b9
+ 1863 08c8 1E       		.uleb128 0x1e
+ 1864 08c9 766D00   		.ascii	"vm\000"
+ 1865 08cc 01       		.byte	0x1
+ 1866 08cd 85       		.byte	0x85
+ 1867 08ce 30010000 		.4byte	0x130
+ 1868 08d2 AC020000 		.4byte	.LLST16
+ 1869 08d6 1E       		.uleb128 0x1e
+ 1870 08d7 73747200 		.ascii	"str\000"
+ 1871 08db 01       		.byte	0x1
+ 1872 08dc 85       		.byte	0x85
+ 1873 08dd F4000000 		.4byte	0xf4
+ 1874 08e1 CD020000 		.4byte	.LLST17
+ 1875 08e5 1F       		.uleb128 0x1f
+ 1876 08e6 72657400 		.ascii	"ret\000"
+ 1877 08ea 01       		.byte	0x1
+ 1878 08eb 87       		.byte	0x87
+ 1879 08ec 9C040000 		.4byte	0x49c
+ 1880 08f0 EB020000 		.4byte	.LLST18
+ 1881 08f4 25       		.uleb128 0x25
+ 1882 08f5 6800     		.ascii	"h\000"
+ 1883 08f7 01       		.byte	0x1
+ 1884 08f8 88       		.byte	0x88
+ 1885 08f9 C3000000 		.4byte	0xc3
+ 1886 08fd 01       		.uleb128 0x1
+ 1887 08fe 56       		.byte	0x56
+ 1888 08ff 22       		.uleb128 0x22
+ 1889 0900 C3030000 		.4byte	.LASF61
+ 1890 0904 01       		.byte	0x1
+ 1891 0905 89       		.byte	0x89
+ 1892 0906 FF000000 		.4byte	0xff
+ 1893 090a 0B030000 		.4byte	.LLST19
+ 1894 090e 22       		.uleb128 0x22
+ 1895 090f F4030000 		.4byte	.LASF75
+ 1896 0913 01       		.byte	0x1
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 40
+
+
+ 1897 0914 91       		.byte	0x91
+ 1898 0915 94000000 		.4byte	0x94
+ 1899 0919 1E030000 		.4byte	.LLST20
+ 1900 091d 1F       		.uleb128 0x1f
+ 1901 091e 62756600 		.ascii	"buf\000"
+ 1902 0922 01       		.byte	0x1
+ 1903 0923 92       		.byte	0x92
+ 1904 0924 E7000000 		.4byte	0xe7
+ 1905 0928 31030000 		.4byte	.LLST21
+ 1906 092c 24       		.uleb128 0x24
+ 1907 092d 1C000000 		.4byte	.LVL50
+ 1908 0931 79080000 		.4byte	0x879
+ 1909 0935 40090000 		.4byte	0x940
+ 1910 0939 21       		.uleb128 0x21
+ 1911 093a 01       		.uleb128 0x1
+ 1912 093b 50       		.byte	0x50
+ 1913 093c 02       		.uleb128 0x2
+ 1914 093d 75       		.byte	0x75
+ 1915 093e 00       		.sleb128 0
+ 1916 093f 00       		.byte	0
+ 1917 0940 24       		.uleb128 0x24
+ 1918 0941 24000000 		.4byte	.LVL52
+ 1919 0945 71060000 		.4byte	0x671
+ 1920 0949 5A090000 		.4byte	0x95a
+ 1921 094d 21       		.uleb128 0x21
+ 1922 094e 01       		.uleb128 0x1
+ 1923 094f 50       		.byte	0x50
+ 1924 0950 02       		.uleb128 0x2
+ 1925 0951 76       		.byte	0x76
+ 1926 0952 00       		.sleb128 0
+ 1927 0953 21       		.uleb128 0x21
+ 1928 0954 01       		.uleb128 0x1
+ 1929 0955 51       		.byte	0x51
+ 1930 0956 02       		.uleb128 0x2
+ 1931 0957 75       		.byte	0x75
+ 1932 0958 00       		.sleb128 0
+ 1933 0959 00       		.byte	0
+ 1934 095a 24       		.uleb128 0x24
+ 1935 095b 34000000 		.4byte	.LVL55
+ 1936 095f 500C0000 		.4byte	0xc50
+ 1937 0963 6E090000 		.4byte	0x96e
+ 1938 0967 21       		.uleb128 0x21
+ 1939 0968 01       		.uleb128 0x1
+ 1940 0969 50       		.byte	0x50
+ 1941 096a 02       		.uleb128 0x2
+ 1942 096b 75       		.byte	0x75
+ 1943 096c 00       		.sleb128 0
+ 1944 096d 00       		.byte	0
+ 1945 096e 24       		.uleb128 0x24
+ 1946 096f 3C000000 		.4byte	.LVL57
+ 1947 0973 5B0C0000 		.4byte	0xc5b
+ 1948 0977 82090000 		.4byte	0x982
+ 1949 097b 21       		.uleb128 0x21
+ 1950 097c 01       		.uleb128 0x1
+ 1951 097d 50       		.byte	0x50
+ 1952 097e 02       		.uleb128 0x2
+ 1953 097f 77       		.byte	0x77
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 41
+
+
+ 1954 0980 00       		.sleb128 0
+ 1955 0981 00       		.byte	0
+ 1956 0982 24       		.uleb128 0x24
+ 1957 0983 48000000 		.4byte	.LVL58
+ 1958 0987 660C0000 		.4byte	0xc66
+ 1959 098b A2090000 		.4byte	0x9a2
+ 1960 098f 21       		.uleb128 0x21
+ 1961 0990 01       		.uleb128 0x1
+ 1962 0991 50       		.byte	0x50
+ 1963 0992 02       		.uleb128 0x2
+ 1964 0993 78       		.byte	0x78
+ 1965 0994 00       		.sleb128 0
+ 1966 0995 21       		.uleb128 0x21
+ 1967 0996 01       		.uleb128 0x1
+ 1968 0997 51       		.byte	0x51
+ 1969 0998 02       		.uleb128 0x2
+ 1970 0999 75       		.byte	0x75
+ 1971 099a 00       		.sleb128 0
+ 1972 099b 21       		.uleb128 0x21
+ 1973 099c 01       		.uleb128 0x1
+ 1974 099d 52       		.byte	0x52
+ 1975 099e 02       		.uleb128 0x2
+ 1976 099f 77       		.byte	0x77
+ 1977 09a0 00       		.sleb128 0
+ 1978 09a1 00       		.byte	0
+ 1979 09a2 20       		.uleb128 0x20
+ 1980 09a3 50000000 		.4byte	.LVL59
+ 1981 09a7 C6060000 		.4byte	0x6c6
+ 1982 09ab 21       		.uleb128 0x21
+ 1983 09ac 01       		.uleb128 0x1
+ 1984 09ad 50       		.byte	0x50
+ 1985 09ae 02       		.uleb128 0x2
+ 1986 09af 76       		.byte	0x76
+ 1987 09b0 00       		.sleb128 0
+ 1988 09b1 21       		.uleb128 0x21
+ 1989 09b2 01       		.uleb128 0x1
+ 1990 09b3 51       		.byte	0x51
+ 1991 09b4 02       		.uleb128 0x2
+ 1992 09b5 78       		.byte	0x78
+ 1993 09b6 00       		.sleb128 0
+ 1994 09b7 00       		.byte	0
+ 1995 09b8 00       		.byte	0
+ 1996 09b9 28       		.uleb128 0x28
+ 1997 09ba DC000000 		.4byte	.LASF111
+ 1998 09be 01       		.byte	0x1
+ 1999 09bf B4       		.byte	0xb4
+ 2000 09c0 FF000000 		.4byte	0xff
+ 2001 09c4 00000000 		.4byte	.LFB85
+ 2002 09c8 22000000 		.4byte	.LFE85-.LFB85
+ 2003 09cc 01       		.uleb128 0x1
+ 2004 09cd 9C       		.byte	0x9c
+ 2005 09ce 400A0000 		.4byte	0xa40
+ 2006 09d2 1E       		.uleb128 0x1e
+ 2007 09d3 73747200 		.ascii	"str\000"
+ 2008 09d7 01       		.byte	0x1
+ 2009 09d8 B4       		.byte	0xb4
+ 2010 09d9 F4000000 		.4byte	0xf4
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 42
+
+
+ 2011 09dd 4F030000 		.4byte	.LLST22
+ 2012 09e1 25       		.uleb128 0x25
+ 2013 09e2 6800     		.ascii	"h\000"
+ 2014 09e4 01       		.byte	0x1
+ 2015 09e5 B6       		.byte	0xb6
+ 2016 09e6 C3000000 		.4byte	0xc3
+ 2017 09ea 01       		.uleb128 0x1
+ 2018 09eb 55       		.byte	0x55
+ 2019 09ec 22       		.uleb128 0x22
+ 2020 09ed C3030000 		.4byte	.LASF61
+ 2021 09f1 01       		.byte	0x1
+ 2022 09f2 B7       		.byte	0xb7
+ 2023 09f3 FF000000 		.4byte	0xff
+ 2024 09f7 6D030000 		.4byte	.LLST23
+ 2025 09fb 24       		.uleb128 0x24
+ 2026 09fc 08000000 		.4byte	.LVL62
+ 2027 0a00 79080000 		.4byte	0x879
+ 2028 0a04 0F0A0000 		.4byte	0xa0f
+ 2029 0a08 21       		.uleb128 0x21
+ 2030 0a09 01       		.uleb128 0x1
+ 2031 0a0a 50       		.byte	0x50
+ 2032 0a0b 02       		.uleb128 0x2
+ 2033 0a0c 74       		.byte	0x74
+ 2034 0a0d 00       		.sleb128 0
+ 2035 0a0e 00       		.byte	0
+ 2036 0a0f 24       		.uleb128 0x24
+ 2037 0a10 10000000 		.4byte	.LVL64
+ 2038 0a14 71060000 		.4byte	0x671
+ 2039 0a18 290A0000 		.4byte	0xa29
+ 2040 0a1c 21       		.uleb128 0x21
+ 2041 0a1d 01       		.uleb128 0x1
+ 2042 0a1e 50       		.byte	0x50
+ 2043 0a1f 02       		.uleb128 0x2
+ 2044 0a20 75       		.byte	0x75
+ 2045 0a21 00       		.sleb128 0
+ 2046 0a22 21       		.uleb128 0x21
+ 2047 0a23 01       		.uleb128 0x1
+ 2048 0a24 51       		.byte	0x51
+ 2049 0a25 02       		.uleb128 0x2
+ 2050 0a26 74       		.byte	0x74
+ 2051 0a27 00       		.sleb128 0
+ 2052 0a28 00       		.byte	0
+ 2053 0a29 20       		.uleb128 0x20
+ 2054 0a2a 1E000000 		.4byte	.LVL67
+ 2055 0a2e C6060000 		.4byte	0x6c6
+ 2056 0a32 21       		.uleb128 0x21
+ 2057 0a33 01       		.uleb128 0x1
+ 2058 0a34 50       		.byte	0x50
+ 2059 0a35 02       		.uleb128 0x2
+ 2060 0a36 75       		.byte	0x75
+ 2061 0a37 00       		.sleb128 0
+ 2062 0a38 21       		.uleb128 0x21
+ 2063 0a39 01       		.uleb128 0x1
+ 2064 0a3a 51       		.byte	0x51
+ 2065 0a3b 02       		.uleb128 0x2
+ 2066 0a3c 74       		.byte	0x74
+ 2067 0a3d 00       		.sleb128 0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 43
+
+
+ 2068 0a3e 00       		.byte	0
+ 2069 0a3f 00       		.byte	0
+ 2070 0a40 28       		.uleb128 0x28
+ 2071 0a41 DD030000 		.4byte	.LASF112
+ 2072 0a45 01       		.byte	0x1
+ 2073 0a46 C5       		.byte	0xc5
+ 2074 0a47 F4000000 		.4byte	0xf4
+ 2075 0a4b 00000000 		.4byte	.LFB86
+ 2076 0a4f 28000000 		.4byte	.LFE86-.LFB86
+ 2077 0a53 01       		.uleb128 0x1
+ 2078 0a54 9C       		.byte	0x9c
+ 2079 0a55 690A0000 		.4byte	0xa69
+ 2080 0a59 1D       		.uleb128 0x1d
+ 2081 0a5a C3030000 		.4byte	.LASF61
+ 2082 0a5e 01       		.byte	0x1
+ 2083 0a5f C5       		.byte	0xc5
+ 2084 0a60 FF000000 		.4byte	0xff
+ 2085 0a64 80030000 		.4byte	.LLST24
+ 2086 0a68 00       		.byte	0
+ 2087 0a69 23       		.uleb128 0x23
+ 2088 0a6a 4A040000 		.4byte	.LASF113
+ 2089 0a6e 01       		.byte	0x1
+ 2090 0a6f E4       		.byte	0xe4
+ 2091 0a70 00000000 		.4byte	.LFB88
+ 2092 0a74 26000000 		.4byte	.LFE88-.LFB88
+ 2093 0a78 01       		.uleb128 0x1
+ 2094 0a79 9C       		.byte	0x9c
+ 2095 0a7a C80A0000 		.4byte	0xac8
+ 2096 0a7e 1E       		.uleb128 0x1e
+ 2097 0a7f 766D00   		.ascii	"vm\000"
+ 2098 0a82 01       		.byte	0x1
+ 2099 0a83 E4       		.byte	0xe4
+ 2100 0a84 BB070000 		.4byte	0x7bb
+ 2101 0a88 A1030000 		.4byte	.LLST25
+ 2102 0a8c 1E       		.uleb128 0x1e
+ 2103 0a8d 7600     		.ascii	"v\000"
+ 2104 0a8f 01       		.byte	0x1
+ 2105 0a90 E4       		.byte	0xe4
+ 2106 0a91 DB050000 		.4byte	0x5db
+ 2107 0a95 BF030000 		.4byte	.LLST26
+ 2108 0a99 1D       		.uleb128 0x1d
+ 2109 0a9a 16040000 		.4byte	.LASF105
+ 2110 0a9e 01       		.byte	0x1
+ 2111 0a9f E4       		.byte	0xe4
+ 2112 0aa0 94000000 		.4byte	0x94
+ 2113 0aa4 DD030000 		.4byte	.LLST27
+ 2114 0aa8 29       		.uleb128 0x29
+ 2115 0aa9 10000000 		.4byte	.LVL72
+ 2116 0aad 400A0000 		.4byte	0xa40
+ 2117 0ab1 20       		.uleb128 0x20
+ 2118 0ab2 1A000000 		.4byte	.LVL73
+ 2119 0ab6 6F0C0000 		.4byte	0xc6f
+ 2120 0aba 21       		.uleb128 0x21
+ 2121 0abb 01       		.uleb128 0x1
+ 2122 0abc 50       		.byte	0x50
+ 2123 0abd 02       		.uleb128 0x2
+ 2124 0abe 7D       		.byte	0x7d
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 44
+
+
+ 2125 0abf 00       		.sleb128 0
+ 2126 0ac0 21       		.uleb128 0x21
+ 2127 0ac1 01       		.uleb128 0x1
+ 2128 0ac2 51       		.byte	0x51
+ 2129 0ac3 02       		.uleb128 0x2
+ 2130 0ac4 76       		.byte	0x76
+ 2131 0ac5 00       		.sleb128 0
+ 2132 0ac6 00       		.byte	0
+ 2133 0ac7 00       		.byte	0
+ 2134 0ac8 2A       		.uleb128 0x2a
+ 2135 0ac9 14000000 		.4byte	.LASF133
+ 2136 0acd 01       		.byte	0x1
+ 2137 0ace FC       		.byte	0xfc
+ 2138 0acf 00000000 		.4byte	.LFB90
+ 2139 0ad3 84000000 		.4byte	.LFE90-.LFB90
+ 2140 0ad7 01       		.uleb128 0x1
+ 2141 0ad8 9C       		.byte	0x9c
+ 2142 0ad9 B40B0000 		.4byte	0xbb4
+ 2143 0add 1E       		.uleb128 0x1e
+ 2144 0ade 766D00   		.ascii	"vm\000"
+ 2145 0ae1 01       		.byte	0x1
+ 2146 0ae2 FC       		.byte	0xfc
+ 2147 0ae3 30010000 		.4byte	0x130
+ 2148 0ae7 FE030000 		.4byte	.LLST28
+ 2149 0aeb 24       		.uleb128 0x24
+ 2150 0aec 0E000000 		.4byte	.LVL75
+ 2151 0af0 7A0C0000 		.4byte	0xc7a
+ 2152 0af4 080B0000 		.4byte	0xb08
+ 2153 0af8 21       		.uleb128 0x21
+ 2154 0af9 01       		.uleb128 0x1
+ 2155 0afa 50       		.byte	0x50
+ 2156 0afb 02       		.uleb128 0x2
+ 2157 0afc 74       		.byte	0x74
+ 2158 0afd 00       		.sleb128 0
+ 2159 0afe 21       		.uleb128 0x21
+ 2160 0aff 01       		.uleb128 0x1
+ 2161 0b00 51       		.byte	0x51
+ 2162 0b01 05       		.uleb128 0x5
+ 2163 0b02 03       		.byte	0x3
+ 2164 0b03 2C000000 		.4byte	.LC2
+ 2165 0b07 00       		.byte	0
+ 2166 0b08 24       		.uleb128 0x24
+ 2167 0b09 1E000000 		.4byte	.LVL76
+ 2168 0b0d 850C0000 		.4byte	0xc85
+ 2169 0b11 2E0B0000 		.4byte	0xb2e
+ 2170 0b15 21       		.uleb128 0x21
+ 2171 0b16 01       		.uleb128 0x1
+ 2172 0b17 50       		.byte	0x50
+ 2173 0b18 02       		.uleb128 0x2
+ 2174 0b19 74       		.byte	0x74
+ 2175 0b1a 00       		.sleb128 0
+ 2176 0b1b 21       		.uleb128 0x21
+ 2177 0b1c 01       		.uleb128 0x1
+ 2178 0b1d 52       		.byte	0x52
+ 2179 0b1e 05       		.uleb128 0x5
+ 2180 0b1f 03       		.byte	0x3
+ 2181 0b20 34000000 		.4byte	.LC3
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 45
+
+
+ 2182 0b24 21       		.uleb128 0x21
+ 2183 0b25 01       		.uleb128 0x1
+ 2184 0b26 53       		.byte	0x53
+ 2185 0b27 05       		.uleb128 0x5
+ 2186 0b28 03       		.byte	0x3
+ 2187 0b29 00000000 		.4byte	c_all_symbols
+ 2188 0b2d 00       		.byte	0
+ 2189 0b2e 24       		.uleb128 0x24
+ 2190 0b2f 2C000000 		.4byte	.LVL77
+ 2191 0b33 850C0000 		.4byte	0xc85
+ 2192 0b37 510B0000 		.4byte	0xb51
+ 2193 0b3b 21       		.uleb128 0x21
+ 2194 0b3c 01       		.uleb128 0x1
+ 2195 0b3d 50       		.byte	0x50
+ 2196 0b3e 02       		.uleb128 0x2
+ 2197 0b3f 74       		.byte	0x74
+ 2198 0b40 00       		.sleb128 0
+ 2199 0b41 21       		.uleb128 0x21
+ 2200 0b42 01       		.uleb128 0x1
+ 2201 0b43 52       		.byte	0x52
+ 2202 0b44 05       		.uleb128 0x5
+ 2203 0b45 03       		.byte	0x3
+ 2204 0b46 40000000 		.4byte	.LC4
+ 2205 0b4a 21       		.uleb128 0x21
+ 2206 0b4b 01       		.uleb128 0x1
+ 2207 0b4c 53       		.byte	0x53
+ 2208 0b4d 02       		.uleb128 0x2
+ 2209 0b4e 76       		.byte	0x76
+ 2210 0b4f 00       		.sleb128 0
+ 2211 0b50 00       		.byte	0
+ 2212 0b51 24       		.uleb128 0x24
+ 2213 0b52 38000000 		.4byte	.LVL78
+ 2214 0b56 850C0000 		.4byte	0xc85
+ 2215 0b5a 740B0000 		.4byte	0xb74
+ 2216 0b5e 21       		.uleb128 0x21
+ 2217 0b5f 01       		.uleb128 0x1
+ 2218 0b60 50       		.byte	0x50
+ 2219 0b61 02       		.uleb128 0x2
+ 2220 0b62 74       		.byte	0x74
+ 2221 0b63 00       		.sleb128 0
+ 2222 0b64 21       		.uleb128 0x21
+ 2223 0b65 01       		.uleb128 0x1
+ 2224 0b66 52       		.byte	0x52
+ 2225 0b67 05       		.uleb128 0x5
+ 2226 0b68 03       		.byte	0x3
+ 2227 0b69 48000000 		.4byte	.LC5
+ 2228 0b6d 21       		.uleb128 0x21
+ 2229 0b6e 01       		.uleb128 0x1
+ 2230 0b6f 53       		.byte	0x53
+ 2231 0b70 02       		.uleb128 0x2
+ 2232 0b71 76       		.byte	0x76
+ 2233 0b72 00       		.sleb128 0
+ 2234 0b73 00       		.byte	0
+ 2235 0b74 24       		.uleb128 0x24
+ 2236 0b75 44000000 		.4byte	.LVL79
+ 2237 0b79 850C0000 		.4byte	0xc85
+ 2238 0b7d 910B0000 		.4byte	0xb91
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 46
+
+
+ 2239 0b81 21       		.uleb128 0x21
+ 2240 0b82 01       		.uleb128 0x1
+ 2241 0b83 50       		.byte	0x50
+ 2242 0b84 02       		.uleb128 0x2
+ 2243 0b85 74       		.byte	0x74
+ 2244 0b86 00       		.sleb128 0
+ 2245 0b87 21       		.uleb128 0x21
+ 2246 0b88 01       		.uleb128 0x1
+ 2247 0b89 52       		.byte	0x52
+ 2248 0b8a 05       		.uleb128 0x5
+ 2249 0b8b 03       		.byte	0x3
+ 2250 0b8c 50000000 		.4byte	.LC6
+ 2251 0b90 00       		.byte	0
+ 2252 0b91 20       		.uleb128 0x20
+ 2253 0b92 50000000 		.4byte	.LVL80
+ 2254 0b96 850C0000 		.4byte	0xc85
+ 2255 0b9a 21       		.uleb128 0x21
+ 2256 0b9b 01       		.uleb128 0x1
+ 2257 0b9c 50       		.byte	0x50
+ 2258 0b9d 02       		.uleb128 0x2
+ 2259 0b9e 74       		.byte	0x74
+ 2260 0b9f 00       		.sleb128 0
+ 2261 0ba0 21       		.uleb128 0x21
+ 2262 0ba1 01       		.uleb128 0x1
+ 2263 0ba2 52       		.byte	0x52
+ 2264 0ba3 05       		.uleb128 0x5
+ 2265 0ba4 03       		.byte	0x3
+ 2266 0ba5 58000000 		.4byte	.LC7
+ 2267 0ba9 21       		.uleb128 0x21
+ 2268 0baa 01       		.uleb128 0x1
+ 2269 0bab 53       		.byte	0x53
+ 2270 0bac 05       		.uleb128 0x5
+ 2271 0bad 03       		.byte	0x3
+ 2272 0bae 00000000 		.4byte	c_equal3
+ 2273 0bb2 00       		.byte	0
+ 2274 0bb3 00       		.byte	0
+ 2275 0bb4 18       		.uleb128 0x18
+ 2276 0bb5 34060000 		.4byte	0x634
+ 2277 0bb9 C50B0000 		.4byte	0xbc5
+ 2278 0bbd 2B       		.uleb128 0x2b
+ 2279 0bbe E0000000 		.4byte	0xe0
+ 2280 0bc2 2B01     		.2byte	0x12b
+ 2281 0bc4 00       		.byte	0
+ 2282 0bc5 27       		.uleb128 0x27
+ 2283 0bc6 9C030000 		.4byte	.LASF114
+ 2284 0bca 01       		.byte	0x1
+ 2285 0bcb 30       		.byte	0x30
+ 2286 0bcc B40B0000 		.4byte	0xbb4
+ 2287 0bd0 05       		.uleb128 0x5
+ 2288 0bd1 03       		.byte	0x3
+ 2289 0bd2 00000000 		.4byte	sym_index
+ 2290 0bd6 27       		.uleb128 0x27
+ 2291 0bd7 30000000 		.4byte	.LASF115
+ 2292 0bdb 01       		.byte	0x1
+ 2293 0bdc 31       		.byte	0x31
+ 2294 0bdd 94000000 		.4byte	0x94
+ 2295 0be1 05       		.uleb128 0x5
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 47
+
+
+ 2296 0be2 03       		.byte	0x3
+ 2297 0be3 100E0000 		.4byte	sym_index_pos
+ 2298 0be7 2C       		.uleb128 0x2c
+ 2299 0be8 7A000000 		.4byte	.LASF116
+ 2300 0bec 08       		.byte	0x8
+ 2301 0bed 21       		.byte	0x21
+ 2302 0bee E1050000 		.4byte	0x5e1
+ 2303 0bf2 2C       		.uleb128 0x2c
+ 2304 0bf3 0C060000 		.4byte	.LASF117
+ 2305 0bf7 08       		.byte	0x8
+ 2306 0bf8 2C       		.byte	0x2c
+ 2307 0bf9 E1050000 		.4byte	0x5e1
+ 2308 0bfd 2D       		.uleb128 0x2d
+ 2309 0bfe C3020000 		.4byte	.LASF118
+ 2310 0c02 09       		.byte	0x9
+ 2311 0c03 1207     		.2byte	0x712
+ 2312 0c05 090C0000 		.4byte	0xc09
+ 2313 0c09 1B       		.uleb128 0x1b
+ 2314 0c0a CE000000 		.4byte	0xce
+ 2315 0c0e 2E       		.uleb128 0x2e
+ 2316 0c0f 66030000 		.4byte	.LASF119
+ 2317 0c13 66030000 		.4byte	.LASF119
+ 2318 0c17 0A       		.byte	0xa
+ 2319 0c18 1C       		.byte	0x1c
+ 2320 0c19 2E       		.uleb128 0x2e
+ 2321 0c1a 61000000 		.4byte	.LASF120
+ 2322 0c1e 61000000 		.4byte	.LASF120
+ 2323 0c22 0B       		.byte	0xb
+ 2324 0c23 31       		.byte	0x31
+ 2325 0c24 2E       		.uleb128 0x2e
+ 2326 0c25 DC050000 		.4byte	.LASF121
+ 2327 0c29 DC050000 		.4byte	.LASF121
+ 2328 0c2d 04       		.byte	0x4
+ 2329 0c2e C0       		.byte	0xc0
+ 2330 0c2f 2E       		.uleb128 0x2e
+ 2331 0c30 D5010000 		.4byte	.LASF122
+ 2332 0c34 D5010000 		.4byte	.LASF122
+ 2333 0c38 04       		.byte	0x4
+ 2334 0c39 C2       		.byte	0xc2
+ 2335 0c3a 2E       		.uleb128 0x2e
+ 2336 0c3b 88010000 		.4byte	.LASF123
+ 2337 0c3f 88010000 		.4byte	.LASF123
+ 2338 0c43 06       		.byte	0x6
+ 2339 0c44 2D       		.byte	0x2d
+ 2340 0c45 2E       		.uleb128 0x2e
+ 2341 0c46 4C000000 		.4byte	.LASF124
+ 2342 0c4a 4C000000 		.4byte	.LASF124
+ 2343 0c4e 06       		.byte	0x6
+ 2344 0c4f 27       		.byte	0x27
+ 2345 0c50 2E       		.uleb128 0x2e
+ 2346 0c51 30040000 		.4byte	.LASF125
+ 2347 0c55 30040000 		.4byte	.LASF125
+ 2348 0c59 0A       		.byte	0xa
+ 2349 0c5a 21       		.byte	0x21
+ 2350 0c5b 2E       		.uleb128 0x2e
+ 2351 0c5c 05000000 		.4byte	.LASF126
+ 2352 0c60 05000000 		.4byte	.LASF126
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 48
+
+
+ 2353 0c64 0C       		.byte	0xc
+ 2354 0c65 1A       		.byte	0x1a
+ 2355 0c66 2F       		.uleb128 0x2f
+ 2356 0c67 C8050000 		.4byte	.LASF134
+ 2357 0c6b C8050000 		.4byte	.LASF134
+ 2358 0c6f 2E       		.uleb128 0x2e
+ 2359 0c70 F9000000 		.4byte	.LASF127
+ 2360 0c74 F9000000 		.4byte	.LASF127
+ 2361 0c78 07       		.byte	0x7
+ 2362 0c79 29       		.byte	0x29
+ 2363 0c7a 2E       		.uleb128 0x2e
+ 2364 0c7b 40010000 		.4byte	.LASF128
+ 2365 0c7f 40010000 		.4byte	.LASF128
+ 2366 0c83 0D       		.byte	0xd
+ 2367 0c84 1E       		.byte	0x1e
+ 2368 0c85 2E       		.uleb128 0x2e
+ 2369 0c86 CA030000 		.4byte	.LASF129
+ 2370 0c8a CA030000 		.4byte	.LASF129
+ 2371 0c8e 0D       		.byte	0xd
+ 2372 0c8f 1F       		.byte	0x1f
+ 2373 0c90 00       		.byte	0
+ 2374              		.section	.debug_abbrev,"",%progbits
+ 2375              	.Ldebug_abbrev0:
+ 2376 0000 01       		.uleb128 0x1
+ 2377 0001 11       		.uleb128 0x11
+ 2378 0002 01       		.byte	0x1
+ 2379 0003 25       		.uleb128 0x25
+ 2380 0004 0E       		.uleb128 0xe
+ 2381 0005 13       		.uleb128 0x13
+ 2382 0006 0B       		.uleb128 0xb
+ 2383 0007 03       		.uleb128 0x3
+ 2384 0008 0E       		.uleb128 0xe
+ 2385 0009 1B       		.uleb128 0x1b
+ 2386 000a 0E       		.uleb128 0xe
+ 2387 000b 55       		.uleb128 0x55
+ 2388 000c 17       		.uleb128 0x17
+ 2389 000d 11       		.uleb128 0x11
+ 2390 000e 01       		.uleb128 0x1
+ 2391 000f 10       		.uleb128 0x10
+ 2392 0010 17       		.uleb128 0x17
+ 2393 0011 00       		.byte	0
+ 2394 0012 00       		.byte	0
+ 2395 0013 02       		.uleb128 0x2
+ 2396 0014 16       		.uleb128 0x16
+ 2397 0015 00       		.byte	0
+ 2398 0016 03       		.uleb128 0x3
+ 2399 0017 0E       		.uleb128 0xe
+ 2400 0018 3A       		.uleb128 0x3a
+ 2401 0019 0B       		.uleb128 0xb
+ 2402 001a 3B       		.uleb128 0x3b
+ 2403 001b 0B       		.uleb128 0xb
+ 2404 001c 49       		.uleb128 0x49
+ 2405 001d 13       		.uleb128 0x13
+ 2406 001e 00       		.byte	0
+ 2407 001f 00       		.byte	0
+ 2408 0020 03       		.uleb128 0x3
+ 2409 0021 24       		.uleb128 0x24
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 49
+
+
+ 2410 0022 00       		.byte	0
+ 2411 0023 0B       		.uleb128 0xb
+ 2412 0024 0B       		.uleb128 0xb
+ 2413 0025 3E       		.uleb128 0x3e
+ 2414 0026 0B       		.uleb128 0xb
+ 2415 0027 03       		.uleb128 0x3
+ 2416 0028 0E       		.uleb128 0xe
+ 2417 0029 00       		.byte	0
+ 2418 002a 00       		.byte	0
+ 2419 002b 04       		.uleb128 0x4
+ 2420 002c 24       		.uleb128 0x24
+ 2421 002d 00       		.byte	0
+ 2422 002e 0B       		.uleb128 0xb
+ 2423 002f 0B       		.uleb128 0xb
+ 2424 0030 3E       		.uleb128 0x3e
+ 2425 0031 0B       		.uleb128 0xb
+ 2426 0032 03       		.uleb128 0x3
+ 2427 0033 08       		.uleb128 0x8
+ 2428 0034 00       		.byte	0
+ 2429 0035 00       		.byte	0
+ 2430 0036 05       		.uleb128 0x5
+ 2431 0037 0F       		.uleb128 0xf
+ 2432 0038 00       		.byte	0
+ 2433 0039 0B       		.uleb128 0xb
+ 2434 003a 0B       		.uleb128 0xb
+ 2435 003b 49       		.uleb128 0x49
+ 2436 003c 13       		.uleb128 0x13
+ 2437 003d 00       		.byte	0
+ 2438 003e 00       		.byte	0
+ 2439 003f 06       		.uleb128 0x6
+ 2440 0040 26       		.uleb128 0x26
+ 2441 0041 00       		.byte	0
+ 2442 0042 49       		.uleb128 0x49
+ 2443 0043 13       		.uleb128 0x13
+ 2444 0044 00       		.byte	0
+ 2445 0045 00       		.byte	0
+ 2446 0046 07       		.uleb128 0x7
+ 2447 0047 15       		.uleb128 0x15
+ 2448 0048 01       		.byte	0x1
+ 2449 0049 27       		.uleb128 0x27
+ 2450 004a 19       		.uleb128 0x19
+ 2451 004b 01       		.uleb128 0x1
+ 2452 004c 13       		.uleb128 0x13
+ 2453 004d 00       		.byte	0
+ 2454 004e 00       		.byte	0
+ 2455 004f 08       		.uleb128 0x8
+ 2456 0050 05       		.uleb128 0x5
+ 2457 0051 00       		.byte	0
+ 2458 0052 49       		.uleb128 0x49
+ 2459 0053 13       		.uleb128 0x13
+ 2460 0054 00       		.byte	0
+ 2461 0055 00       		.byte	0
+ 2462 0056 09       		.uleb128 0x9
+ 2463 0057 13       		.uleb128 0x13
+ 2464 0058 01       		.byte	0x1
+ 2465 0059 03       		.uleb128 0x3
+ 2466 005a 08       		.uleb128 0x8
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 50
+
+
+ 2467 005b 0B       		.uleb128 0xb
+ 2468 005c 05       		.uleb128 0x5
+ 2469 005d 3A       		.uleb128 0x3a
+ 2470 005e 0B       		.uleb128 0xb
+ 2471 005f 3B       		.uleb128 0x3b
+ 2472 0060 0B       		.uleb128 0xb
+ 2473 0061 01       		.uleb128 0x1
+ 2474 0062 13       		.uleb128 0x13
+ 2475 0063 00       		.byte	0
+ 2476 0064 00       		.byte	0
+ 2477 0065 0A       		.uleb128 0xa
+ 2478 0066 0D       		.uleb128 0xd
+ 2479 0067 00       		.byte	0
+ 2480 0068 03       		.uleb128 0x3
+ 2481 0069 0E       		.uleb128 0xe
+ 2482 006a 3A       		.uleb128 0x3a
+ 2483 006b 0B       		.uleb128 0xb
+ 2484 006c 3B       		.uleb128 0x3b
+ 2485 006d 0B       		.uleb128 0xb
+ 2486 006e 49       		.uleb128 0x49
+ 2487 006f 13       		.uleb128 0x13
+ 2488 0070 38       		.uleb128 0x38
+ 2489 0071 0B       		.uleb128 0xb
+ 2490 0072 00       		.byte	0
+ 2491 0073 00       		.byte	0
+ 2492 0074 0B       		.uleb128 0xb
+ 2493 0075 0D       		.uleb128 0xd
+ 2494 0076 00       		.byte	0
+ 2495 0077 03       		.uleb128 0x3
+ 2496 0078 08       		.uleb128 0x8
+ 2497 0079 3A       		.uleb128 0x3a
+ 2498 007a 0B       		.uleb128 0xb
+ 2499 007b 3B       		.uleb128 0x3b
+ 2500 007c 0B       		.uleb128 0xb
+ 2501 007d 49       		.uleb128 0x49
+ 2502 007e 13       		.uleb128 0x13
+ 2503 007f 38       		.uleb128 0x38
+ 2504 0080 0B       		.uleb128 0xb
+ 2505 0081 00       		.byte	0
+ 2506 0082 00       		.byte	0
+ 2507 0083 0C       		.uleb128 0xc
+ 2508 0084 0D       		.uleb128 0xd
+ 2509 0085 00       		.byte	0
+ 2510 0086 03       		.uleb128 0x3
+ 2511 0087 0E       		.uleb128 0xe
+ 2512 0088 3A       		.uleb128 0x3a
+ 2513 0089 0B       		.uleb128 0xb
+ 2514 008a 3B       		.uleb128 0x3b
+ 2515 008b 0B       		.uleb128 0xb
+ 2516 008c 49       		.uleb128 0x49
+ 2517 008d 13       		.uleb128 0x13
+ 2518 008e 38       		.uleb128 0x38
+ 2519 008f 05       		.uleb128 0x5
+ 2520 0090 00       		.byte	0
+ 2521 0091 00       		.byte	0
+ 2522 0092 0D       		.uleb128 0xd
+ 2523 0093 13       		.uleb128 0x13
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 51
+
+
+ 2524 0094 01       		.byte	0x1
+ 2525 0095 03       		.uleb128 0x3
+ 2526 0096 0E       		.uleb128 0xe
+ 2527 0097 0B       		.uleb128 0xb
+ 2528 0098 0B       		.uleb128 0xb
+ 2529 0099 3A       		.uleb128 0x3a
+ 2530 009a 0B       		.uleb128 0xb
+ 2531 009b 3B       		.uleb128 0x3b
+ 2532 009c 0B       		.uleb128 0xb
+ 2533 009d 01       		.uleb128 0x1
+ 2534 009e 13       		.uleb128 0x13
+ 2535 009f 00       		.byte	0
+ 2536 00a0 00       		.byte	0
+ 2537 00a1 0E       		.uleb128 0xe
+ 2538 00a2 0D       		.uleb128 0xd
+ 2539 00a3 00       		.byte	0
+ 2540 00a4 03       		.uleb128 0x3
+ 2541 00a5 08       		.uleb128 0x8
+ 2542 00a6 3A       		.uleb128 0x3a
+ 2543 00a7 0B       		.uleb128 0xb
+ 2544 00a8 3B       		.uleb128 0x3b
+ 2545 00a9 0B       		.uleb128 0xb
+ 2546 00aa 49       		.uleb128 0x49
+ 2547 00ab 13       		.uleb128 0x13
+ 2548 00ac 0B       		.uleb128 0xb
+ 2549 00ad 0B       		.uleb128 0xb
+ 2550 00ae 0D       		.uleb128 0xd
+ 2551 00af 0B       		.uleb128 0xb
+ 2552 00b0 0C       		.uleb128 0xc
+ 2553 00b1 0B       		.uleb128 0xb
+ 2554 00b2 38       		.uleb128 0x38
+ 2555 00b3 0B       		.uleb128 0xb
+ 2556 00b4 00       		.byte	0
+ 2557 00b5 00       		.byte	0
+ 2558 00b6 0F       		.uleb128 0xf
+ 2559 00b7 0D       		.uleb128 0xd
+ 2560 00b8 00       		.byte	0
+ 2561 00b9 49       		.uleb128 0x49
+ 2562 00ba 13       		.uleb128 0x13
+ 2563 00bb 38       		.uleb128 0x38
+ 2564 00bc 0B       		.uleb128 0xb
+ 2565 00bd 00       		.byte	0
+ 2566 00be 00       		.byte	0
+ 2567 00bf 10       		.uleb128 0x10
+ 2568 00c0 04       		.uleb128 0x4
+ 2569 00c1 01       		.byte	0x1
+ 2570 00c2 0B       		.uleb128 0xb
+ 2571 00c3 0B       		.uleb128 0xb
+ 2572 00c4 49       		.uleb128 0x49
+ 2573 00c5 13       		.uleb128 0x13
+ 2574 00c6 3A       		.uleb128 0x3a
+ 2575 00c7 0B       		.uleb128 0xb
+ 2576 00c8 3B       		.uleb128 0x3b
+ 2577 00c9 0B       		.uleb128 0xb
+ 2578 00ca 01       		.uleb128 0x1
+ 2579 00cb 13       		.uleb128 0x13
+ 2580 00cc 00       		.byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 52
+
+
+ 2581 00cd 00       		.byte	0
+ 2582 00ce 11       		.uleb128 0x11
+ 2583 00cf 28       		.uleb128 0x28
+ 2584 00d0 00       		.byte	0
+ 2585 00d1 03       		.uleb128 0x3
+ 2586 00d2 0E       		.uleb128 0xe
+ 2587 00d3 1C       		.uleb128 0x1c
+ 2588 00d4 0D       		.uleb128 0xd
+ 2589 00d5 00       		.byte	0
+ 2590 00d6 00       		.byte	0
+ 2591 00d7 12       		.uleb128 0x12
+ 2592 00d8 28       		.uleb128 0x28
+ 2593 00d9 00       		.byte	0
+ 2594 00da 03       		.uleb128 0x3
+ 2595 00db 0E       		.uleb128 0xe
+ 2596 00dc 1C       		.uleb128 0x1c
+ 2597 00dd 0B       		.uleb128 0xb
+ 2598 00de 00       		.byte	0
+ 2599 00df 00       		.byte	0
+ 2600 00e0 13       		.uleb128 0x13
+ 2601 00e1 17       		.uleb128 0x17
+ 2602 00e2 01       		.byte	0x1
+ 2603 00e3 0B       		.uleb128 0xb
+ 2604 00e4 0B       		.uleb128 0xb
+ 2605 00e5 3A       		.uleb128 0x3a
+ 2606 00e6 0B       		.uleb128 0xb
+ 2607 00e7 3B       		.uleb128 0x3b
+ 2608 00e8 0B       		.uleb128 0xb
+ 2609 00e9 01       		.uleb128 0x1
+ 2610 00ea 13       		.uleb128 0x13
+ 2611 00eb 00       		.byte	0
+ 2612 00ec 00       		.byte	0
+ 2613 00ed 14       		.uleb128 0x14
+ 2614 00ee 0D       		.uleb128 0xd
+ 2615 00ef 00       		.byte	0
+ 2616 00f0 03       		.uleb128 0x3
+ 2617 00f1 08       		.uleb128 0x8
+ 2618 00f2 3A       		.uleb128 0x3a
+ 2619 00f3 0B       		.uleb128 0xb
+ 2620 00f4 3B       		.uleb128 0x3b
+ 2621 00f5 0B       		.uleb128 0xb
+ 2622 00f6 49       		.uleb128 0x49
+ 2623 00f7 13       		.uleb128 0x13
+ 2624 00f8 00       		.byte	0
+ 2625 00f9 00       		.byte	0
+ 2626 00fa 15       		.uleb128 0x15
+ 2627 00fb 0D       		.uleb128 0xd
+ 2628 00fc 00       		.byte	0
+ 2629 00fd 03       		.uleb128 0x3
+ 2630 00fe 0E       		.uleb128 0xe
+ 2631 00ff 3A       		.uleb128 0x3a
+ 2632 0100 0B       		.uleb128 0xb
+ 2633 0101 3B       		.uleb128 0x3b
+ 2634 0102 0B       		.uleb128 0xb
+ 2635 0103 49       		.uleb128 0x49
+ 2636 0104 13       		.uleb128 0x13
+ 2637 0105 00       		.byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 53
+
+
+ 2638 0106 00       		.byte	0
+ 2639 0107 16       		.uleb128 0x16
+ 2640 0108 0D       		.uleb128 0xd
+ 2641 0109 00       		.byte	0
+ 2642 010a 03       		.uleb128 0x3
+ 2643 010b 0E       		.uleb128 0xe
+ 2644 010c 3A       		.uleb128 0x3a
+ 2645 010d 0B       		.uleb128 0xb
+ 2646 010e 3B       		.uleb128 0x3b
+ 2647 010f 0B       		.uleb128 0xb
+ 2648 0110 49       		.uleb128 0x49
+ 2649 0111 13       		.uleb128 0x13
+ 2650 0112 0B       		.uleb128 0xb
+ 2651 0113 0B       		.uleb128 0xb
+ 2652 0114 0D       		.uleb128 0xd
+ 2653 0115 0B       		.uleb128 0xb
+ 2654 0116 0C       		.uleb128 0xc
+ 2655 0117 0B       		.uleb128 0xb
+ 2656 0118 38       		.uleb128 0x38
+ 2657 0119 0B       		.uleb128 0xb
+ 2658 011a 00       		.byte	0
+ 2659 011b 00       		.byte	0
+ 2660 011c 17       		.uleb128 0x17
+ 2661 011d 13       		.uleb128 0x13
+ 2662 011e 00       		.byte	0
+ 2663 011f 03       		.uleb128 0x3
+ 2664 0120 0E       		.uleb128 0xe
+ 2665 0121 3C       		.uleb128 0x3c
+ 2666 0122 19       		.uleb128 0x19
+ 2667 0123 00       		.byte	0
+ 2668 0124 00       		.byte	0
+ 2669 0125 18       		.uleb128 0x18
+ 2670 0126 01       		.uleb128 0x1
+ 2671 0127 01       		.byte	0x1
+ 2672 0128 49       		.uleb128 0x49
+ 2673 0129 13       		.uleb128 0x13
+ 2674 012a 01       		.uleb128 0x1
+ 2675 012b 13       		.uleb128 0x13
+ 2676 012c 00       		.byte	0
+ 2677 012d 00       		.byte	0
+ 2678 012e 19       		.uleb128 0x19
+ 2679 012f 21       		.uleb128 0x21
+ 2680 0130 00       		.byte	0
+ 2681 0131 49       		.uleb128 0x49
+ 2682 0132 13       		.uleb128 0x13
+ 2683 0133 00       		.byte	0
+ 2684 0134 00       		.byte	0
+ 2685 0135 1A       		.uleb128 0x1a
+ 2686 0136 21       		.uleb128 0x21
+ 2687 0137 00       		.byte	0
+ 2688 0138 49       		.uleb128 0x49
+ 2689 0139 13       		.uleb128 0x13
+ 2690 013a 2F       		.uleb128 0x2f
+ 2691 013b 0B       		.uleb128 0xb
+ 2692 013c 00       		.byte	0
+ 2693 013d 00       		.byte	0
+ 2694 013e 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 54
+
+
+ 2695 013f 35       		.uleb128 0x35
+ 2696 0140 00       		.byte	0
+ 2697 0141 49       		.uleb128 0x49
+ 2698 0142 13       		.uleb128 0x13
+ 2699 0143 00       		.byte	0
+ 2700 0144 00       		.byte	0
+ 2701 0145 1C       		.uleb128 0x1c
+ 2702 0146 2E       		.uleb128 0x2e
+ 2703 0147 01       		.byte	0x1
+ 2704 0148 03       		.uleb128 0x3
+ 2705 0149 0E       		.uleb128 0xe
+ 2706 014a 3A       		.uleb128 0x3a
+ 2707 014b 0B       		.uleb128 0xb
+ 2708 014c 3B       		.uleb128 0x3b
+ 2709 014d 0B       		.uleb128 0xb
+ 2710 014e 27       		.uleb128 0x27
+ 2711 014f 19       		.uleb128 0x19
+ 2712 0150 49       		.uleb128 0x49
+ 2713 0151 13       		.uleb128 0x13
+ 2714 0152 11       		.uleb128 0x11
+ 2715 0153 01       		.uleb128 0x1
+ 2716 0154 12       		.uleb128 0x12
+ 2717 0155 06       		.uleb128 0x6
+ 2718 0156 40       		.uleb128 0x40
+ 2719 0157 18       		.uleb128 0x18
+ 2720 0158 9742     		.uleb128 0x2117
+ 2721 015a 19       		.uleb128 0x19
+ 2722 015b 01       		.uleb128 0x1
+ 2723 015c 13       		.uleb128 0x13
+ 2724 015d 00       		.byte	0
+ 2725 015e 00       		.byte	0
+ 2726 015f 1D       		.uleb128 0x1d
+ 2727 0160 05       		.uleb128 0x5
+ 2728 0161 00       		.byte	0
+ 2729 0162 03       		.uleb128 0x3
+ 2730 0163 0E       		.uleb128 0xe
+ 2731 0164 3A       		.uleb128 0x3a
+ 2732 0165 0B       		.uleb128 0xb
+ 2733 0166 3B       		.uleb128 0x3b
+ 2734 0167 0B       		.uleb128 0xb
+ 2735 0168 49       		.uleb128 0x49
+ 2736 0169 13       		.uleb128 0x13
+ 2737 016a 02       		.uleb128 0x2
+ 2738 016b 17       		.uleb128 0x17
+ 2739 016c 00       		.byte	0
+ 2740 016d 00       		.byte	0
+ 2741 016e 1E       		.uleb128 0x1e
+ 2742 016f 05       		.uleb128 0x5
+ 2743 0170 00       		.byte	0
+ 2744 0171 03       		.uleb128 0x3
+ 2745 0172 08       		.uleb128 0x8
+ 2746 0173 3A       		.uleb128 0x3a
+ 2747 0174 0B       		.uleb128 0xb
+ 2748 0175 3B       		.uleb128 0x3b
+ 2749 0176 0B       		.uleb128 0xb
+ 2750 0177 49       		.uleb128 0x49
+ 2751 0178 13       		.uleb128 0x13
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 55
+
+
+ 2752 0179 02       		.uleb128 0x2
+ 2753 017a 17       		.uleb128 0x17
+ 2754 017b 00       		.byte	0
+ 2755 017c 00       		.byte	0
+ 2756 017d 1F       		.uleb128 0x1f
+ 2757 017e 34       		.uleb128 0x34
+ 2758 017f 00       		.byte	0
+ 2759 0180 03       		.uleb128 0x3
+ 2760 0181 08       		.uleb128 0x8
+ 2761 0182 3A       		.uleb128 0x3a
+ 2762 0183 0B       		.uleb128 0xb
+ 2763 0184 3B       		.uleb128 0x3b
+ 2764 0185 0B       		.uleb128 0xb
+ 2765 0186 49       		.uleb128 0x49
+ 2766 0187 13       		.uleb128 0x13
+ 2767 0188 02       		.uleb128 0x2
+ 2768 0189 17       		.uleb128 0x17
+ 2769 018a 00       		.byte	0
+ 2770 018b 00       		.byte	0
+ 2771 018c 20       		.uleb128 0x20
+ 2772 018d 898201   		.uleb128 0x4109
+ 2773 0190 01       		.byte	0x1
+ 2774 0191 11       		.uleb128 0x11
+ 2775 0192 01       		.uleb128 0x1
+ 2776 0193 31       		.uleb128 0x31
+ 2777 0194 13       		.uleb128 0x13
+ 2778 0195 00       		.byte	0
+ 2779 0196 00       		.byte	0
+ 2780 0197 21       		.uleb128 0x21
+ 2781 0198 8A8201   		.uleb128 0x410a
+ 2782 019b 00       		.byte	0
+ 2783 019c 02       		.uleb128 0x2
+ 2784 019d 18       		.uleb128 0x18
+ 2785 019e 9142     		.uleb128 0x2111
+ 2786 01a0 18       		.uleb128 0x18
+ 2787 01a1 00       		.byte	0
+ 2788 01a2 00       		.byte	0
+ 2789 01a3 22       		.uleb128 0x22
+ 2790 01a4 34       		.uleb128 0x34
+ 2791 01a5 00       		.byte	0
+ 2792 01a6 03       		.uleb128 0x3
+ 2793 01a7 0E       		.uleb128 0xe
+ 2794 01a8 3A       		.uleb128 0x3a
+ 2795 01a9 0B       		.uleb128 0xb
+ 2796 01aa 3B       		.uleb128 0x3b
+ 2797 01ab 0B       		.uleb128 0xb
+ 2798 01ac 49       		.uleb128 0x49
+ 2799 01ad 13       		.uleb128 0x13
+ 2800 01ae 02       		.uleb128 0x2
+ 2801 01af 17       		.uleb128 0x17
+ 2802 01b0 00       		.byte	0
+ 2803 01b1 00       		.byte	0
+ 2804 01b2 23       		.uleb128 0x23
+ 2805 01b3 2E       		.uleb128 0x2e
+ 2806 01b4 01       		.byte	0x1
+ 2807 01b5 03       		.uleb128 0x3
+ 2808 01b6 0E       		.uleb128 0xe
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 56
+
+
+ 2809 01b7 3A       		.uleb128 0x3a
+ 2810 01b8 0B       		.uleb128 0xb
+ 2811 01b9 3B       		.uleb128 0x3b
+ 2812 01ba 0B       		.uleb128 0xb
+ 2813 01bb 27       		.uleb128 0x27
+ 2814 01bc 19       		.uleb128 0x19
+ 2815 01bd 11       		.uleb128 0x11
+ 2816 01be 01       		.uleb128 0x1
+ 2817 01bf 12       		.uleb128 0x12
+ 2818 01c0 06       		.uleb128 0x6
+ 2819 01c1 40       		.uleb128 0x40
+ 2820 01c2 18       		.uleb128 0x18
+ 2821 01c3 9742     		.uleb128 0x2117
+ 2822 01c5 19       		.uleb128 0x19
+ 2823 01c6 01       		.uleb128 0x1
+ 2824 01c7 13       		.uleb128 0x13
+ 2825 01c8 00       		.byte	0
+ 2826 01c9 00       		.byte	0
+ 2827 01ca 24       		.uleb128 0x24
+ 2828 01cb 898201   		.uleb128 0x4109
+ 2829 01ce 01       		.byte	0x1
+ 2830 01cf 11       		.uleb128 0x11
+ 2831 01d0 01       		.uleb128 0x1
+ 2832 01d1 31       		.uleb128 0x31
+ 2833 01d2 13       		.uleb128 0x13
+ 2834 01d3 01       		.uleb128 0x1
+ 2835 01d4 13       		.uleb128 0x13
+ 2836 01d5 00       		.byte	0
+ 2837 01d6 00       		.byte	0
+ 2838 01d7 25       		.uleb128 0x25
+ 2839 01d8 34       		.uleb128 0x34
+ 2840 01d9 00       		.byte	0
+ 2841 01da 03       		.uleb128 0x3
+ 2842 01db 08       		.uleb128 0x8
+ 2843 01dc 3A       		.uleb128 0x3a
+ 2844 01dd 0B       		.uleb128 0xb
+ 2845 01de 3B       		.uleb128 0x3b
+ 2846 01df 0B       		.uleb128 0xb
+ 2847 01e0 49       		.uleb128 0x49
+ 2848 01e1 13       		.uleb128 0x13
+ 2849 01e2 02       		.uleb128 0x2
+ 2850 01e3 18       		.uleb128 0x18
+ 2851 01e4 00       		.byte	0
+ 2852 01e5 00       		.byte	0
+ 2853 01e6 26       		.uleb128 0x26
+ 2854 01e7 0B       		.uleb128 0xb
+ 2855 01e8 01       		.byte	0x1
+ 2856 01e9 11       		.uleb128 0x11
+ 2857 01ea 01       		.uleb128 0x1
+ 2858 01eb 12       		.uleb128 0x12
+ 2859 01ec 06       		.uleb128 0x6
+ 2860 01ed 01       		.uleb128 0x1
+ 2861 01ee 13       		.uleb128 0x13
+ 2862 01ef 00       		.byte	0
+ 2863 01f0 00       		.byte	0
+ 2864 01f1 27       		.uleb128 0x27
+ 2865 01f2 34       		.uleb128 0x34
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 57
+
+
+ 2866 01f3 00       		.byte	0
+ 2867 01f4 03       		.uleb128 0x3
+ 2868 01f5 0E       		.uleb128 0xe
+ 2869 01f6 3A       		.uleb128 0x3a
+ 2870 01f7 0B       		.uleb128 0xb
+ 2871 01f8 3B       		.uleb128 0x3b
+ 2872 01f9 0B       		.uleb128 0xb
+ 2873 01fa 49       		.uleb128 0x49
+ 2874 01fb 13       		.uleb128 0x13
+ 2875 01fc 02       		.uleb128 0x2
+ 2876 01fd 18       		.uleb128 0x18
+ 2877 01fe 00       		.byte	0
+ 2878 01ff 00       		.byte	0
+ 2879 0200 28       		.uleb128 0x28
+ 2880 0201 2E       		.uleb128 0x2e
+ 2881 0202 01       		.byte	0x1
+ 2882 0203 3F       		.uleb128 0x3f
+ 2883 0204 19       		.uleb128 0x19
+ 2884 0205 03       		.uleb128 0x3
+ 2885 0206 0E       		.uleb128 0xe
+ 2886 0207 3A       		.uleb128 0x3a
+ 2887 0208 0B       		.uleb128 0xb
+ 2888 0209 3B       		.uleb128 0x3b
+ 2889 020a 0B       		.uleb128 0xb
+ 2890 020b 27       		.uleb128 0x27
+ 2891 020c 19       		.uleb128 0x19
+ 2892 020d 49       		.uleb128 0x49
+ 2893 020e 13       		.uleb128 0x13
+ 2894 020f 11       		.uleb128 0x11
+ 2895 0210 01       		.uleb128 0x1
+ 2896 0211 12       		.uleb128 0x12
+ 2897 0212 06       		.uleb128 0x6
+ 2898 0213 40       		.uleb128 0x40
+ 2899 0214 18       		.uleb128 0x18
+ 2900 0215 9742     		.uleb128 0x2117
+ 2901 0217 19       		.uleb128 0x19
+ 2902 0218 01       		.uleb128 0x1
+ 2903 0219 13       		.uleb128 0x13
+ 2904 021a 00       		.byte	0
+ 2905 021b 00       		.byte	0
+ 2906 021c 29       		.uleb128 0x29
+ 2907 021d 898201   		.uleb128 0x4109
+ 2908 0220 00       		.byte	0
+ 2909 0221 11       		.uleb128 0x11
+ 2910 0222 01       		.uleb128 0x1
+ 2911 0223 31       		.uleb128 0x31
+ 2912 0224 13       		.uleb128 0x13
+ 2913 0225 00       		.byte	0
+ 2914 0226 00       		.byte	0
+ 2915 0227 2A       		.uleb128 0x2a
+ 2916 0228 2E       		.uleb128 0x2e
+ 2917 0229 01       		.byte	0x1
+ 2918 022a 3F       		.uleb128 0x3f
+ 2919 022b 19       		.uleb128 0x19
+ 2920 022c 03       		.uleb128 0x3
+ 2921 022d 0E       		.uleb128 0xe
+ 2922 022e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 58
+
+
+ 2923 022f 0B       		.uleb128 0xb
+ 2924 0230 3B       		.uleb128 0x3b
+ 2925 0231 0B       		.uleb128 0xb
+ 2926 0232 27       		.uleb128 0x27
+ 2927 0233 19       		.uleb128 0x19
+ 2928 0234 11       		.uleb128 0x11
+ 2929 0235 01       		.uleb128 0x1
+ 2930 0236 12       		.uleb128 0x12
+ 2931 0237 06       		.uleb128 0x6
+ 2932 0238 40       		.uleb128 0x40
+ 2933 0239 18       		.uleb128 0x18
+ 2934 023a 9742     		.uleb128 0x2117
+ 2935 023c 19       		.uleb128 0x19
+ 2936 023d 01       		.uleb128 0x1
+ 2937 023e 13       		.uleb128 0x13
+ 2938 023f 00       		.byte	0
+ 2939 0240 00       		.byte	0
+ 2940 0241 2B       		.uleb128 0x2b
+ 2941 0242 21       		.uleb128 0x21
+ 2942 0243 00       		.byte	0
+ 2943 0244 49       		.uleb128 0x49
+ 2944 0245 13       		.uleb128 0x13
+ 2945 0246 2F       		.uleb128 0x2f
+ 2946 0247 05       		.uleb128 0x5
+ 2947 0248 00       		.byte	0
+ 2948 0249 00       		.byte	0
+ 2949 024a 2C       		.uleb128 0x2c
+ 2950 024b 34       		.uleb128 0x34
+ 2951 024c 00       		.byte	0
+ 2952 024d 03       		.uleb128 0x3
+ 2953 024e 0E       		.uleb128 0xe
+ 2954 024f 3A       		.uleb128 0x3a
+ 2955 0250 0B       		.uleb128 0xb
+ 2956 0251 3B       		.uleb128 0x3b
+ 2957 0252 0B       		.uleb128 0xb
+ 2958 0253 49       		.uleb128 0x49
+ 2959 0254 13       		.uleb128 0x13
+ 2960 0255 3F       		.uleb128 0x3f
+ 2961 0256 19       		.uleb128 0x19
+ 2962 0257 3C       		.uleb128 0x3c
+ 2963 0258 19       		.uleb128 0x19
+ 2964 0259 00       		.byte	0
+ 2965 025a 00       		.byte	0
+ 2966 025b 2D       		.uleb128 0x2d
+ 2967 025c 34       		.uleb128 0x34
+ 2968 025d 00       		.byte	0
+ 2969 025e 03       		.uleb128 0x3
+ 2970 025f 0E       		.uleb128 0xe
+ 2971 0260 3A       		.uleb128 0x3a
+ 2972 0261 0B       		.uleb128 0xb
+ 2973 0262 3B       		.uleb128 0x3b
+ 2974 0263 05       		.uleb128 0x5
+ 2975 0264 49       		.uleb128 0x49
+ 2976 0265 13       		.uleb128 0x13
+ 2977 0266 3F       		.uleb128 0x3f
+ 2978 0267 19       		.uleb128 0x19
+ 2979 0268 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 59
+
+
+ 2980 0269 19       		.uleb128 0x19
+ 2981 026a 00       		.byte	0
+ 2982 026b 00       		.byte	0
+ 2983 026c 2E       		.uleb128 0x2e
+ 2984 026d 2E       		.uleb128 0x2e
+ 2985 026e 00       		.byte	0
+ 2986 026f 3F       		.uleb128 0x3f
+ 2987 0270 19       		.uleb128 0x19
+ 2988 0271 3C       		.uleb128 0x3c
+ 2989 0272 19       		.uleb128 0x19
+ 2990 0273 6E       		.uleb128 0x6e
+ 2991 0274 0E       		.uleb128 0xe
+ 2992 0275 03       		.uleb128 0x3
+ 2993 0276 0E       		.uleb128 0xe
+ 2994 0277 3A       		.uleb128 0x3a
+ 2995 0278 0B       		.uleb128 0xb
+ 2996 0279 3B       		.uleb128 0x3b
+ 2997 027a 0B       		.uleb128 0xb
+ 2998 027b 00       		.byte	0
+ 2999 027c 00       		.byte	0
+ 3000 027d 2F       		.uleb128 0x2f
+ 3001 027e 2E       		.uleb128 0x2e
+ 3002 027f 00       		.byte	0
+ 3003 0280 3F       		.uleb128 0x3f
+ 3004 0281 19       		.uleb128 0x19
+ 3005 0282 3C       		.uleb128 0x3c
+ 3006 0283 19       		.uleb128 0x19
+ 3007 0284 6E       		.uleb128 0x6e
+ 3008 0285 0E       		.uleb128 0xe
+ 3009 0286 03       		.uleb128 0x3
+ 3010 0287 0E       		.uleb128 0xe
+ 3011 0288 00       		.byte	0
+ 3012 0289 00       		.byte	0
+ 3013 028a 00       		.byte	0
+ 3014              		.section	.debug_loc,"",%progbits
+ 3015              	.Ldebug_loc0:
+ 3016              	.LLST0:
+ 3017 0000 00000000 		.4byte	.LVL0
+ 3018 0004 08000000 		.4byte	.LVL2
+ 3019 0008 0100     		.2byte	0x1
+ 3020 000a 50       		.byte	0x50
+ 3021 000b 08000000 		.4byte	.LVL2
+ 3022 000f 54000000 		.4byte	.LFE81
+ 3023 0013 0400     		.2byte	0x4
+ 3024 0015 F3       		.byte	0xf3
+ 3025 0016 01       		.uleb128 0x1
+ 3026 0017 50       		.byte	0x50
+ 3027 0018 9F       		.byte	0x9f
+ 3028 0019 00000000 		.4byte	0
+ 3029 001d 00000000 		.4byte	0
+ 3030              	.LLST1:
+ 3031 0021 00000000 		.4byte	.LVL0
+ 3032 0025 08000000 		.4byte	.LVL2
+ 3033 0029 0100     		.2byte	0x1
+ 3034 002b 51       		.byte	0x51
+ 3035 002c 08000000 		.4byte	.LVL2
+ 3036 0030 50000000 		.4byte	.LVL9
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 60
+
+
+ 3037 0034 0100     		.2byte	0x1
+ 3038 0036 57       		.byte	0x57
+ 3039 0037 50000000 		.4byte	.LVL9
+ 3040 003b 54000000 		.4byte	.LFE81
+ 3041 003f 0400     		.2byte	0x4
+ 3042 0041 F3       		.byte	0xf3
+ 3043 0042 01       		.uleb128 0x1
+ 3044 0043 51       		.byte	0x51
+ 3045 0044 9F       		.byte	0x9f
+ 3046 0045 00000000 		.4byte	0
+ 3047 0049 00000000 		.4byte	0
+ 3048              	.LLST2:
+ 3049 004d 06000000 		.4byte	.LVL1
+ 3050 0051 08000000 		.4byte	.LVL2
+ 3051 0055 0200     		.2byte	0x2
+ 3052 0057 30       		.byte	0x30
+ 3053 0058 9F       		.byte	0x9f
+ 3054 0059 08000000 		.4byte	.LVL2
+ 3055 005d 2C000000 		.4byte	.LVL4
+ 3056 0061 0100     		.2byte	0x1
+ 3057 0063 54       		.byte	0x54
+ 3058 0064 34000000 		.4byte	.LVL5
+ 3059 0068 3A000000 		.4byte	.LVL6
+ 3060 006c 0100     		.2byte	0x1
+ 3061 006e 54       		.byte	0x54
+ 3062 006f 42000000 		.4byte	.LVL7
+ 3063 0073 50000000 		.4byte	.LVL9
+ 3064 0077 0100     		.2byte	0x1
+ 3065 0079 54       		.byte	0x54
+ 3066 007a 50000000 		.4byte	.LVL9
+ 3067 007e 54000000 		.4byte	.LFE81
+ 3068 0082 0100     		.2byte	0x1
+ 3069 0084 50       		.byte	0x50
+ 3070 0085 00000000 		.4byte	0
+ 3071 0089 00000000 		.4byte	0
+ 3072              	.LLST3:
+ 3073 008d 00000000 		.4byte	.LVL10
+ 3074 0091 14000000 		.4byte	.LVL12
+ 3075 0095 0100     		.2byte	0x1
+ 3076 0097 50       		.byte	0x50
+ 3077 0098 14000000 		.4byte	.LVL12
+ 3078 009c 1E000000 		.4byte	.LVL14
+ 3079 00a0 0400     		.2byte	0x4
+ 3080 00a2 F3       		.byte	0xf3
+ 3081 00a3 01       		.uleb128 0x1
+ 3082 00a4 50       		.byte	0x50
+ 3083 00a5 9F       		.byte	0x9f
+ 3084 00a6 1E000000 		.4byte	.LVL14
+ 3085 00aa 7E000000 		.4byte	.LVL24
+ 3086 00ae 0100     		.2byte	0x1
+ 3087 00b0 50       		.byte	0x50
+ 3088 00b1 7E000000 		.4byte	.LVL24
+ 3089 00b5 90000000 		.4byte	.LFE82
+ 3090 00b9 0400     		.2byte	0x4
+ 3091 00bb F3       		.byte	0xf3
+ 3092 00bc 01       		.uleb128 0x1
+ 3093 00bd 50       		.byte	0x50
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 61
+
+
+ 3094 00be 9F       		.byte	0x9f
+ 3095 00bf 00000000 		.4byte	0
+ 3096 00c3 00000000 		.4byte	0
+ 3097              	.LLST4:
+ 3098 00c7 00000000 		.4byte	.LVL10
+ 3099 00cb 12000000 		.4byte	.LVL11
+ 3100 00cf 0100     		.2byte	0x1
+ 3101 00d1 51       		.byte	0x51
+ 3102 00d2 12000000 		.4byte	.LVL11
+ 3103 00d6 17000000 		.4byte	.LVL13-1
+ 3104 00da 0100     		.2byte	0x1
+ 3105 00dc 52       		.byte	0x52
+ 3106 00dd 17000000 		.4byte	.LVL13-1
+ 3107 00e1 1E000000 		.4byte	.LVL14
+ 3108 00e5 0400     		.2byte	0x4
+ 3109 00e7 F3       		.byte	0xf3
+ 3110 00e8 01       		.uleb128 0x1
+ 3111 00e9 51       		.byte	0x51
+ 3112 00ea 9F       		.byte	0x9f
+ 3113 00eb 1E000000 		.4byte	.LVL14
+ 3114 00ef 34000000 		.4byte	.LVL17
+ 3115 00f3 0100     		.2byte	0x1
+ 3116 00f5 51       		.byte	0x51
+ 3117 00f6 34000000 		.4byte	.LVL17
+ 3118 00fa 7E000000 		.4byte	.LVL24
+ 3119 00fe 0E00     		.2byte	0xe
+ 3120 0100 74       		.byte	0x74
+ 3121 0101 00       		.sleb128 0
+ 3122 0102 31       		.byte	0x31
+ 3123 0103 24       		.byte	0x24
+ 3124 0104 74       		.byte	0x74
+ 3125 0105 00       		.sleb128 0
+ 3126 0106 22       		.byte	0x22
+ 3127 0107 32       		.byte	0x32
+ 3128 0108 24       		.byte	0x24
+ 3129 0109 75       		.byte	0x75
+ 3130 010a 00       		.sleb128 0
+ 3131 010b 22       		.byte	0x22
+ 3132 010c 23       		.byte	0x23
+ 3133 010d 08       		.uleb128 0x8
+ 3134 010e 7E000000 		.4byte	.LVL24
+ 3135 0112 90000000 		.4byte	.LFE82
+ 3136 0116 0400     		.2byte	0x4
+ 3137 0118 F3       		.byte	0xf3
+ 3138 0119 01       		.uleb128 0x1
+ 3139 011a 51       		.byte	0x51
+ 3140 011b 9F       		.byte	0x9f
+ 3141 011c 00000000 		.4byte	0
+ 3142 0120 00000000 		.4byte	0
+ 3143              	.LLST5:
+ 3144 0124 26000000 		.4byte	.LVL15
+ 3145 0128 7E000000 		.4byte	.LVL24
+ 3146 012c 0100     		.2byte	0x1
+ 3147 012e 54       		.byte	0x54
+ 3148 012f 00000000 		.4byte	0
+ 3149 0133 00000000 		.4byte	0
+ 3150              	.LLST6:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 62
+
+
+ 3151 0137 32000000 		.4byte	.LVL16
+ 3152 013b 34000000 		.4byte	.LVL17
+ 3153 013f 0200     		.2byte	0x2
+ 3154 0141 30       		.byte	0x30
+ 3155 0142 9F       		.byte	0x9f
+ 3156 0143 34000000 		.4byte	.LVL17
+ 3157 0147 54000000 		.4byte	.LVL18
+ 3158 014b 0100     		.2byte	0x1
+ 3159 014d 53       		.byte	0x53
+ 3160 014e 5C000000 		.4byte	.LVL19
+ 3161 0152 72000000 		.4byte	.LVL21
+ 3162 0156 0100     		.2byte	0x1
+ 3163 0158 53       		.byte	0x53
+ 3164 0159 7A000000 		.4byte	.LVL22
+ 3165 015d 7E000000 		.4byte	.LVL24
+ 3166 0161 0100     		.2byte	0x1
+ 3167 0163 53       		.byte	0x53
+ 3168 0164 00000000 		.4byte	0
+ 3169 0168 00000000 		.4byte	0
+ 3170              	.LLST7:
+ 3171 016c 00000000 		.4byte	.LVL25
+ 3172 0170 08000000 		.4byte	.LVL27
+ 3173 0174 0100     		.2byte	0x1
+ 3174 0176 50       		.byte	0x50
+ 3175 0177 08000000 		.4byte	.LVL27
+ 3176 017b 26000000 		.4byte	.LFE89
+ 3177 017f 0400     		.2byte	0x4
+ 3178 0181 F3       		.byte	0xf3
+ 3179 0182 01       		.uleb128 0x1
+ 3180 0183 50       		.byte	0x50
+ 3181 0184 9F       		.byte	0x9f
+ 3182 0185 00000000 		.4byte	0
+ 3183 0189 00000000 		.4byte	0
+ 3184              	.LLST8:
+ 3185 018d 00000000 		.4byte	.LVL25
+ 3186 0191 06000000 		.4byte	.LVL26
+ 3187 0195 0100     		.2byte	0x1
+ 3188 0197 51       		.byte	0x51
+ 3189 0198 06000000 		.4byte	.LVL26
+ 3190 019c 26000000 		.4byte	.LFE89
+ 3191 01a0 0100     		.2byte	0x1
+ 3192 01a2 54       		.byte	0x54
+ 3193 01a3 00000000 		.4byte	0
+ 3194 01a7 00000000 		.4byte	0
+ 3195              	.LLST9:
+ 3196 01ab 00000000 		.4byte	.LVL25
+ 3197 01af 0B000000 		.4byte	.LVL28-1
+ 3198 01b3 0100     		.2byte	0x1
+ 3199 01b5 52       		.byte	0x52
+ 3200 01b6 0B000000 		.4byte	.LVL28-1
+ 3201 01ba 26000000 		.4byte	.LFE89
+ 3202 01be 0400     		.2byte	0x4
+ 3203 01c0 F3       		.byte	0xf3
+ 3204 01c1 01       		.uleb128 0x1
+ 3205 01c2 52       		.byte	0x52
+ 3206 01c3 9F       		.byte	0x9f
+ 3207 01c4 00000000 		.4byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 63
+
+
+ 3208 01c8 00000000 		.4byte	0
+ 3209              	.LLST10:
+ 3210 01cc 00000000 		.4byte	.LVL32
+ 3211 01d0 10000000 		.4byte	.LVL35
+ 3212 01d4 0100     		.2byte	0x1
+ 3213 01d6 50       		.byte	0x50
+ 3214 01d7 10000000 		.4byte	.LVL35
+ 3215 01db 13000000 		.4byte	.LVL36-1
+ 3216 01df 0100     		.2byte	0x1
+ 3217 01e1 51       		.byte	0x51
+ 3218 01e2 13000000 		.4byte	.LVL36-1
+ 3219 01e6 54000000 		.4byte	.LFE87
+ 3220 01ea 0400     		.2byte	0x4
+ 3221 01ec F3       		.byte	0xf3
+ 3222 01ed 01       		.uleb128 0x1
+ 3223 01ee 50       		.byte	0x50
+ 3224 01ef 9F       		.byte	0x9f
+ 3225 01f0 00000000 		.4byte	0
+ 3226 01f4 00000000 		.4byte	0
+ 3227              	.LLST11:
+ 3228 01f8 00000000 		.4byte	.LVL32
+ 3229 01fc 0E000000 		.4byte	.LVL34
+ 3230 0200 0100     		.2byte	0x1
+ 3231 0202 51       		.byte	0x51
+ 3232 0203 0E000000 		.4byte	.LVL34
+ 3233 0207 50000000 		.4byte	.LVL41
+ 3234 020b 0100     		.2byte	0x1
+ 3235 020d 55       		.byte	0x55
+ 3236 020e 50000000 		.4byte	.LVL41
+ 3237 0212 54000000 		.4byte	.LFE87
+ 3238 0216 0400     		.2byte	0x4
+ 3239 0218 F3       		.byte	0xf3
+ 3240 0219 01       		.uleb128 0x1
+ 3241 021a 51       		.byte	0x51
+ 3242 021b 9F       		.byte	0x9f
+ 3243 021c 00000000 		.4byte	0
+ 3244 0220 00000000 		.4byte	0
+ 3245              	.LLST12:
+ 3246 0224 00000000 		.4byte	.LVL32
+ 3247 0228 0C000000 		.4byte	.LVL33
+ 3248 022c 0100     		.2byte	0x1
+ 3249 022e 52       		.byte	0x52
+ 3250 022f 0C000000 		.4byte	.LVL33
+ 3251 0233 54000000 		.4byte	.LFE87
+ 3252 0237 0400     		.2byte	0x4
+ 3253 0239 F3       		.byte	0xf3
+ 3254 023a 01       		.uleb128 0x1
+ 3255 023b 52       		.byte	0x52
+ 3256 023c 9F       		.byte	0x9f
+ 3257 023d 00000000 		.4byte	0
+ 3258 0241 00000000 		.4byte	0
+ 3259              	.LLST13:
+ 3260 0245 14000000 		.4byte	.LVL36
+ 3261 0249 18000000 		.4byte	.LVL37
+ 3262 024d 0200     		.2byte	0x2
+ 3263 024f 30       		.byte	0x30
+ 3264 0250 9F       		.byte	0x9f
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 64
+
+
+ 3265 0251 18000000 		.4byte	.LVL37
+ 3266 0255 50000000 		.4byte	.LVL41
+ 3267 0259 0100     		.2byte	0x1
+ 3268 025b 54       		.byte	0x54
+ 3269 025c 00000000 		.4byte	0
+ 3270 0260 00000000 		.4byte	0
+ 3271              	.LLST14:
+ 3272 0264 00000000 		.4byte	.LVL42
+ 3273 0268 14000000 		.4byte	.LVL46
+ 3274 026c 0100     		.2byte	0x1
+ 3275 026e 50       		.byte	0x50
+ 3276 026f 14000000 		.4byte	.LVL46
+ 3277 0273 1C000000 		.4byte	.LVL47
+ 3278 0277 0100     		.2byte	0x1
+ 3279 0279 50       		.byte	0x50
+ 3280 027a 00000000 		.4byte	0
+ 3281 027e 00000000 		.4byte	0
+ 3282              	.LLST15:
+ 3283 0282 00000000 		.4byte	.LVL42
+ 3284 0286 04000000 		.4byte	.LVL43
+ 3285 028a 0200     		.2byte	0x2
+ 3286 028c 30       		.byte	0x30
+ 3287 028d 9F       		.byte	0x9f
+ 3288 028e 04000000 		.4byte	.LVL43
+ 3289 0292 0C000000 		.4byte	.LVL44
+ 3290 0296 0100     		.2byte	0x1
+ 3291 0298 53       		.byte	0x53
+ 3292 0299 12000000 		.4byte	.LVL45
+ 3293 029d 1E000000 		.4byte	.LFE84
+ 3294 02a1 0100     		.2byte	0x1
+ 3295 02a3 53       		.byte	0x53
+ 3296 02a4 00000000 		.4byte	0
+ 3297 02a8 00000000 		.4byte	0
+ 3298              	.LLST16:
+ 3299 02ac 00000000 		.4byte	.LVL48
+ 3300 02b0 1B000000 		.4byte	.LVL50-1
+ 3301 02b4 0100     		.2byte	0x1
+ 3302 02b6 51       		.byte	0x51
+ 3303 02b7 1B000000 		.4byte	.LVL50-1
+ 3304 02bb 58000000 		.4byte	.LFE83
+ 3305 02bf 0400     		.2byte	0x4
+ 3306 02c1 F3       		.byte	0xf3
+ 3307 02c2 01       		.uleb128 0x1
+ 3308 02c3 51       		.byte	0x51
+ 3309 02c4 9F       		.byte	0x9f
+ 3310 02c5 00000000 		.4byte	0
+ 3311 02c9 00000000 		.4byte	0
+ 3312              	.LLST17:
+ 3313 02cd 00000000 		.4byte	.LVL48
+ 3314 02d1 1B000000 		.4byte	.LVL50-1
+ 3315 02d5 0100     		.2byte	0x1
+ 3316 02d7 52       		.byte	0x52
+ 3317 02d8 1B000000 		.4byte	.LVL50-1
+ 3318 02dc 58000000 		.4byte	.LFE83
+ 3319 02e0 0100     		.2byte	0x1
+ 3320 02e2 55       		.byte	0x55
+ 3321 02e3 00000000 		.4byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 65
+
+
+ 3322 02e7 00000000 		.4byte	0
+ 3323              	.LLST18:
+ 3324 02eb 00000000 		.4byte	.LVL48
+ 3325 02ef 18000000 		.4byte	.LVL49
+ 3326 02f3 0200     		.2byte	0x2
+ 3327 02f5 70       		.byte	0x70
+ 3328 02f6 00       		.sleb128 0
+ 3329 02f7 18000000 		.4byte	.LVL49
+ 3330 02fb 58000000 		.4byte	.LFE83
+ 3331 02ff 0200     		.2byte	0x2
+ 3332 0301 74       		.byte	0x74
+ 3333 0302 00       		.sleb128 0
+ 3334 0303 00000000 		.4byte	0
+ 3335 0307 00000000 		.4byte	0
+ 3336              	.LLST19:
+ 3337 030b 26000000 		.4byte	.LVL53
+ 3338 030f 30000000 		.4byte	.LVL54
+ 3339 0313 0100     		.2byte	0x1
+ 3340 0315 50       		.byte	0x50
+ 3341 0316 00000000 		.4byte	0
+ 3342 031a 00000000 		.4byte	0
+ 3343              	.LLST20:
+ 3344 031e 36000000 		.4byte	.LVL56
+ 3345 0322 52000000 		.4byte	.LVL60
+ 3346 0326 0100     		.2byte	0x1
+ 3347 0328 57       		.byte	0x57
+ 3348 0329 00000000 		.4byte	0
+ 3349 032d 00000000 		.4byte	0
+ 3350              	.LLST21:
+ 3351 0331 3C000000 		.4byte	.LVL57
+ 3352 0335 47000000 		.4byte	.LVL58-1
+ 3353 0339 0100     		.2byte	0x1
+ 3354 033b 50       		.byte	0x50
+ 3355 033c 47000000 		.4byte	.LVL58-1
+ 3356 0340 52000000 		.4byte	.LVL60
+ 3357 0344 0100     		.2byte	0x1
+ 3358 0346 58       		.byte	0x58
+ 3359 0347 00000000 		.4byte	0
+ 3360 034b 00000000 		.4byte	0
+ 3361              	.LLST22:
+ 3362 034f 00000000 		.4byte	.LVL61
+ 3363 0353 07000000 		.4byte	.LVL62-1
+ 3364 0357 0100     		.2byte	0x1
+ 3365 0359 50       		.byte	0x50
+ 3366 035a 07000000 		.4byte	.LVL62-1
+ 3367 035e 22000000 		.4byte	.LFE85
+ 3368 0362 0100     		.2byte	0x1
+ 3369 0364 54       		.byte	0x54
+ 3370 0365 00000000 		.4byte	0
+ 3371 0369 00000000 		.4byte	0
+ 3372              	.LLST23:
+ 3373 036d 12000000 		.4byte	.LVL65
+ 3374 0371 1A000000 		.4byte	.LVL66
+ 3375 0375 0100     		.2byte	0x1
+ 3376 0377 50       		.byte	0x50
+ 3377 0378 00000000 		.4byte	0
+ 3378 037c 00000000 		.4byte	0
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 66
+
+
+ 3379              	.LLST24:
+ 3380 0380 00000000 		.4byte	.LVL68
+ 3381 0384 02000000 		.4byte	.LVL69
+ 3382 0388 0100     		.2byte	0x1
+ 3383 038a 50       		.byte	0x50
+ 3384 038b 02000000 		.4byte	.LVL69
+ 3385 038f 28000000 		.4byte	.LFE86
+ 3386 0393 0400     		.2byte	0x4
+ 3387 0395 F3       		.byte	0xf3
+ 3388 0396 01       		.uleb128 0x1
+ 3389 0397 50       		.byte	0x50
+ 3390 0398 9F       		.byte	0x9f
+ 3391 0399 00000000 		.4byte	0
+ 3392 039d 00000000 		.4byte	0
+ 3393              	.LLST25:
+ 3394 03a1 00000000 		.4byte	.LVL70
+ 3395 03a5 0C000000 		.4byte	.LVL71
+ 3396 03a9 0100     		.2byte	0x1
+ 3397 03ab 50       		.byte	0x50
+ 3398 03ac 0C000000 		.4byte	.LVL71
+ 3399 03b0 26000000 		.4byte	.LFE88
+ 3400 03b4 0100     		.2byte	0x1
+ 3401 03b6 56       		.byte	0x56
+ 3402 03b7 00000000 		.4byte	0
+ 3403 03bb 00000000 		.4byte	0
+ 3404              	.LLST26:
+ 3405 03bf 00000000 		.4byte	.LVL70
+ 3406 03c3 0F000000 		.4byte	.LVL72-1
+ 3407 03c7 0100     		.2byte	0x1
+ 3408 03c9 51       		.byte	0x51
+ 3409 03ca 0F000000 		.4byte	.LVL72-1
+ 3410 03ce 26000000 		.4byte	.LFE88
+ 3411 03d2 0100     		.2byte	0x1
+ 3412 03d4 54       		.byte	0x54
+ 3413 03d5 00000000 		.4byte	0
+ 3414 03d9 00000000 		.4byte	0
+ 3415              	.LLST27:
+ 3416 03dd 00000000 		.4byte	.LVL70
+ 3417 03e1 0F000000 		.4byte	.LVL72-1
+ 3418 03e5 0100     		.2byte	0x1
+ 3419 03e7 52       		.byte	0x52
+ 3420 03e8 0F000000 		.4byte	.LVL72-1
+ 3421 03ec 26000000 		.4byte	.LFE88
+ 3422 03f0 0400     		.2byte	0x4
+ 3423 03f2 F3       		.byte	0xf3
+ 3424 03f3 01       		.uleb128 0x1
+ 3425 03f4 52       		.byte	0x52
+ 3426 03f5 9F       		.byte	0x9f
+ 3427 03f6 00000000 		.4byte	0
+ 3428 03fa 00000000 		.4byte	0
+ 3429              	.LLST28:
+ 3430 03fe 00000000 		.4byte	.LVL74
+ 3431 0402 0D000000 		.4byte	.LVL75-1
+ 3432 0406 0100     		.2byte	0x1
+ 3433 0408 50       		.byte	0x50
+ 3434 0409 0D000000 		.4byte	.LVL75-1
+ 3435 040d 52000000 		.4byte	.LVL81
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 67
+
+
+ 3436 0411 0100     		.2byte	0x1
+ 3437 0413 54       		.byte	0x54
+ 3438 0414 52000000 		.4byte	.LVL81
+ 3439 0418 84000000 		.4byte	.LFE90
+ 3440 041c 0400     		.2byte	0x4
+ 3441 041e F3       		.byte	0xf3
+ 3442 041f 01       		.uleb128 0x1
+ 3443 0420 50       		.byte	0x50
+ 3444 0421 9F       		.byte	0x9f
+ 3445 0422 00000000 		.4byte	0
+ 3446 0426 00000000 		.4byte	0
+ 3447              		.section	.debug_aranges,"",%progbits
+ 3448 0000 64000000 		.4byte	0x64
+ 3449 0004 0200     		.2byte	0x2
+ 3450 0006 00000000 		.4byte	.Ldebug_info0
+ 3451 000a 04       		.byte	0x4
+ 3452 000b 00       		.byte	0
+ 3453 000c 0000     		.2byte	0
+ 3454 000e 0000     		.2byte	0
+ 3455 0010 00000000 		.4byte	.LFB81
+ 3456 0014 54000000 		.4byte	.LFE81-.LFB81
+ 3457 0018 00000000 		.4byte	.LFB82
+ 3458 001c 90000000 		.4byte	.LFE82-.LFB82
+ 3459 0020 00000000 		.4byte	.LFB89
+ 3460 0024 26000000 		.4byte	.LFE89-.LFB89
+ 3461 0028 00000000 		.4byte	.LFB87
+ 3462 002c 54000000 		.4byte	.LFE87-.LFB87
+ 3463 0030 00000000 		.4byte	.LFB84
+ 3464 0034 1E000000 		.4byte	.LFE84-.LFB84
+ 3465 0038 00000000 		.4byte	.LFB83
+ 3466 003c 58000000 		.4byte	.LFE83-.LFB83
+ 3467 0040 00000000 		.4byte	.LFB85
+ 3468 0044 22000000 		.4byte	.LFE85-.LFB85
+ 3469 0048 00000000 		.4byte	.LFB86
+ 3470 004c 28000000 		.4byte	.LFE86-.LFB86
+ 3471 0050 00000000 		.4byte	.LFB88
+ 3472 0054 26000000 		.4byte	.LFE88-.LFB88
+ 3473 0058 00000000 		.4byte	.LFB90
+ 3474 005c 84000000 		.4byte	.LFE90-.LFB90
+ 3475 0060 00000000 		.4byte	0
+ 3476 0064 00000000 		.4byte	0
+ 3477              		.section	.debug_ranges,"",%progbits
+ 3478              	.Ldebug_ranges0:
+ 3479 0000 00000000 		.4byte	.LFB81
+ 3480 0004 54000000 		.4byte	.LFE81
+ 3481 0008 00000000 		.4byte	.LFB82
+ 3482 000c 90000000 		.4byte	.LFE82
+ 3483 0010 00000000 		.4byte	.LFB89
+ 3484 0014 26000000 		.4byte	.LFE89
+ 3485 0018 00000000 		.4byte	.LFB87
+ 3486 001c 54000000 		.4byte	.LFE87
+ 3487 0020 00000000 		.4byte	.LFB84
+ 3488 0024 1E000000 		.4byte	.LFE84
+ 3489 0028 00000000 		.4byte	.LFB83
+ 3490 002c 58000000 		.4byte	.LFE83
+ 3491 0030 00000000 		.4byte	.LFB85
+ 3492 0034 22000000 		.4byte	.LFE85
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 68
+
+
+ 3493 0038 00000000 		.4byte	.LFB86
+ 3494 003c 28000000 		.4byte	.LFE86
+ 3495 0040 00000000 		.4byte	.LFB88
+ 3496 0044 26000000 		.4byte	.LFE88
+ 3497 0048 00000000 		.4byte	.LFB90
+ 3498 004c 84000000 		.4byte	.LFE90
+ 3499 0050 00000000 		.4byte	0
+ 3500 0054 00000000 		.4byte	0
+ 3501              		.section	.debug_line,"",%progbits
+ 3502              	.Ldebug_line0:
+ 3503 0000 43030000 		.section	.debug_str,"MS",%progbits,1
+ 3503      02003002 
+ 3503      00000201 
+ 3503      FB0E0D00 
+ 3503      01010101 
+ 3504              	.LASF108:
+ 3505 0000 73796D31 		.ascii	"sym1\000"
+ 3505      00
+ 3506              	.LASF126:
+ 3507 0005 6D726263 		.ascii	"mrbc_raw_alloc\000"
+ 3507      5F726177 
+ 3507      5F616C6C 
+ 3507      6F6300
+ 3508              	.LASF133:
+ 3509 0014 6D726263 		.ascii	"mrbc_init_class_symbol\000"
+ 3509      5F696E69 
+ 3509      745F636C 
+ 3509      6173735F 
+ 3509      73796D62 
+ 3510              	.LASF102:
+ 3511 002b 63737472 		.ascii	"cstr\000"
+ 3511      00
+ 3512              	.LASF115:
+ 3513 0030 73796D5F 		.ascii	"sym_index_pos\000"
+ 3513      696E6465 
+ 3513      785F706F 
+ 3513      7300
+ 3514              	.LASF43:
+ 3515 003e 4D52425F 		.ascii	"MRB_TT_SYMBOL\000"
+ 3515      54545F53 
+ 3515      594D424F 
+ 3515      4C00
+ 3516              	.LASF124:
+ 3517 004c 6D726263 		.ascii	"mrbc_array_new\000"
+ 3517      5F617272 
+ 3517      61795F6E 
+ 3517      657700
+ 3518              	.LASF77:
+ 3519 005b 52486173 		.ascii	"RHash\000"
+ 3519      6800
+ 3520              	.LASF120:
+ 3521 0061 636F6E73 		.ascii	"console_printf\000"
+ 3521      6F6C655F 
+ 3521      7072696E 
+ 3521      746600
+ 3522              	.LASF65:
+ 3523 0070 7265665F 		.ascii	"ref_count\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 69
+
+
+ 3523      636F756E 
+ 3523      7400
+ 3524              	.LASF116:
+ 3525 007a 6D726263 		.ascii	"mrbc_class_object\000"
+ 3525      5F636C61 
+ 3525      73735F6F 
+ 3525      626A6563 
+ 3525      7400
+ 3526              	.LASF13:
+ 3527 008c 756E7369 		.ascii	"unsigned int\000"
+ 3527      676E6564 
+ 3527      20696E74 
+ 3527      00
+ 3528              	.LASF70:
+ 3529 0099 6E657874 		.ascii	"next\000"
+ 3529      00
+ 3530              	.LASF95:
+ 3531 009e 6E5F6172 		.ascii	"n_args\000"
+ 3531      677300
+ 3532              	.LASF107:
+ 3533 00a5 635F616C 		.ascii	"c_all_symbols\000"
+ 3533      6C5F7379 
+ 3533      6D626F6C 
+ 3533      7300
+ 3534              	.LASF51:
+ 3535 00b3 6D72625F 		.ascii	"mrb_vtype\000"
+ 3535      76747970 
+ 3535      6500
+ 3536              	.LASF8:
+ 3537 00bd 5F5F696E 		.ascii	"__int32_t\000"
+ 3537      7433325F 
+ 3537      7400
+ 3538              	.LASF24:
+ 3539 00c7 69726570 		.ascii	"irep\000"
+ 3539      00
+ 3540              	.LASF81:
+ 3541 00cc 524B6579 		.ascii	"RKeyValueHandle\000"
+ 3541      56616C75 
+ 3541      6548616E 
+ 3541      646C6500 
+ 3542              	.LASF111:
+ 3543 00dc 7374725F 		.ascii	"str_to_symid\000"
+ 3543      746F5F73 
+ 3543      796D6964 
+ 3543      00
+ 3544              	.LASF68:
+ 3545 00e9 5250726F 		.ascii	"RProc\000"
+ 3545      6300
+ 3546              	.LASF82:
+ 3547 00ef 66756E63 		.ascii	"func\000"
+ 3547      00
+ 3548              	.LASF27:
+ 3549 00f4 72656773 		.ascii	"regs\000"
+ 3549      00
+ 3550              	.LASF127:
+ 3551 00f9 6D726263 		.ascii	"mrbc_string_new_cstr\000"
+ 3551      5F737472 
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 70
+
+
+ 3551      696E675F 
+ 3551      6E65775F 
+ 3551      63737472 
+ 3552              	.LASF38:
+ 3553 010e 4D52425F 		.ascii	"MRB_TT_NIL\000"
+ 3553      54545F4E 
+ 3553      494C00
+ 3554              	.LASF90:
+ 3555 0119 706F6F6C 		.ascii	"pools\000"
+ 3555      7300
+ 3556              	.LASF28:
+ 3557 011f 63757272 		.ascii	"current_regs\000"
+ 3557      656E745F 
+ 3557      72656773 
+ 3557      00
+ 3558              	.LASF14:
+ 3559 012c 696E7438 		.ascii	"int8_t\000"
+ 3559      5F7400
+ 3560              	.LASF60:
+ 3561 0133 52436C61 		.ascii	"RClass\000"
+ 3561      737300
+ 3562              	.LASF98:
+ 3563 013a 666C6F61 		.ascii	"float\000"
+ 3563      7400
+ 3564              	.LASF128:
+ 3565 0140 6D726263 		.ascii	"mrbc_define_class\000"
+ 3565      5F646566 
+ 3565      696E655F 
+ 3565      636C6173 
+ 3565      7300
+ 3566              	.LASF16:
+ 3567 0152 696E7431 		.ascii	"int16_t\000"
+ 3567      365F7400 
+ 3568              	.LASF41:
+ 3569 015a 4D52425F 		.ascii	"MRB_TT_FIXNUM\000"
+ 3569      54545F46 
+ 3569      49584E55 
+ 3569      4D00
+ 3570              	.LASF106:
+ 3571 0168 635F6571 		.ascii	"c_equal3\000"
+ 3571      75616C33 
+ 3571      00
+ 3572              	.LASF12:
+ 3573 0171 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 3573      206C6F6E 
+ 3573      6720756E 
+ 3573      7369676E 
+ 3573      65642069 
+ 3574              	.LASF123:
+ 3575 0188 6D726263 		.ascii	"mrbc_array_push\000"
+ 3575      5F617272 
+ 3575      61795F70 
+ 3575      75736800 
+ 3576              	.LASF78:
+ 3577 0198 6D72625F 		.ascii	"mrb_object\000"
+ 3577      6F626A65 
+ 3577      637400
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 71
+
+
+ 3578              	.LASF6:
+ 3579 01a3 5F5F7569 		.ascii	"__uint16_t\000"
+ 3579      6E743136 
+ 3579      5F7400
+ 3580              	.LASF110:
+ 3581 01ae 6D726263 		.ascii	"mrbc_symbol_new\000"
+ 3581      5F73796D 
+ 3581      626F6C5F 
+ 3581      6E657700 
+ 3582              	.LASF25:
+ 3583 01be 766D5F69 		.ascii	"vm_id\000"
+ 3583      6400
+ 3584              	.LASF30:
+ 3585 01c4 63616C6C 		.ascii	"callinfo\000"
+ 3585      696E666F 
+ 3585      00
+ 3586              	.LASF84:
+ 3587 01cd 6E6C6F63 		.ascii	"nlocals\000"
+ 3587      616C7300 
+ 3588              	.LASF122:
+ 3589 01d5 6D726263 		.ascii	"mrbc_release\000"
+ 3589      5F72656C 
+ 3589      65617365 
+ 3589      00
+ 3590              	.LASF45:
+ 3591 01e2 4D52425F 		.ascii	"MRB_TT_OBJECT\000"
+ 3591      54545F4F 
+ 3591      424A4543 
+ 3591      5400
+ 3592              	.LASF53:
+ 3593 01f0 696E7374 		.ascii	"instance\000"
+ 3593      616E6365 
+ 3593      00
+ 3594              	.LASF26:
+ 3595 01f9 70635F69 		.ascii	"pc_irep\000"
+ 3595      72657000 
+ 3596              	.LASF130:
+ 3597 0201 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 3597      43313120 
+ 3597      352E342E 
+ 3597      31203230 
+ 3597      31363036 
+ 3598 0234 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 3598      20726576 
+ 3598      6973696F 
+ 3598      6E203233 
+ 3598      37373135 
+ 3599 0267 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 3599      66756E63 
+ 3599      74696F6E 
+ 3599      2D736563 
+ 3599      74696F6E 
+ 3600              	.LASF79:
+ 3601 028f 6D72625F 		.ascii	"mrb_value\000"
+ 3601      76616C75 
+ 3601      6500
+ 3602              	.LASF85:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 72
+
+
+ 3603 0299 6E726567 		.ascii	"nregs\000"
+ 3603      7300
+ 3604              	.LASF72:
+ 3605 029f 64617461 		.ascii	"data_size\000"
+ 3605      5F73697A 
+ 3605      6500
+ 3606              	.LASF63:
+ 3607 02a9 70726F63 		.ascii	"procs\000"
+ 3607      7300
+ 3608              	.LASF94:
+ 3609 02af 43414C4C 		.ascii	"CALLINFO\000"
+ 3609      494E464F 
+ 3609      00
+ 3610              	.LASF23:
+ 3611 02b8 6D72625F 		.ascii	"mrb_func_t\000"
+ 3611      66756E63 
+ 3611      5F7400
+ 3612              	.LASF118:
+ 3613 02c3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 3613      52784275 
+ 3613      66666572 
+ 3613      00
+ 3614              	.LASF48:
+ 3615 02d0 4D52425F 		.ascii	"MRB_TT_STRING\000"
+ 3615      54545F53 
+ 3615      5452494E 
+ 3615      4700
+ 3616              	.LASF89:
+ 3617 02de 636F6465 		.ascii	"code\000"
+ 3617      00
+ 3618              	.LASF47:
+ 3619 02e3 4D52425F 		.ascii	"MRB_TT_ARRAY\000"
+ 3619      54545F41 
+ 3619      52524159 
+ 3619      00
+ 3620              	.LASF93:
+ 3621 02f0 6D72625F 		.ascii	"mrb_irep\000"
+ 3621      69726570 
+ 3621      00
+ 3622              	.LASF34:
+ 3623 02f9 666C6167 		.ascii	"flag_need_memfree\000"
+ 3623      5F6E6565 
+ 3623      645F6D65 
+ 3623      6D667265 
+ 3623      6500
+ 3624              	.LASF91:
+ 3625 030b 7074725F 		.ascii	"ptr_to_sym\000"
+ 3625      746F5F73 
+ 3625      796D00
+ 3626              	.LASF21:
+ 3627 0316 63686172 		.ascii	"char\000"
+ 3627      00
+ 3628              	.LASF66:
+ 3629 031b 69766172 		.ascii	"ivar\000"
+ 3629      00
+ 3630              	.LASF62:
+ 3631 0320 73757065 		.ascii	"super\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 73
+
+
+ 3631      7200
+ 3632              	.LASF56:
+ 3633 0326 73747269 		.ascii	"string\000"
+ 3633      6E6700
+ 3634              	.LASF49:
+ 3635 032d 4D52425F 		.ascii	"MRB_TT_RANGE\000"
+ 3635      54545F52 
+ 3635      414E4745 
+ 3635      00
+ 3636              	.LASF67:
+ 3637 033a 64617461 		.ascii	"data\000"
+ 3637      00
+ 3638              	.LASF131:
+ 3639 033f 2E2E5C2E 		.ascii	"..\\..\\mruby_c2\\Design01.cydsn\\symbol.c\000"
+ 3639      2E5C6D72 
+ 3639      7562795F 
+ 3639      63325C44 
+ 3639      65736967 
+ 3640              	.LASF119:
+ 3641 0366 73747263 		.ascii	"strcmp\000"
+ 3641      6D7000
+ 3642              	.LASF15:
+ 3643 036d 75696E74 		.ascii	"uint8_t\000"
+ 3643      385F7400 
+ 3644              	.LASF31:
+ 3645 0375 74617267 		.ascii	"target_class\000"
+ 3645      65745F63 
+ 3645      6C617373 
+ 3645      00
+ 3646              	.LASF103:
+ 3647 0382 73656172 		.ascii	"search_index\000"
+ 3647      63685F69 
+ 3647      6E646578 
+ 3647      00
+ 3648              	.LASF29:
+ 3649 038f 63616C6C 		.ascii	"callinfo_top\000"
+ 3649      696E666F 
+ 3649      5F746F70 
+ 3649      00
+ 3650              	.LASF114:
+ 3651 039c 73796D5F 		.ascii	"sym_index\000"
+ 3651      696E6465 
+ 3651      7800
+ 3652              	.LASF101:
+ 3653 03a6 72696768 		.ascii	"right\000"
+ 3653      7400
+ 3654              	.LASF11:
+ 3655 03ac 6C6F6E67 		.ascii	"long long int\000"
+ 3655      206C6F6E 
+ 3655      6720696E 
+ 3655      7400
+ 3656              	.LASF73:
+ 3657 03ba 6E5F7374 		.ascii	"n_stored\000"
+ 3657      6F726564 
+ 3657      00
+ 3658              	.LASF61:
+ 3659 03c3 73796D5F 		.ascii	"sym_id\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 74
+
+
+ 3659      696400
+ 3660              	.LASF129:
+ 3661 03ca 6D726263 		.ascii	"mrbc_define_method\000"
+ 3661      5F646566 
+ 3661      696E655F 
+ 3661      6D657468 
+ 3661      6F6400
+ 3662              	.LASF112:
+ 3663 03dd 73796D69 		.ascii	"symid_to_str\000"
+ 3663      645F746F 
+ 3663      5F737472 
+ 3663      00
+ 3664              	.LASF4:
+ 3665 03ea 5F5F696E 		.ascii	"__int16_t\000"
+ 3665      7431365F 
+ 3665      7400
+ 3666              	.LASF75:
+ 3667 03f4 73697A65 		.ascii	"size\000"
+ 3667      00
+ 3668              	.LASF37:
+ 3669 03f9 4D52425F 		.ascii	"MRB_TT_EMPTY\000"
+ 3669      54545F45 
+ 3669      4D505459 
+ 3669      00
+ 3670              	.LASF57:
+ 3671 0406 72616E67 		.ascii	"range\000"
+ 3671      6500
+ 3672              	.LASF64:
+ 3673 040c 52496E73 		.ascii	"RInstance\000"
+ 3673      74616E63 
+ 3673      6500
+ 3674              	.LASF105:
+ 3675 0416 61726763 		.ascii	"argc\000"
+ 3675      00
+ 3676              	.LASF0:
+ 3677 041b 5F5F696E 		.ascii	"__int8_t\000"
+ 3677      74385F74 
+ 3677      00
+ 3678              	.LASF40:
+ 3679 0424 4D52425F 		.ascii	"MRB_TT_TRUE\000"
+ 3679      54545F54 
+ 3679      52554500 
+ 3680              	.LASF125:
+ 3681 0430 7374726C 		.ascii	"strlen\000"
+ 3681      656E00
+ 3682              	.LASF55:
+ 3683 0437 61727261 		.ascii	"array\000"
+ 3683      7900
+ 3684              	.LASF39:
+ 3685 043d 4D52425F 		.ascii	"MRB_TT_FALSE\000"
+ 3685      54545F46 
+ 3685      414C5345 
+ 3685      00
+ 3686              	.LASF113:
+ 3687 044a 635F746F 		.ascii	"c_to_s\000"
+ 3687      5F7300
+ 3688              	.LASF19:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 75
+
+
+ 3689 0451 6C6F6E67 		.ascii	"long double\000"
+ 3689      20646F75 
+ 3689      626C6500 
+ 3690              	.LASF17:
+ 3691 045d 75696E74 		.ascii	"uint16_t\000"
+ 3691      31365F74 
+ 3691      00
+ 3692              	.LASF22:
+ 3693 0466 6D72625F 		.ascii	"mrb_sym\000"
+ 3693      73796D00 
+ 3694              	.LASF44:
+ 3695 046e 4D52425F 		.ascii	"MRB_TT_CLASS\000"
+ 3695      54545F43 
+ 3695      4C415353 
+ 3695      00
+ 3696              	.LASF5:
+ 3697 047b 73686F72 		.ascii	"short int\000"
+ 3697      7420696E 
+ 3697      7400
+ 3698              	.LASF9:
+ 3699 0485 6C6F6E67 		.ascii	"long int\000"
+ 3699      20696E74 
+ 3699      00
+ 3700              	.LASF58:
+ 3701 048e 68617368 		.ascii	"hash\000"
+ 3701      00
+ 3702              	.LASF35:
+ 3703 0493 524F626A 		.ascii	"RObject\000"
+ 3703      65637400 
+ 3704              	.LASF87:
+ 3705 049b 696C656E 		.ascii	"ilen\000"
+ 3705      00
+ 3706              	.LASF99:
+ 3707 04a0 53594D5F 		.ascii	"SYM_INDEX\000"
+ 3707      494E4445 
+ 3707      5800
+ 3708              	.LASF100:
+ 3709 04aa 6C656674 		.ascii	"left\000"
+ 3709      00
+ 3710              	.LASF1:
+ 3711 04af 5F5F7569 		.ascii	"__uint8_t\000"
+ 3711      6E74385F 
+ 3711      7400
+ 3712              	.LASF92:
+ 3713 04b9 72657073 		.ascii	"reps\000"
+ 3713      00
+ 3714              	.LASF88:
+ 3715 04be 706C656E 		.ascii	"plen\000"
+ 3715      00
+ 3716              	.LASF74:
+ 3717 04c3 52537472 		.ascii	"RString\000"
+ 3717      696E6700 
+ 3718              	.LASF104:
+ 3719 04cb 6164645F 		.ascii	"add_index\000"
+ 3719      696E6465 
+ 3719      7800
+ 3720              	.LASF54:
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 76
+
+
+ 3721 04d5 70726F63 		.ascii	"proc\000"
+ 3721      00
+ 3722              	.LASF20:
+ 3723 04da 73697A65 		.ascii	"sizetype\000"
+ 3723      74797065 
+ 3723      00
+ 3724              	.LASF10:
+ 3725 04e3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 3725      20756E73 
+ 3725      69676E65 
+ 3725      6420696E 
+ 3725      7400
+ 3726              	.LASF80:
+ 3727 04f5 6D72625F 		.ascii	"mrb_class\000"
+ 3727      636C6173 
+ 3727      7300
+ 3728              	.LASF18:
+ 3729 04ff 696E7433 		.ascii	"int32_t\000"
+ 3729      325F7400 
+ 3730              	.LASF86:
+ 3731 0507 726C656E 		.ascii	"rlen\000"
+ 3731      00
+ 3732              	.LASF83:
+ 3733 050c 49524550 		.ascii	"IREP\000"
+ 3733      00
+ 3734              	.LASF50:
+ 3735 0511 4D52425F 		.ascii	"MRB_TT_HASH\000"
+ 3735      54545F48 
+ 3735      41534800 
+ 3736              	.LASF109:
+ 3737 051d 63616C63 		.ascii	"calc_hash\000"
+ 3737      5F686173 
+ 3737      6800
+ 3738              	.LASF3:
+ 3739 0527 756E7369 		.ascii	"unsigned char\000"
+ 3739      676E6564 
+ 3739      20636861 
+ 3739      7200
+ 3740              	.LASF97:
+ 3741 0535 6D72625F 		.ascii	"mrb_vm\000"
+ 3741      766D00
+ 3742              	.LASF132:
+ 3743 053c 433A5C55 		.ascii	"C:\\Users\\164\\Documents\\PSoC Creator\\mcmc\\Desi"
+ 3743      73657273 
+ 3743      5C313634 
+ 3743      5C446F63 
+ 3743      756D656E 
+ 3744 0569 676E3031 		.ascii	"gn01.cydsn\000"
+ 3744      2E637964 
+ 3744      736E00
+ 3745              	.LASF32:
+ 3746 0574 6572726F 		.ascii	"error_code\000"
+ 3746      725F636F 
+ 3746      646500
+ 3747              	.LASF69:
+ 3748 057f 635F6675 		.ascii	"c_func\000"
+ 3748      6E6300
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 77
+
+
+ 3749              	.LASF33:
+ 3750 0586 666C6167 		.ascii	"flag_preemption\000"
+ 3750      5F707265 
+ 3750      656D7074 
+ 3750      696F6E00 
+ 3751              	.LASF46:
+ 3752 0596 4D52425F 		.ascii	"MRB_TT_PROC\000"
+ 3752      54545F50 
+ 3752      524F4300 
+ 3753              	.LASF2:
+ 3754 05a2 7369676E 		.ascii	"signed char\000"
+ 3754      65642063 
+ 3754      68617200 
+ 3755              	.LASF7:
+ 3756 05ae 73686F72 		.ascii	"short unsigned int\000"
+ 3756      7420756E 
+ 3756      7369676E 
+ 3756      65642069 
+ 3756      6E7400
+ 3757              	.LASF52:
+ 3758 05c1 68616E64 		.ascii	"handle\000"
+ 3758      6C6500
+ 3759              	.LASF134:
+ 3760 05c8 6D656D63 		.ascii	"memcpy\000"
+ 3760      707900
+ 3761              	.LASF96:
+ 3762 05cf 6D72625F 		.ascii	"mrb_callinfo\000"
+ 3762      63616C6C 
+ 3762      696E666F 
+ 3762      00
+ 3763              	.LASF121:
+ 3764 05dc 6D726263 		.ascii	"mrbc_compare\000"
+ 3764      5F636F6D 
+ 3764      70617265 
+ 3764      00
+ 3765              	.LASF71:
+ 3766 05e9 52417272 		.ascii	"RArray\000"
+ 3766      617900
+ 3767              	.LASF59:
+ 3768 05f0 646F7562 		.ascii	"double\000"
+ 3768      6C6500
+ 3769              	.LASF36:
+ 3770 05f7 4D52425F 		.ascii	"MRB_TT_HANDLE\000"
+ 3770      54545F48 
+ 3770      414E444C 
+ 3770      4500
+ 3771              	.LASF76:
+ 3772 0605 5252616E 		.ascii	"RRange\000"
+ 3772      676500
+ 3773              	.LASF117:
+ 3774 060c 6D726263 		.ascii	"mrbc_class_symbol\000"
+ 3774      5F636C61 
+ 3774      73735F73 
+ 3774      796D626F 
+ 3774      6C00
+ 3775              	.LASF42:
+ 3776 061e 4D52425F 		.ascii	"MRB_TT_FLOAT\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\ccuHDKDv.s 			page 78
+
+
+ 3776      54545F46 
+ 3776      4C4F4154 
+ 3776      00
+ 3777              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
