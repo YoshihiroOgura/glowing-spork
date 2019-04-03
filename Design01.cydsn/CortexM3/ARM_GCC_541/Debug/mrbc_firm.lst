@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 1
 
 
    1              		.syntax unified
@@ -27,63 +27,63 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
   24              		.type	usbuart_clear, %function
   25              	usbuart_clear:
   26              	.LFB63:
-  27              		.file 1 "..\\..\\mruby_c2\\Design01.cydsn\\mrbc_firm.c"
-   1:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! @file
-   2:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @brief
-   3:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   mruby/c firmware for mruby/c devkit 01
-   4:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-   5:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   <pre>
-   6:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   Copyright (C) 2018 Kyushu Institute of Technology.
-   7:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   Copyright (C) 2018 Shimane IT Open-Innovation Center.
-   8:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-   9:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   This file is distributed under BSD 3-Clause License.
-  10:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  11:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   </pre>
-  12:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  13:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  14:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  15:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #include <project.h>
-  16:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #include <stdlib.h>
-  17:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  18:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #include "mrbc_firm.h"
-  19:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  20:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  21:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #define MRUBYC_ROM_STRING       "mruby/c PSoC_5LP"
-  22:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #define MRUBYC_VERSION_STRING   "v1.00 (2018/09/04)"
-  23:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  24:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** #define USBUART_BUFFER_SIZE 64	// max 64bytes. see USBFS manual.
-  25:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  26:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  27:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  28:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  29:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART read buffer.
-  30:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 2
+  27              		.file 1 "mrbc_firm.c"
+   1:mrbc_firm.c   **** /*! @file
+   2:mrbc_firm.c   ****   @brief
+   3:mrbc_firm.c   ****   mruby/c firmware for mruby/c devkit 01
+   4:mrbc_firm.c   **** 
+   5:mrbc_firm.c   ****   <pre>
+   6:mrbc_firm.c   ****   Copyright (C) 2018 Kyushu Institute of Technology.
+   7:mrbc_firm.c   ****   Copyright (C) 2018 Shimane IT Open-Innovation Center.
+   8:mrbc_firm.c   **** 
+   9:mrbc_firm.c   ****   This file is distributed under BSD 3-Clause License.
+  10:mrbc_firm.c   **** 
+  11:mrbc_firm.c   ****   </pre>
+  12:mrbc_firm.c   **** */
+  13:mrbc_firm.c   **** 
+  14:mrbc_firm.c   **** 
+  15:mrbc_firm.c   **** #include <project.h>
+  16:mrbc_firm.c   **** #include <stdlib.h>
+  17:mrbc_firm.c   **** 
+  18:mrbc_firm.c   **** #include "mrbc_firm.h"
+  19:mrbc_firm.c   **** 
+  20:mrbc_firm.c   **** 
+  21:mrbc_firm.c   **** #define MRUBYC_ROM_STRING       "mruby/c PSoC_5LP"
+  22:mrbc_firm.c   **** #define MRUBYC_VERSION_STRING   "v1.00 (2018/09/04)"
+  23:mrbc_firm.c   **** 
+  24:mrbc_firm.c   **** #define USBUART_BUFFER_SIZE 64	// max 64bytes. see USBFS manual.
+  25:mrbc_firm.c   **** 
+  26:mrbc_firm.c   **** 
+  27:mrbc_firm.c   **** 
+  28:mrbc_firm.c   **** //================================================================
+  29:mrbc_firm.c   **** /*! USBUART read buffer.
+  30:mrbc_firm.c   **** */
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 2
 
 
-  31:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** static struct {
-  32:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   uint8_t buf[USBUART_BUFFER_SIZE * 2 + 1];
-  33:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   char flag_can_read_line;
-  34:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   uint8_t *p_buf_w;
-  35:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** } usbuart_;
-  36:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  37:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  38:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  39:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  40:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART buffer clear.
-  41:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  42:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** void usbuart_clear(void)
-  43:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+  31:mrbc_firm.c   **** static struct {
+  32:mrbc_firm.c   ****   uint8_t buf[USBUART_BUFFER_SIZE * 2 + 1];
+  33:mrbc_firm.c   ****   char flag_can_read_line;
+  34:mrbc_firm.c   ****   uint8_t *p_buf_w;
+  35:mrbc_firm.c   **** } usbuart_;
+  36:mrbc_firm.c   **** 
+  37:mrbc_firm.c   **** 
+  38:mrbc_firm.c   **** 
+  39:mrbc_firm.c   **** //================================================================
+  40:mrbc_firm.c   **** /*! USBUART buffer clear.
+  41:mrbc_firm.c   **** */
+  42:mrbc_firm.c   **** void usbuart_clear(void)
+  43:mrbc_firm.c   **** {
   28              		.loc 1 43 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32              		@ link register save eliminated.
-  44:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   usbuart_.p_buf_w = usbuart_.buf;
+  44:mrbc_firm.c   ****   usbuart_.p_buf_w = usbuart_.buf;
   33              		.loc 1 44 0
   34 0000 034B     		ldr	r3, .L2
   35 0002 C3F88430 		str	r3, [r3, #132]
-  45:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   usbuart_.flag_can_read_line = 0;
+  45:mrbc_firm.c   ****   usbuart_.flag_can_read_line = 0;
   36              		.loc 1 45 0
   37 0006 0022     		movs	r2, #0
   38 0008 83F88120 		strb	r2, [r3, #129]
@@ -103,26 +103,26 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
   52              		.type	usbuart_can_read_line, %function
   53              	usbuart_can_read_line:
   54              	.LFB64:
-  46:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
-  47:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  48:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  49:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  50:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART Can read line ?
-  51:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  52:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @retval	true if a line of data can be read.
-  53:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  54:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** int usbuart_can_read_line(void)
-  55:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+  46:mrbc_firm.c   **** }
+  47:mrbc_firm.c   **** 
+  48:mrbc_firm.c   **** 
+  49:mrbc_firm.c   **** //================================================================
+  50:mrbc_firm.c   **** /*! USBUART Can read line ?
+  51:mrbc_firm.c   **** 
+  52:mrbc_firm.c   ****   @retval	true if a line of data can be read.
+  53:mrbc_firm.c   **** */
+  54:mrbc_firm.c   **** int usbuart_can_read_line(void)
+  55:mrbc_firm.c   **** {
   55              		.loc 1 55 0
   56              		.cfi_startproc
   57              		@ args = 0, pretend = 0, frame = 0
   58              		@ frame_needed = 0, uses_anonymous_args = 0
   59              		@ link register save eliminated.
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 3
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 3
 
 
-  56:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return usbuart_.flag_can_read_line;
-  57:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+  56:mrbc_firm.c   ****   return usbuart_.flag_can_read_line;
+  57:mrbc_firm.c   **** }
   60              		.loc 1 57 0
   61 0000 014B     		ldr	r3, .L5
   62 0002 93F88100 		ldrb	r0, [r3, #129]	@ zero_extendqisi2
@@ -142,25 +142,25 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
   76              		.type	usbuart_size, %function
   77              	usbuart_size:
   78              	.LFB65:
-  58:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  59:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  60:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  61:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART return the byte size of buffer data.
-  62:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  63:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @retval	size
-  64:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  65:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** int usbuart_size(void)
-  66:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+  58:mrbc_firm.c   **** 
+  59:mrbc_firm.c   **** 
+  60:mrbc_firm.c   **** //================================================================
+  61:mrbc_firm.c   **** /*! USBUART return the byte size of buffer data.
+  62:mrbc_firm.c   **** 
+  63:mrbc_firm.c   ****   @retval	size
+  64:mrbc_firm.c   **** */
+  65:mrbc_firm.c   **** int usbuart_size(void)
+  66:mrbc_firm.c   **** {
   79              		.loc 1 66 0
   80              		.cfi_startproc
   81              		@ args = 0, pretend = 0, frame = 0
   82              		@ frame_needed = 0, uses_anonymous_args = 0
   83              		@ link register save eliminated.
-  67:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return usbuart_.p_buf_w - usbuart_.buf;
+  67:mrbc_firm.c   ****   return usbuart_.p_buf_w - usbuart_.buf;
   84              		.loc 1 67 0
   85 0000 024B     		ldr	r3, .L8
   86 0002 D3F88400 		ldr	r0, [r3, #132]
-  68:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+  68:mrbc_firm.c   **** }
   87              		.loc 1 68 0
   88 0006 C01A     		subs	r0, r0, r3
   89 0008 7047     		bx	lr
@@ -178,26 +178,26 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  101              		.thumb_func
  102              		.type	usbuart_cstr, %function
  103              	usbuart_cstr:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 4
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 4
 
 
  104              	.LFB66:
-  69:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  70:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  71:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  72:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART return the pointer to read buffer.
-  73:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  74:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @retval	pointer to read buffer.
-  75:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  76:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** char * usbuart_cstr(void)
-  77:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+  69:mrbc_firm.c   **** 
+  70:mrbc_firm.c   **** 
+  71:mrbc_firm.c   **** //================================================================
+  72:mrbc_firm.c   **** /*! USBUART return the pointer to read buffer.
+  73:mrbc_firm.c   **** 
+  74:mrbc_firm.c   ****   @retval	pointer to read buffer.
+  75:mrbc_firm.c   **** */
+  76:mrbc_firm.c   **** char * usbuart_cstr(void)
+  77:mrbc_firm.c   **** {
  105              		.loc 1 77 0
  106              		.cfi_startproc
  107              		@ args = 0, pretend = 0, frame = 0
  108              		@ frame_needed = 0, uses_anonymous_args = 0
  109              		@ link register save eliminated.
-  78:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return (char*)usbuart_.buf;
-  79:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+  78:mrbc_firm.c   ****   return (char*)usbuart_.buf;
+  79:mrbc_firm.c   **** }
  110              		.loc 1 79 0
  111 0000 0048     		ldr	r0, .L11
  112 0002 7047     		bx	lr
@@ -216,15 +216,15 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  125              		.type	usbuart_put_string, %function
  126              	usbuart_put_string:
  127              	.LFB67:
-  80:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  81:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  82:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  83:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART put string
-  84:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  85:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param
-  86:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
-  87:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** void usbuart_put_string( const char *s )
-  88:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+  80:mrbc_firm.c   **** 
+  81:mrbc_firm.c   **** 
+  82:mrbc_firm.c   **** //================================================================
+  83:mrbc_firm.c   **** /*! USBUART put string
+  84:mrbc_firm.c   **** 
+  85:mrbc_firm.c   ****   @param
+  86:mrbc_firm.c   **** */
+  87:mrbc_firm.c   **** void usbuart_put_string( const char *s )
+  88:mrbc_firm.c   **** {
  128              		.loc 1 88 0
  129              		.cfi_startproc
  130              		@ args = 0, pretend = 0, frame = 0
@@ -237,18 +237,18 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  137 0002 0446     		mov	r4, r0
  138              	.LVL1:
  139              	.L14:
-  89:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   //  To be sure that the previous data has finished sending.
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 5
+  89:mrbc_firm.c   ****   //  To be sure that the previous data has finished sending.
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 5
 
 
-  90:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
+  90:mrbc_firm.c   ****   while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
  140              		.loc 1 90 0 discriminator 1
  141 0004 FFF7FEFF 		bl	USBUART_CDCIsReady
  142              	.LVL2:
  143 0008 0028     		cmp	r0, #0
  144 000a FBD0     		beq	.L14
-  91:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  92:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   USBUART_PutString(s);
+  91:mrbc_firm.c   **** 
+  92:mrbc_firm.c   ****   USBUART_PutString(s);
  145              		.loc 1 92 0
  146 000c 2046     		mov	r0, r4
  147 000e FFF7FEFF 		bl	USBUART_PutString
@@ -265,58 +265,58 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  158              		.type	usbuart_write, %function
  159              	usbuart_write:
  160              	.LFB69:
-  93:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
-  94:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  95:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  96:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-  97:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART binary read.
-  98:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-  99:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param  buf	pointer to read buffer.
- 100:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param  nbyte	maximum reading byte length.
- 101:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @retval	read length.
- 102:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
- 103:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** int usbuart_read( void *buf, int nbyte )
- 104:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
- 105:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   int len = nbyte;
- 106:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 107:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   while( len > 0 ) {
- 108:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( usbuart_size() == 0 ) {
- 109:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( usbuart_event() < 0 ) {
- 110:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	return 0;
- 111:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       }
- 112:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       continue;
- 113:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 114:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 115:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int copy_size = usbuart_size() < len ? usbuart_size() : len;
- 116:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int remain = usbuart_size() - copy_size;
- 117:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 118:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     memcpy( buf, usbuart_.buf, copy_size );
- 119:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( remain > 0 ) {
- 120:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       memmove( usbuart_.buf, usbuart_.buf + copy_size, remain );
- 121:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_.p_buf_w = usbuart_.buf + remain;
- 122:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     } else {
- 123:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_clear();
- 124:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 125:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 6
+  93:mrbc_firm.c   **** }
+  94:mrbc_firm.c   **** 
+  95:mrbc_firm.c   **** 
+  96:mrbc_firm.c   **** //================================================================
+  97:mrbc_firm.c   **** /*! USBUART binary read.
+  98:mrbc_firm.c   **** 
+  99:mrbc_firm.c   ****   @param  buf	pointer to read buffer.
+ 100:mrbc_firm.c   ****   @param  nbyte	maximum reading byte length.
+ 101:mrbc_firm.c   ****   @retval	read length.
+ 102:mrbc_firm.c   **** */
+ 103:mrbc_firm.c   **** int usbuart_read( void *buf, int nbyte )
+ 104:mrbc_firm.c   **** {
+ 105:mrbc_firm.c   ****   int len = nbyte;
+ 106:mrbc_firm.c   **** 
+ 107:mrbc_firm.c   ****   while( len > 0 ) {
+ 108:mrbc_firm.c   ****     if( usbuart_size() == 0 ) {
+ 109:mrbc_firm.c   ****       if( usbuart_event() < 0 ) {
+ 110:mrbc_firm.c   **** 	return 0;
+ 111:mrbc_firm.c   ****       }
+ 112:mrbc_firm.c   ****       continue;
+ 113:mrbc_firm.c   ****     }
+ 114:mrbc_firm.c   **** 
+ 115:mrbc_firm.c   ****     int copy_size = usbuart_size() < len ? usbuart_size() : len;
+ 116:mrbc_firm.c   ****     int remain = usbuart_size() - copy_size;
+ 117:mrbc_firm.c   **** 
+ 118:mrbc_firm.c   ****     memcpy( buf, usbuart_.buf, copy_size );
+ 119:mrbc_firm.c   ****     if( remain > 0 ) {
+ 120:mrbc_firm.c   ****       memmove( usbuart_.buf, usbuart_.buf + copy_size, remain );
+ 121:mrbc_firm.c   ****       usbuart_.p_buf_w = usbuart_.buf + remain;
+ 122:mrbc_firm.c   ****     } else {
+ 123:mrbc_firm.c   ****       usbuart_clear();
+ 124:mrbc_firm.c   ****     }
+ 125:mrbc_firm.c   **** 
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 6
 
 
- 126:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     buf += copy_size;
- 127:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     len -= copy_size;
- 128:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 129:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 130:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return nbyte;
- 131:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
- 132:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 133:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 134:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
- 135:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART binary write.
- 136:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 137:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param  buf	pointer to write data.
- 138:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param  nbyte	write byte size.
- 139:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
- 140:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** void usbuart_write( const char *buf, int nbyte )
- 141:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+ 126:mrbc_firm.c   ****     buf += copy_size;
+ 127:mrbc_firm.c   ****     len -= copy_size;
+ 128:mrbc_firm.c   ****   }
+ 129:mrbc_firm.c   **** 
+ 130:mrbc_firm.c   ****   return nbyte;
+ 131:mrbc_firm.c   **** }
+ 132:mrbc_firm.c   **** 
+ 133:mrbc_firm.c   **** 
+ 134:mrbc_firm.c   **** //================================================================
+ 135:mrbc_firm.c   **** /*! USBUART binary write.
+ 136:mrbc_firm.c   **** 
+ 137:mrbc_firm.c   ****   @param  buf	pointer to write data.
+ 138:mrbc_firm.c   ****   @param  nbyte	write byte size.
+ 139:mrbc_firm.c   **** */
+ 140:mrbc_firm.c   **** void usbuart_write( const char *buf, int nbyte )
+ 141:mrbc_firm.c   **** {
  161              		.loc 1 141 0
  162              		.cfi_startproc
  163              		@ args = 0, pretend = 0, frame = 0
@@ -330,65 +330,65 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  171              		.cfi_offset 14, -4
  172 0002 0546     		mov	r5, r0
  173 0004 0C46     		mov	r4, r1
- 142:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   while( nbyte > 0 ) {
+ 142:mrbc_firm.c   ****   while( nbyte > 0 ) {
  174              		.loc 1 142 0
  175 0006 0DE0     		b	.L17
  176              	.LVL5:
  177              	.L18:
  178              	.LBB2:
- 143:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     //  To be sure that the previous data has finished sending.
- 144:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
+ 143:mrbc_firm.c   ****     //  To be sure that the previous data has finished sending.
+ 144:mrbc_firm.c   ****     while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
  179              		.loc 1 144 0 discriminator 1
  180 0008 FFF7FEFF 		bl	USBUART_CDCIsReady
  181              	.LVL6:
  182 000c 0028     		cmp	r0, #0
  183 000e FBD0     		beq	.L18
- 145:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 146:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int size = (nbyte < USBUART_BUFFER_SIZE) ? nbyte : USBUART_BUFFER_SIZE;
+ 145:mrbc_firm.c   **** 
+ 146:mrbc_firm.c   ****     int size = (nbyte < USBUART_BUFFER_SIZE) ? nbyte : USBUART_BUFFER_SIZE;
  184              		.loc 1 146 0
  185 0010 2146     		mov	r1, r4
  186 0012 402C     		cmp	r4, #64
  187 0014 A8BF     		it	ge
  188 0016 4021     		movge	r1, #64
  189              	.LVL7:
- 147:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     USBUART_PutData( (uint8_t*)buf, size );
+ 147:mrbc_firm.c   ****     USBUART_PutData( (uint8_t*)buf, size );
  190              		.loc 1 147 0
  191 0018 89B2     		uxth	r1, r1
  192              	.LVL8:
  193 001a 2846     		mov	r0, r5
  194 001c FFF7FEFF 		bl	USBUART_PutData
  195              	.LVL9:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 7
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 7
 
 
- 148:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     buf += USBUART_BUFFER_SIZE;
+ 148:mrbc_firm.c   ****     buf += USBUART_BUFFER_SIZE;
  196              		.loc 1 148 0
  197 0020 4035     		adds	r5, r5, #64
  198              	.LVL10:
- 149:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     nbyte -= USBUART_BUFFER_SIZE;
+ 149:mrbc_firm.c   ****     nbyte -= USBUART_BUFFER_SIZE;
  199              		.loc 1 149 0
  200 0022 403C     		subs	r4, r4, #64
  201              	.LVL11:
  202              	.L17:
  203              	.LBE2:
- 142:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     //  To be sure that the previous data has finished sending.
+ 142:mrbc_firm.c   ****     //  To be sure that the previous data has finished sending.
  204              		.loc 1 142 0
  205 0024 002C     		cmp	r4, #0
  206 0026 EFDC     		bgt	.L18
- 150:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 151:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 152:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( nbyte == 0 ) {
+ 150:mrbc_firm.c   ****   }
+ 151:mrbc_firm.c   **** 
+ 152:mrbc_firm.c   ****   if( nbyte == 0 ) {
  207              		.loc 1 152 0
  208 0028 3CB9     		cbnz	r4, .L16
  209              	.L20:
- 153:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     /* Send zero-length packet to PC. */
- 154:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
+ 153:mrbc_firm.c   ****     /* Send zero-length packet to PC. */
+ 154:mrbc_firm.c   ****     while( !USBUART_CDCIsReady() ) { /* busy loop. */ }
  210              		.loc 1 154 0 discriminator 1
  211 002a FFF7FEFF 		bl	USBUART_CDCIsReady
  212              	.LVL12:
  213 002e 0028     		cmp	r0, #0
  214 0030 FBD0     		beq	.L20
- 155:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     USBUART_PutData(NULL, 0);
+ 155:mrbc_firm.c   ****     USBUART_PutData(NULL, 0);
  215              		.loc 1 155 0
  216 0032 0021     		movs	r1, #0
  217 0034 0846     		mov	r0, r1
@@ -407,18 +407,18 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  230              		.type	usbuart_event, %function
  231              	usbuart_event:
  232              	.LFB70:
- 156:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 157:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
- 158:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 159:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 160:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
- 161:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! USBUART event handler.
- 162:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 163:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @retval
- 164:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
- 165:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** int usbuart_event(void)
- 166:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 8
+ 156:mrbc_firm.c   ****   }
+ 157:mrbc_firm.c   **** }
+ 158:mrbc_firm.c   **** 
+ 159:mrbc_firm.c   **** 
+ 160:mrbc_firm.c   **** //================================================================
+ 161:mrbc_firm.c   **** /*! USBUART event handler.
+ 162:mrbc_firm.c   **** 
+ 163:mrbc_firm.c   ****   @retval
+ 164:mrbc_firm.c   **** */
+ 165:mrbc_firm.c   **** int usbuart_event(void)
+ 166:mrbc_firm.c   **** {
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 8
 
 
  233              		.loc 1 166 0
@@ -431,71 +431,71 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  240              		.cfi_offset 4, -12
  241              		.cfi_offset 5, -8
  242              		.cfi_offset 14, -4
- 167:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( USBUART_IsConfigurationChanged() ) {
+ 167:mrbc_firm.c   ****   if( USBUART_IsConfigurationChanged() ) {
  243              		.loc 1 167 0
  244 0002 FFF7FEFF 		bl	USBUART_IsConfigurationChanged
  245              	.LVL14:
  246 0006 30B1     		cbz	r0, .L23
- 168:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     /* Initialize IN endpoints when device is configured. */
- 169:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( USBUART_GetConfiguration() ) {
+ 168:mrbc_firm.c   ****     /* Initialize IN endpoints when device is configured. */
+ 169:mrbc_firm.c   ****     if( USBUART_GetConfiguration() ) {
  247              		.loc 1 169 0
  248 0008 FFF7FEFF 		bl	USBUART_GetConfiguration
  249              	.LVL15:
  250 000c 88B3     		cbz	r0, .L29
- 170:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       /* Enumeration is done, enable OUT endpoint to receive data from host. */
- 171:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       USBUART_CDC_Init();
+ 170:mrbc_firm.c   ****       /* Enumeration is done, enable OUT endpoint to receive data from host. */
+ 171:mrbc_firm.c   ****       USBUART_CDC_Init();
  251              		.loc 1 171 0
  252 000e FFF7FEFF 		bl	USBUART_CDC_Init
  253              	.LVL16:
- 172:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 173:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 174:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     return 1;
+ 172:mrbc_firm.c   ****     }
+ 173:mrbc_firm.c   **** 
+ 174:mrbc_firm.c   ****     return 1;
  254              		.loc 1 174 0
  255 0012 0120     		movs	r0, #1
  256 0014 38BD     		pop	{r3, r4, r5, pc}
  257              	.L23:
- 175:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 176:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 177:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( !USBUART_GetConfiguration() ) {
+ 175:mrbc_firm.c   ****   }
+ 176:mrbc_firm.c   **** 
+ 177:mrbc_firm.c   ****   if( !USBUART_GetConfiguration() ) {
  258              		.loc 1 177 0
  259 0016 FFF7FEFF 		bl	USBUART_GetConfiguration
  260              	.LVL17:
  261 001a 60B3     		cbz	r0, .L30
- 178:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     return -1;
- 179:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 180:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 181:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( USBUART_DataIsReady() ) {
+ 178:mrbc_firm.c   ****     return -1;
+ 179:mrbc_firm.c   ****   }
+ 180:mrbc_firm.c   **** 
+ 181:mrbc_firm.c   ****   if( USBUART_DataIsReady() ) {
  262              		.loc 1 181 0
  263 001c FFF7FEFF 		bl	USBUART_DataIsReady
  264              	.LVL18:
  265 0020 60B3     		cbz	r0, .L31
  266              	.LBB3:
- 182:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int count = USBUART_GetCount();
+ 182:mrbc_firm.c   ****     int count = USBUART_GetCount();
  267              		.loc 1 182 0
  268 0022 FFF7FEFF 		bl	USBUART_GetCount
  269              	.LVL19:
  270 0026 0546     		mov	r5, r0
  271              	.LVL20:
- 183:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int remain = sizeof(usbuart_.buf) - usbuart_size() - 1;
+ 183:mrbc_firm.c   ****     int remain = sizeof(usbuart_.buf) - usbuart_size() - 1;
  272              		.loc 1 183 0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 9
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 9
 
 
  273 0028 FFF7FEFF 		bl	usbuart_size
  274              	.LVL21:
  275 002c C0F18004 		rsb	r4, r0, #128
  276              	.LVL22:
- 184:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 185:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( count > remain ) count = remain;
+ 184:mrbc_firm.c   **** 
+ 185:mrbc_firm.c   ****     if( count > remain ) count = remain;
  277              		.loc 1 185 0
  278 0030 A542     		cmp	r5, r4
  279 0032 00DC     		bgt	.L25
- 182:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int remain = sizeof(usbuart_.buf) - usbuart_size() - 1;
+ 182:mrbc_firm.c   ****     int remain = sizeof(usbuart_.buf) - usbuart_size() - 1;
  280              		.loc 1 182 0
  281 0034 2C46     		mov	r4, r5
  282              	.LVL23:
  283              	.L25:
- 186:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     USBUART_GetData( usbuart_.p_buf_w, count );
+ 186:mrbc_firm.c   ****     USBUART_GetData( usbuart_.p_buf_w, count );
  284              		.loc 1 186 0
  285 0036 A1B2     		uxth	r1, r4
  286 0038 114B     		ldr	r3, .L33
@@ -503,12 +503,12 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  288              	.LVL24:
  289 003e FFF7FEFF 		bl	USBUART_GetData
  290              	.LVL25:
- 187:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 188:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     for( ; count != 0; count-- ) {
+ 187:mrbc_firm.c   **** 
+ 188:mrbc_firm.c   ****     for( ; count != 0; count-- ) {
  291              		.loc 1 188 0
  292 0042 0DE0     		b	.L26
  293              	.L28:
- 189:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( *usbuart_.p_buf_w++ == '\n' ) {
+ 189:mrbc_firm.c   ****       if( *usbuart_.p_buf_w++ == '\n' ) {
  294              		.loc 1 189 0
  295 0044 0E4A     		ldr	r2, .L33
  296 0046 D2F88430 		ldr	r3, [r2, #132]
@@ -517,57 +517,57 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  299 0050 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  300 0052 0A2B     		cmp	r3, #10
  301 0054 03D1     		bne	.L27
- 190:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	usbuart_.flag_can_read_line = 1;
+ 190:mrbc_firm.c   **** 	usbuart_.flag_can_read_line = 1;
  302              		.loc 1 190 0
  303 0056 0122     		movs	r2, #1
  304 0058 094B     		ldr	r3, .L33
  305 005a 83F88120 		strb	r2, [r3, #129]
  306              	.L27:
- 188:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( *usbuart_.p_buf_w++ == '\n' ) {
+ 188:mrbc_firm.c   ****       if( *usbuart_.p_buf_w++ == '\n' ) {
  307              		.loc 1 188 0
  308 005e 013C     		subs	r4, r4, #1
  309              	.LVL26:
  310              	.L26:
- 188:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( *usbuart_.p_buf_w++ == '\n' ) {
+ 188:mrbc_firm.c   ****       if( *usbuart_.p_buf_w++ == '\n' ) {
  311              		.loc 1 188 0 is_stmt 0 discriminator 1
  312 0060 002C     		cmp	r4, #0
  313 0062 EFD1     		bne	.L28
- 191:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       }
- 192:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 193:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     *usbuart_.p_buf_w = '\0';
+ 191:mrbc_firm.c   ****       }
+ 192:mrbc_firm.c   ****     }
+ 193:mrbc_firm.c   ****     *usbuart_.p_buf_w = '\0';
  314              		.loc 1 193 0 is_stmt 1
  315 0064 064B     		ldr	r3, .L33
  316 0066 D3F88430 		ldr	r3, [r3, #132]
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 10
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 10
 
 
  317 006a 0022     		movs	r2, #0
  318 006c 1A70     		strb	r2, [r3]
- 194:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 195:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     // TODO check buffer full
- 196:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     return 2;
+ 194:mrbc_firm.c   **** 
+ 195:mrbc_firm.c   ****     // TODO check buffer full
+ 196:mrbc_firm.c   ****     return 2;
  319              		.loc 1 196 0
  320 006e 0220     		movs	r0, #2
  321 0070 38BD     		pop	{r3, r4, r5, pc}
  322              	.LVL27:
  323              	.L29:
  324              	.LBE3:
- 174:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
+ 174:mrbc_firm.c   ****   }
  325              		.loc 1 174 0
  326 0072 0120     		movs	r0, #1
  327 0074 38BD     		pop	{r3, r4, r5, pc}
  328              	.L30:
- 178:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
+ 178:mrbc_firm.c   ****   }
  329              		.loc 1 178 0
  330 0076 4FF0FF30 		mov	r0, #-1
  331 007a 38BD     		pop	{r3, r4, r5, pc}
  332              	.L31:
- 197:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 198:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 199:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return 0;
+ 197:mrbc_firm.c   ****   }
+ 198:mrbc_firm.c   **** 
+ 199:mrbc_firm.c   ****   return 0;
  333              		.loc 1 199 0
  334 007c 0020     		movs	r0, #0
- 200:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+ 200:mrbc_firm.c   **** }
  335              		.loc 1 200 0
  336 007e 38BD     		pop	{r3, r4, r5, pc}
  337              	.L34:
@@ -585,7 +585,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  349              		.type	usbuart_read, %function
  350              	usbuart_read:
  351              	.LFB68:
- 104:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   int len = nbyte;
+ 104:mrbc_firm.c   ****   int len = nbyte;
  352              		.loc 1 104 0
  353              		.cfi_startproc
  354              		@ args = 0, pretend = 0, frame = 0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  361              		.cfi_offset 6, -24
  362              		.cfi_offset 7, -20
  363              		.cfi_offset 8, -16
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 11
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 11
 
 
  364              		.cfi_offset 9, -12
@@ -607,22 +607,22 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  367 0004 8046     		mov	r8, r0
  368 0006 8946     		mov	r9, r1
  369              	.LVL29:
- 105:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
+ 105:mrbc_firm.c   **** 
  370              		.loc 1 105 0
  371 0008 0E46     		mov	r6, r1
- 107:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( usbuart_size() == 0 ) {
+ 107:mrbc_firm.c   ****     if( usbuart_size() == 0 ) {
  372              		.loc 1 107 0
  373 000a 24E0     		b	.L36
  374              	.LVL30:
  375              	.L43:
  376              	.LBB4:
- 108:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( usbuart_event() < 0 ) {
+ 108:mrbc_firm.c   ****       if( usbuart_event() < 0 ) {
  377              		.loc 1 108 0
  378 000c FFF7FEFF 		bl	usbuart_size
  379              	.LVL31:
  380 0010 0246     		mov	r2, r0
  381 0012 20B9     		cbnz	r0, .L37
- 109:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	return 0;
+ 109:mrbc_firm.c   **** 	return 0;
  382              		.loc 1 109 0
  383 0014 FFF7FEFF 		bl	usbuart_event
  384              	.LVL32:
@@ -630,7 +630,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  386 001a 1CDA     		bge	.L36
  387 001c 20E0     		b	.L44
  388              	.L37:
- 115:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int remain = usbuart_size() - copy_size;
+ 115:mrbc_firm.c   ****     int remain = usbuart_size() - copy_size;
  389              		.loc 1 115 0
  390 001e 8642     		cmp	r6, r0
  391 0020 01DD     		ble	.L45
@@ -640,11 +640,11 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  395 0026 3546     		mov	r5, r6
  396              	.L40:
  397              	.LVL33:
- 116:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
+ 116:mrbc_firm.c   **** 
  398              		.loc 1 116 0 discriminator 4
  399 0028 541B     		subs	r4, r2, r5
  400              	.LVL34:
- 118:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( remain > 0 ) {
+ 118:mrbc_firm.c   ****     if( remain > 0 ) {
  401              		.loc 1 118 0 discriminator 4
  402 002a AA46     		mov	r10, r5
  403 002c 2A46     		mov	r2, r5
@@ -652,13 +652,13 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  405 0030 4046     		mov	r0, r8
  406 0032 FFF7FEFF 		bl	memcpy
  407              	.LVL35:
- 119:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       memmove( usbuart_.buf, usbuart_.buf + copy_size, remain );
+ 119:mrbc_firm.c   ****       memmove( usbuart_.buf, usbuart_.buf + copy_size, remain );
  408              		.loc 1 119 0 discriminator 4
  409 0036 002C     		cmp	r4, #0
  410 0038 09DD     		ble	.L41
- 120:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_.p_buf_w = usbuart_.buf + remain;
+ 120:mrbc_firm.c   ****       usbuart_.p_buf_w = usbuart_.buf + remain;
  411              		.loc 1 120 0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 12
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 12
 
 
  412 003a 0B4F     		ldr	r7, .L47
@@ -667,43 +667,43 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  415 0040 3846     		mov	r0, r7
  416 0042 FFF7FEFF 		bl	memmove
  417              	.LVL36:
- 121:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     } else {
+ 121:mrbc_firm.c   ****     } else {
  418              		.loc 1 121 0
  419 0046 3A19     		adds	r2, r7, r4
  420 0048 C7F88420 		str	r2, [r7, #132]
  421 004c 01E0     		b	.L42
  422              	.L41:
- 123:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
+ 123:mrbc_firm.c   ****     }
  423              		.loc 1 123 0
  424 004e FFF7FEFF 		bl	usbuart_clear
  425              	.LVL37:
  426              	.L42:
- 126:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     len -= copy_size;
+ 126:mrbc_firm.c   ****     len -= copy_size;
  427              		.loc 1 126 0
  428 0052 D044     		add	r8, r8, r10
  429              	.LVL38:
- 127:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
+ 127:mrbc_firm.c   ****   }
  430              		.loc 1 127 0
  431 0054 761B     		subs	r6, r6, r5
  432              	.LVL39:
  433              	.L36:
  434              	.LBE4:
- 107:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( usbuart_size() == 0 ) {
+ 107:mrbc_firm.c   ****     if( usbuart_size() == 0 ) {
  435              		.loc 1 107 0
  436 0056 002E     		cmp	r6, #0
  437 0058 D8DC     		bgt	.L43
- 130:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+ 130:mrbc_firm.c   **** }
  438              		.loc 1 130 0
  439 005a 4846     		mov	r0, r9
  440 005c BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
  441              	.LVL40:
  442              	.L44:
  443              	.LBB5:
- 110:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       }
+ 110:mrbc_firm.c   ****       }
  444              		.loc 1 110 0
  445 0060 0020     		movs	r0, #0
  446              	.LBE5:
- 131:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
+ 131:mrbc_firm.c   **** 
  447              		.loc 1 131 0
  448 0062 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
  449              	.LVL41:
@@ -718,42 +718,42 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  458              		.align	2
  459              		.thumb
  460              		.thumb_func
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 13
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 13
 
 
  461              		.type	write_bytecode, %function
  462              	write_bytecode:
  463              	.LFB71:
- 201:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 202:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 203:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 204:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
- 205:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! write bytecode
- 206:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 207:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   @param  size	size of bytecode
- 208:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
- 209:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** static int write_bytecode( uint16_t size )
- 210:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+ 201:mrbc_firm.c   **** 
+ 202:mrbc_firm.c   **** 
+ 203:mrbc_firm.c   **** 
+ 204:mrbc_firm.c   **** //================================================================
+ 205:mrbc_firm.c   **** /*! write bytecode
+ 206:mrbc_firm.c   **** 
+ 207:mrbc_firm.c   ****   @param  size	size of bytecode
+ 208:mrbc_firm.c   **** */
+ 209:mrbc_firm.c   **** static int write_bytecode( uint16_t size )
+ 210:mrbc_firm.c   **** {
  464              		.loc 1 210 0
  465              		.cfi_startproc
  466              		@ args = 0, pretend = 0, frame = 264
  467              		@ frame_needed = 0, uses_anonymous_args = 0
  468              	.LVL42:
- 211:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static const uint8_t *flash_addr = mruby_bytecode + sizeof(uint16_t) * MRBC_MAX_BYTECODES;
- 212:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static const uint8_t * flash_addr_end = mruby_bytecode + MRBC_SIZE_IREP_STRAGE;
- 213:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static int bytecode_index = 0;
- 214:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 215:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   cystatus status;
- 216:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   uint8_t buf[CY_FLASH_SIZEOF_ROW];
- 217:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   uint16_t tbl_bytecode_size[MRBC_MAX_BYTECODES];
- 218:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 219:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( bytecode_index >= MRBC_MAX_BYTECODES ) return 1;
+ 211:mrbc_firm.c   ****   static const uint8_t *flash_addr = mruby_bytecode + sizeof(uint16_t) * MRBC_MAX_BYTECODES;
+ 212:mrbc_firm.c   ****   static const uint8_t * flash_addr_end = mruby_bytecode + MRBC_SIZE_IREP_STRAGE;
+ 213:mrbc_firm.c   ****   static int bytecode_index = 0;
+ 214:mrbc_firm.c   **** 
+ 215:mrbc_firm.c   ****   cystatus status;
+ 216:mrbc_firm.c   ****   uint8_t buf[CY_FLASH_SIZEOF_ROW];
+ 217:mrbc_firm.c   ****   uint16_t tbl_bytecode_size[MRBC_MAX_BYTECODES];
+ 218:mrbc_firm.c   **** 
+ 219:mrbc_firm.c   ****   if( bytecode_index >= MRBC_MAX_BYTECODES ) return 1;
  469              		.loc 1 219 0
  470 0000 244B     		ldr	r3, .L63
  471 0002 D3F88820 		ldr	r2, [r3, #136]
  472 0006 032A     		cmp	r2, #3
  473 0008 3FDC     		bgt	.L59
- 210:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static const uint8_t *flash_addr = mruby_bytecode + sizeof(uint16_t) * MRBC_MAX_BYTECODES;
+ 210:mrbc_firm.c   ****   static const uint8_t *flash_addr = mruby_bytecode + sizeof(uint16_t) * MRBC_MAX_BYTECODES;
  474              		.loc 1 210 0
  475 000a 30B5     		push	{r4, r5, lr}
  476              		.cfi_def_cfa_offset 12
@@ -763,7 +763,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  480 000c C3B0     		sub	sp, sp, #268
  481              		.cfi_def_cfa_offset 280
  482 000e 0446     		mov	r4, r0
- 220:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( flash_addr + size > flash_addr_end ) return 2;
+ 220:mrbc_firm.c   ****   if( flash_addr + size > flash_addr_end ) return 2;
  483              		.loc 1 220 0
  484 0010 214B     		ldr	r3, .L63+4
  485 0012 1B68     		ldr	r3, [r3]
@@ -771,21 +771,21 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  487 0016 2149     		ldr	r1, .L63+8
  488 0018 8B42     		cmp	r3, r1
  489 001a 38D8     		bhi	.L60
- 221:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( bytecode_index == 0 ) {
+ 221:mrbc_firm.c   ****   if( bytecode_index == 0 ) {
  490              		.loc 1 221 0
  491 001c 1AB9     		cbnz	r2, .L51
- 222:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     memset( tbl_bytecode_size, 0, sizeof(tbl_bytecode_size) );
+ 222:mrbc_firm.c   ****     memset( tbl_bytecode_size, 0, sizeof(tbl_bytecode_size) );
  492              		.loc 1 222 0
  493 001e 0023     		movs	r3, #0
  494 0020 0093     		str	r3, [sp]
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 14
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 14
 
 
  495 0022 0193     		str	r3, [sp, #4]
  496 0024 04E0     		b	.L52
  497              	.L51:
- 223:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   } else {
- 224:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     memcpy( tbl_bytecode_size, mruby_bytecode, sizeof(tbl_bytecode_size) );
+ 223:mrbc_firm.c   ****   } else {
+ 224:mrbc_firm.c   ****     memcpy( tbl_bytecode_size, mruby_bytecode, sizeof(tbl_bytecode_size) );
  498              		.loc 1 224 0
  499 0026 1E49     		ldr	r1, .L63+12
  500 0028 6B46     		mov	r3, sp
@@ -794,20 +794,20 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  503 002c 4968     		ldr	r1, [r1, #4]	@ unaligned
  504 002e 03C3     		stmia	r3!, {r0, r1}
  505              	.L52:
- 225:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 226:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   tbl_bytecode_size[bytecode_index] = size;
+ 225:mrbc_firm.c   ****   }
+ 226:mrbc_firm.c   ****   tbl_bytecode_size[bytecode_index] = size;
  506              		.loc 1 226 0
  507 0030 2DF81240 		strh	r4, [sp, r2, lsl #1]	@ movhi
- 227:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 228:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   status = Em_EEPROM_Write((const uint8_t *)tbl_bytecode_size,
+ 227:mrbc_firm.c   **** 
+ 228:mrbc_firm.c   ****   status = Em_EEPROM_Write((const uint8_t *)tbl_bytecode_size,
  508              		.loc 1 228 0
  509 0034 0822     		movs	r2, #8
  510 0036 1A49     		ldr	r1, .L63+12
  511 0038 6846     		mov	r0, sp
  512 003a FFF7FEFF 		bl	Em_EEPROM_Write
  513              	.LVL44:
- 229:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 			   mruby_bytecode, sizeof(tbl_bytecode_size));
- 230:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if (CYRET_SUCCESS != status) {
+ 229:mrbc_firm.c   **** 			   mruby_bytecode, sizeof(tbl_bytecode_size));
+ 230:mrbc_firm.c   ****   if (CYRET_SUCCESS != status) {
  514              		.loc 1 230 0
  515 003e C0B1     		cbz	r0, .L53
  516              	.L54:
@@ -815,14 +815,14 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  518              	.LVL45:
  519              	.L58:
  520              	.LBB6:
- 231:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     //ogura
- 232:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     //CONS_PutString("Em EEPROM size write error.\r\n");
- 233:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     //usbuart_put_string("Em EEPROM size write error.\r\n");
- 234:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     while (1) { /* Will stay here */ }
- 235:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 236:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 237:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   while( size > 0 ) {
- 238:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int read_size = size < sizeof(buf) ? size : sizeof(buf);
+ 231:mrbc_firm.c   ****     //ogura
+ 232:mrbc_firm.c   ****     //CONS_PutString("Em EEPROM size write error.\r\n");
+ 233:mrbc_firm.c   ****     //usbuart_put_string("Em EEPROM size write error.\r\n");
+ 234:mrbc_firm.c   ****     while (1) { /* Will stay here */ }
+ 235:mrbc_firm.c   ****   }
+ 236:mrbc_firm.c   **** 
+ 237:mrbc_firm.c   ****   while( size > 0 ) {
+ 238:mrbc_firm.c   ****     int read_size = size < sizeof(buf) ? size : sizeof(buf);
  521              		.loc 1 238 0
  522 0042 FF2C     		cmp	r4, #255
  523 0044 01D8     		bhi	.L61
@@ -834,19 +834,19 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  529 004a 4FF48071 		mov	r1, #256
  530              	.L55:
  531              	.LVL46:
- 239:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     read_size = usbuart_read( buf, read_size );
+ 239:mrbc_firm.c   ****     read_size = usbuart_read( buf, read_size );
  532              		.loc 1 239 0 is_stmt 1 discriminator 4
  533 004e 02A8     		add	r0, sp, #8
  534              	.LVL47:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 15
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 15
 
 
  535 0050 FFF7FEFF 		bl	usbuart_read
  536              	.LVL48:
  537 0054 0546     		mov	r5, r0
  538              	.LVL49:
- 240:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 241:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     status = Em_EEPROM_Write(buf, flash_addr, read_size);
+ 240:mrbc_firm.c   **** 
+ 241:mrbc_firm.c   ****     status = Em_EEPROM_Write(buf, flash_addr, read_size);
  539              		.loc 1 241 0 discriminator 4
  540 0056 0246     		mov	r2, r0
  541 0058 0F4B     		ldr	r3, .L63+4
@@ -855,26 +855,26 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  544              	.LVL50:
  545 005e FFF7FEFF 		bl	Em_EEPROM_Write
  546              	.LVL51:
- 242:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 243:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if (CYRET_SUCCESS != status) {
+ 242:mrbc_firm.c   **** 
+ 243:mrbc_firm.c   ****     if (CYRET_SUCCESS != status) {
  547              		.loc 1 243 0 discriminator 4
  548 0062 00B1     		cbz	r0, .L56
  549              	.L57:
  550 0064 FEE7     		b	.L57
  551              	.L56:
- 244:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       //ogura
- 245:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       //CONS_PutString("Em EEPROM error3\r\n");
- 246:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       //usbuart_put_string("Em EEPROM error3\r\n");
- 247:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       while (1) { /* Will stay here */ }
- 248:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 249:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 250:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     size -= read_size;
+ 244:mrbc_firm.c   ****       //ogura
+ 245:mrbc_firm.c   ****       //CONS_PutString("Em EEPROM error3\r\n");
+ 246:mrbc_firm.c   ****       //usbuart_put_string("Em EEPROM error3\r\n");
+ 247:mrbc_firm.c   ****       while (1) { /* Will stay here */ }
+ 248:mrbc_firm.c   ****     }
+ 249:mrbc_firm.c   **** 
+ 250:mrbc_firm.c   ****     size -= read_size;
  552              		.loc 1 250 0
  553 0066 641B     		subs	r4, r4, r5
  554              	.LVL52:
  555 0068 A4B2     		uxth	r4, r4
  556              	.LVL53:
- 251:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     flash_addr += read_size;
+ 251:mrbc_firm.c   ****     flash_addr += read_size;
  557              		.loc 1 251 0
  558 006a 0B4B     		ldr	r3, .L63+4
  559 006c 1A68     		ldr	r2, [r3]
@@ -884,27 +884,27 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  563              	.LVL55:
  564              	.L53:
  565              	.LBE6:
- 237:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     int read_size = size < sizeof(buf) ? size : sizeof(buf);
+ 237:mrbc_firm.c   ****     int read_size = size < sizeof(buf) ? size : sizeof(buf);
  566              		.loc 1 237 0
  567 0072 002C     		cmp	r4, #0
  568 0074 E5D1     		bne	.L58
- 252:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   }
- 253:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 254:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   usbuart_clear();
+ 252:mrbc_firm.c   ****   }
+ 253:mrbc_firm.c   **** 
+ 254:mrbc_firm.c   ****   usbuart_clear();
  569              		.loc 1 254 0
  570 0076 FFF7FEFF 		bl	usbuart_clear
  571              	.LVL56:
- 255:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   bytecode_index++;
+ 255:mrbc_firm.c   ****   bytecode_index++;
  572              		.loc 1 255 0
  573 007a 064A     		ldr	r2, .L63
  574 007c D2F88830 		ldr	r3, [r2, #136]
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 16
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 16
 
 
  575 0080 0133     		adds	r3, r3, #1
  576 0082 C2F88830 		str	r3, [r2, #136]
- 256:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 257:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   return 0;
+ 256:mrbc_firm.c   **** 
+ 257:mrbc_firm.c   ****   return 0;
  577              		.loc 1 257 0
  578 0086 0020     		movs	r0, #0
  579 0088 02E0     		b	.L50
@@ -914,11 +914,11 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  583              		.cfi_restore 4
  584              		.cfi_restore 5
  585              		.cfi_restore 14
- 219:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( flash_addr + size > flash_addr_end ) return 2;
+ 219:mrbc_firm.c   ****   if( flash_addr + size > flash_addr_end ) return 2;
  586              		.loc 1 219 0
  587 008a 0120     		movs	r0, #1
  588              	.LVL58:
- 258:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** }
+ 258:mrbc_firm.c   **** }
  589              		.loc 1 258 0
  590 008c 7047     		bx	lr
  591              	.LVL59:
@@ -927,7 +927,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  594              		.cfi_offset 4, -12
  595              		.cfi_offset 5, -8
  596              		.cfi_offset 14, -4
- 220:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   if( bytecode_index == 0 ) {
+ 220:mrbc_firm.c   ****   if( bytecode_index == 0 ) {
  597              		.loc 1 220 0
  598 008e 0220     		movs	r0, #2
  599              	.LVL60:
@@ -955,17 +955,17 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  621              		.type	mode_monitor, %function
  622              	mode_monitor:
  623              	.LFB72:
- 259:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 260:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 261:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** //================================================================
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 17
+ 259:mrbc_firm.c   **** 
+ 260:mrbc_firm.c   **** 
+ 261:mrbc_firm.c   **** //================================================================
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 17
 
 
- 262:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** /*! monitor mode
- 263:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 264:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** */
- 265:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** void mode_monitor(void)
- 266:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** {
+ 262:mrbc_firm.c   **** /*! monitor mode
+ 263:mrbc_firm.c   **** 
+ 264:mrbc_firm.c   **** */
+ 265:mrbc_firm.c   **** void mode_monitor(void)
+ 266:mrbc_firm.c   **** {
  624              		.loc 1 266 0
  625              		.cfi_startproc
  626              		@ args = 0, pretend = 0, frame = 0
@@ -976,198 +976,198 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  631              		.cfi_offset 14, -4
  632              	.L66:
  633              	.LBB7:
- 267:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static const char ws[] = " \t\r\n\f\v";
- 268:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   static const char *help_msg =
- 269:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     "Commands:\r\n"
- 270:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     "  version\r\n"
- 271:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     "  reset\r\n"
- 272:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     "  execute\r\n"
- 273:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     "  write [size]\r\n";
- 274:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 275:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   while( 1 ) {
- 276:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     usbuart_event();
+ 267:mrbc_firm.c   ****   static const char ws[] = " \t\r\n\f\v";
+ 268:mrbc_firm.c   ****   static const char *help_msg =
+ 269:mrbc_firm.c   ****     "Commands:\r\n"
+ 270:mrbc_firm.c   ****     "  version\r\n"
+ 271:mrbc_firm.c   ****     "  reset\r\n"
+ 272:mrbc_firm.c   ****     "  execute\r\n"
+ 273:mrbc_firm.c   ****     "  write [size]\r\n";
+ 274:mrbc_firm.c   **** 
+ 275:mrbc_firm.c   ****   while( 1 ) {
+ 276:mrbc_firm.c   ****     usbuart_event();
  634              		.loc 1 276 0
  635 0002 FFF7FEFF 		bl	usbuart_event
  636              	.LVL61:
- 277:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( !usbuart_can_read_line() ) continue;
+ 277:mrbc_firm.c   ****     if( !usbuart_can_read_line() ) continue;
  637              		.loc 1 277 0
  638 0006 FFF7FEFF 		bl	usbuart_can_read_line
  639              	.LVL62:
  640 000a 0028     		cmp	r0, #0
  641 000c F9D0     		beq	.L66
- 278:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 279:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     // TODO check buffer full
- 280:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 281:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     char *token = strtok( usbuart_cstr(), ws );
+ 278:mrbc_firm.c   **** 
+ 279:mrbc_firm.c   ****     // TODO check buffer full
+ 280:mrbc_firm.c   **** 
+ 281:mrbc_firm.c   ****     char *token = strtok( usbuart_cstr(), ws );
  642              		.loc 1 281 0
  643 000e FFF7FEFF 		bl	usbuart_cstr
  644              	.LVL63:
  645 0012 3649     		ldr	r1, .L82
  646 0014 FFF7FEFF 		bl	strtok
  647              	.LVL64:
- 282:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( token == NULL ) {
+ 282:mrbc_firm.c   ****     if( token == NULL ) {
  648              		.loc 1 282 0
  649 0018 0446     		mov	r4, r0
  650 001a 18B9     		cbnz	r0, .L68
- 283:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string( "+OK mruby/c\r\n" );
+ 283:mrbc_firm.c   ****       usbuart_put_string( "+OK mruby/c\r\n" );
  651              		.loc 1 283 0
  652 001c 3448     		ldr	r0, .L82+4
  653              	.LVL65:
  654 001e FFF7FEFF 		bl	usbuart_put_string
  655              	.LVL66:
- 284:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       goto DONE;
+ 284:mrbc_firm.c   ****       goto DONE;
  656              		.loc 1 284 0
  657 0022 5FE0     		b	.L69
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 18
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 18
 
 
  658              	.LVL67:
  659              	.L68:
- 285:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 286:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 287:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( strcmp(token, "help") == 0 ) {
+ 285:mrbc_firm.c   ****     }
+ 286:mrbc_firm.c   **** 
+ 287:mrbc_firm.c   ****     if( strcmp(token, "help") == 0 ) {
  660              		.loc 1 287 0
  661 0024 3349     		ldr	r1, .L82+8
  662 0026 FFF7FEFF 		bl	strcmp
  663              	.LVL68:
  664 002a 48B9     		cbnz	r0, .L70
- 288:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string( "+OK\r\n" );
+ 288:mrbc_firm.c   ****       usbuart_put_string( "+OK\r\n" );
  665              		.loc 1 288 0
  666 002c 3248     		ldr	r0, .L82+12
  667 002e FFF7FEFF 		bl	usbuart_put_string
  668              	.LVL69:
- 289:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string(help_msg);
+ 289:mrbc_firm.c   ****       usbuart_put_string(help_msg);
  669              		.loc 1 289 0
  670 0032 3248     		ldr	r0, .L82+16
  671 0034 FFF7FEFF 		bl	usbuart_put_string
  672              	.LVL70:
- 290:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string( "+DONE\r\n" );
+ 290:mrbc_firm.c   ****       usbuart_put_string( "+DONE\r\n" );
  673              		.loc 1 290 0
  674 0038 3148     		ldr	r0, .L82+20
  675 003a FFF7FEFF 		bl	usbuart_put_string
  676              	.LVL71:
- 291:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       goto DONE;
+ 291:mrbc_firm.c   ****       goto DONE;
  677              		.loc 1 291 0
  678 003e 51E0     		b	.L69
  679              	.L70:
- 292:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 293:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 294:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( strcmp(token, "version") == 0 ) {
+ 292:mrbc_firm.c   ****     }
+ 293:mrbc_firm.c   **** 
+ 294:mrbc_firm.c   ****     if( strcmp(token, "version") == 0 ) {
  680              		.loc 1 294 0
  681 0040 3049     		ldr	r1, .L82+24
  682 0042 2046     		mov	r0, r4
  683 0044 FFF7FEFF 		bl	strcmp
  684              	.LVL72:
  685 0048 18B9     		cbnz	r0, .L71
- 295:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string("+OK " MRUBYC_ROM_STRING " " MRUBYC_VERSION_STRING "\r\n");
+ 295:mrbc_firm.c   ****       usbuart_put_string("+OK " MRUBYC_ROM_STRING " " MRUBYC_VERSION_STRING "\r\n");
  686              		.loc 1 295 0
  687 004a 2F48     		ldr	r0, .L82+28
  688 004c FFF7FEFF 		bl	usbuart_put_string
  689              	.LVL73:
- 296:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       goto DONE;
+ 296:mrbc_firm.c   ****       goto DONE;
  690              		.loc 1 296 0
  691 0050 48E0     		b	.L69
  692              	.L71:
- 297:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 298:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 299:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( strcmp(token, "reset") == 0 ) {
+ 297:mrbc_firm.c   ****     }
+ 298:mrbc_firm.c   **** 
+ 299:mrbc_firm.c   ****     if( strcmp(token, "reset") == 0 ) {
  693              		.loc 1 299 0
  694 0052 2E49     		ldr	r1, .L82+32
  695 0054 2046     		mov	r0, r4
  696 0056 FFF7FEFF 		bl	strcmp
  697              	.LVL74:
  698 005a 38B9     		cbnz	r0, .L72
- 300:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string("+OK\r\n");
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 19
+ 300:mrbc_firm.c   ****       usbuart_put_string("+OK\r\n");
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 19
 
 
  699              		.loc 1 300 0
  700 005c 2648     		ldr	r0, .L82+12
  701 005e FFF7FEFF 		bl	usbuart_put_string
  702              	.LVL75:
- 301:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       CyDelay(100);
+ 301:mrbc_firm.c   ****       CyDelay(100);
  703              		.loc 1 301 0
  704 0062 6420     		movs	r0, #100
  705 0064 FFF7FEFF 		bl	CyDelay
  706              	.LVL76:
- 302:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       CySoftwareReset();
+ 302:mrbc_firm.c   ****       CySoftwareReset();
  707              		.loc 1 302 0
  708 0068 FFF7FEFF 		bl	CySoftwareReset
  709              	.LVL77:
  710              	.L72:
- 303:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 304:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 305:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( strcmp(token, "execute") == 0 ) {
+ 303:mrbc_firm.c   ****     }
+ 304:mrbc_firm.c   **** 
+ 305:mrbc_firm.c   ****     if( strcmp(token, "execute") == 0 ) {
  711              		.loc 1 305 0
  712 006c 2849     		ldr	r1, .L82+36
  713 006e 2046     		mov	r0, r4
  714 0070 FFF7FEFF 		bl	strcmp
  715              	.LVL78:
  716 0074 18B9     		cbnz	r0, .L73
- 306:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string("+OK Execute mruby/c.\r\n");
+ 306:mrbc_firm.c   ****       usbuart_put_string("+OK Execute mruby/c.\r\n");
  717              		.loc 1 306 0
  718 0076 2748     		ldr	r0, .L82+40
  719 0078 FFF7FEFF 		bl	usbuart_put_string
  720              	.LVL79:
- 307:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       return;	// to execute mrubyc();
+ 307:mrbc_firm.c   ****       return;	// to execute mrubyc();
  721              		.loc 1 307 0
  722 007c 10BD     		pop	{r4, pc}
  723              	.LVL80:
  724              	.L73:
- 308:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 309:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 310:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     if( strcmp(token, "write") == 0 ) {
+ 308:mrbc_firm.c   ****     }
+ 309:mrbc_firm.c   **** 
+ 310:mrbc_firm.c   ****     if( strcmp(token, "write") == 0 ) {
  725              		.loc 1 310 0
  726 007e 2649     		ldr	r1, .L82+44
  727 0080 2046     		mov	r0, r4
  728 0082 FFF7FEFF 		bl	strcmp
  729              	.LVL81:
  730 0086 50BB     		cbnz	r0, .L74
- 311:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       token = strtok( NULL, ws );
+ 311:mrbc_firm.c   ****       token = strtok( NULL, ws );
  731              		.loc 1 311 0
  732 0088 1849     		ldr	r1, .L82
  733 008a FFF7FEFF 		bl	strtok
  734              	.LVL82:
- 312:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       if( token != NULL ) {
+ 312:mrbc_firm.c   ****       if( token != NULL ) {
  735              		.loc 1 312 0
  736 008e 10B3     		cbz	r0, .L75
  737              	.LBB8:
- 313:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	int size = atoi(token);
+ 313:mrbc_firm.c   **** 	int size = atoi(token);
  738              		.loc 1 313 0
  739 0090 FFF7FEFF 		bl	atoi
  740              	.LVL83:
  741 0094 0446     		mov	r4, r0
  742              	.LVL84:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 20
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 20
 
 
- 314:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	if( size < 0 || size > MRBC_SIZE_IREP_STRAGE ) {
+ 314:mrbc_firm.c   **** 	if( size < 0 || size > MRBC_SIZE_IREP_STRAGE ) {
  743              		.loc 1 314 0
  744 0096 B0F5803F 		cmp	r0, #65536
  745 009a 03D9     		bls	.L76
- 315:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  usbuart_put_string( "-ERR size overflow.\r\n" );
+ 315:mrbc_firm.c   **** 	  usbuart_put_string( "-ERR size overflow.\r\n" );
  746              		.loc 1 315 0
  747 009c 1F48     		ldr	r0, .L82+48
  748              	.LVL85:
  749 009e FFF7FEFF 		bl	usbuart_put_string
  750              	.LVL86:
- 316:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  goto DONE;
+ 316:mrbc_firm.c   **** 	  goto DONE;
  751              		.loc 1 316 0
  752 00a2 1FE0     		b	.L69
  753              	.LVL87:
  754              	.L76:
- 317:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	}
- 318:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 319:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	usbuart_clear();
+ 317:mrbc_firm.c   **** 	}
+ 318:mrbc_firm.c   **** 
+ 319:mrbc_firm.c   **** 	usbuart_clear();
  755              		.loc 1 319 0
  756 00a4 FFF7FEFF 		bl	usbuart_clear
  757              	.LVL88:
- 320:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	usbuart_put_string( "+OK Write bytecode.\r\n" );
+ 320:mrbc_firm.c   **** 	usbuart_put_string( "+OK Write bytecode.\r\n" );
  758              		.loc 1 320 0
  759 00a8 1D48     		ldr	r0, .L82+52
  760 00aa FFF7FEFF 		bl	usbuart_put_string
  761              	.LVL89:
- 321:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	switch( write_bytecode( size ) ) {
+ 321:mrbc_firm.c   **** 	switch( write_bytecode( size ) ) {
  762              		.loc 1 321 0
  763 00ae A0B2     		uxth	r0, r4
  764 00b0 FFF7FEFF 		bl	write_bytecode
@@ -1177,66 +1177,66 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  768 00b8 0228     		cmp	r0, #2
  769 00ba 08D0     		beq	.L78
  770 00bc 58B9     		cbnz	r0, .L75
- 322:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	case 0:
- 323:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  usbuart_put_string( "+DONE\r\n" );
+ 322:mrbc_firm.c   **** 	case 0:
+ 323:mrbc_firm.c   **** 	  usbuart_put_string( "+DONE\r\n" );
  771              		.loc 1 323 0
  772 00be 1048     		ldr	r0, .L82+20
  773 00c0 FFF7FEFF 		bl	usbuart_put_string
  774              	.LVL91:
- 324:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  goto DONE;
+ 324:mrbc_firm.c   **** 	  goto DONE;
  775              		.loc 1 324 0
  776 00c4 0EE0     		b	.L69
  777              	.L77:
- 325:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	case 1:
- 326:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  usbuart_put_string( "-ERR number of programs overflow.\r\n" );
+ 325:mrbc_firm.c   **** 	case 1:
+ 326:mrbc_firm.c   **** 	  usbuart_put_string( "-ERR number of programs overflow.\r\n" );
  778              		.loc 1 326 0
  779 00c6 1748     		ldr	r0, .L82+56
  780 00c8 FFF7FEFF 		bl	usbuart_put_string
  781              	.LVL92:
- 327:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  goto DONE;
+ 327:mrbc_firm.c   **** 	  goto DONE;
  782              		.loc 1 327 0
  783 00cc 0AE0     		b	.L69
  784              	.L78:
- 328:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	case 2:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 21
+ 328:mrbc_firm.c   **** 	case 2:
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 21
 
 
- 329:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  usbuart_put_string( "-ERR total bytecode size overflow.\r\n" );
+ 329:mrbc_firm.c   **** 	  usbuart_put_string( "-ERR total bytecode size overflow.\r\n" );
  785              		.loc 1 329 0
  786 00ce 1648     		ldr	r0, .L82+60
  787 00d0 FFF7FEFF 		bl	usbuart_put_string
  788              	.LVL93:
- 330:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	  goto DONE;
+ 330:mrbc_firm.c   **** 	  goto DONE;
  789              		.loc 1 330 0
  790 00d4 06E0     		b	.L69
  791              	.LVL94:
  792              	.L75:
  793              	.LBE8:
- 331:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 	}
- 332:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       }
- 333:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 334:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       usbuart_put_string( "-ERR\r\n" );
+ 331:mrbc_firm.c   **** 	}
+ 332:mrbc_firm.c   ****       }
+ 333:mrbc_firm.c   **** 
+ 334:mrbc_firm.c   ****       usbuart_put_string( "-ERR\r\n" );
  794              		.loc 1 334 0
  795 00d6 1548     		ldr	r0, .L82+64
  796 00d8 FFF7FEFF 		bl	usbuart_put_string
  797              	.LVL95:
- 335:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****       goto DONE;
+ 335:mrbc_firm.c   ****       goto DONE;
  798              		.loc 1 335 0
  799 00dc 02E0     		b	.L69
  800              	.LVL96:
  801              	.L74:
- 336:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     }
- 337:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 338:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     usbuart_put_string( "-ERR Illegal command.\r\n" );
+ 336:mrbc_firm.c   ****     }
+ 337:mrbc_firm.c   **** 
+ 338:mrbc_firm.c   ****     usbuart_put_string( "-ERR Illegal command.\r\n" );
  802              		.loc 1 338 0
  803 00de 1448     		ldr	r0, .L82+68
  804 00e0 FFF7FEFF 		bl	usbuart_put_string
  805              	.LVL97:
  806              	.L69:
- 339:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 340:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c **** 
- 341:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****   DONE:
- 342:..\..\mruby_c2\Design01.cydsn/mrbc_firm.c ****     usbuart_clear();
+ 339:mrbc_firm.c   **** 
+ 340:mrbc_firm.c   **** 
+ 341:mrbc_firm.c   ****   DONE:
+ 342:mrbc_firm.c   ****     usbuart_clear();
  807              		.loc 1 342 0
  808 00e4 FFF7FEFF 		bl	usbuart_clear
  809              	.LVL98:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  825 0118 C0000000 		.word	.LC10
  826 011c C8000000 		.word	.LC11
  827 0120 E0000000 		.word	.LC12
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 22
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 22
 
 
  828 0124 F8000000 		.word	.LC13
@@ -1272,17 +1272,17 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  836              		.section	.rodata
  837              		.align	2
  838              		.set	.LANCHOR2,. + 0
- 839              		.type	ws.7145, %object
- 840              		.size	ws.7145, 7
- 841              	ws.7145:
+ 839              		.type	ws.7083, %object
+ 840              		.size	ws.7083, 7
+ 841              	ws.7083:
  842 0000 20090D0A 		.ascii	" \011\015\012\014\013\000"
  842      0C0B00
  843              		.data
  844              		.align	2
  845              		.set	.LANCHOR1,. + 0
- 846              		.type	flash_addr.7130, %object
- 847              		.size	flash_addr.7130, 4
- 848              	flash_addr.7130:
+ 846              		.type	flash_addr.7068, %object
+ 847              		.size	flash_addr.7068, 4
+ 848              	flash_addr.7068:
  849 0000 08000000 		.word	mruby_bytecode+8
  850              		.section	.rodata.str1.4,"aMS",%progbits,1
  851              		.align	2
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  867              	.LC5:
  868 0064 76657273 		.ascii	"version\000"
  868      696F6E00 
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 23
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 23
 
 
  869              	.LC6:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  895      0D0A00
  896 014b 00       		.space	1
  897              	.LC16:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 24
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 24
 
 
  898 014c 2D455252 		.ascii	"-ERR Illegal command.\015\012\000"
@@ -1397,9 +1397,9 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  905      00000000 
  905      00000000 
  905      00000000 
- 906              		.type	bytecode_index.7132, %object
- 907              		.size	bytecode_index.7132, 4
- 908              	bytecode_index.7132:
+ 906              		.type	bytecode_index.7070, %object
+ 907              		.size	bytecode_index.7070, 4
+ 908              	bytecode_index.7070:
  909 0088 00000000 		.space	4
  910              		.text
  911              	.Letext0:
@@ -1407,7 +1407,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  913              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
  914              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
  915              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
- 916              		.file 6 "..\\..\\mruby_c2\\Design01.cydsn\\mrbc_firm.h"
+ 916              		.file 6 "mrbc_firm.h"
  917              		.file 7 "Generated_Source\\PSoC5/USBUART_cdc.h"
  918              		.file 8 "Generated_Source\\PSoC5/USBUART.h"
  919              		.file 9 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
@@ -1421,63 +1421,63 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  927 0006 00000000 		.4byte	.Ldebug_abbrev0
  928 000a 04       		.byte	0x4
  929 000b 01       		.uleb128 0x1
- 930 000c 70030000 		.4byte	.LASF62
+ 930 000c 4A030000 		.4byte	.LASF62
  931 0010 0C       		.byte	0xc
- 932 0011 7E000000 		.4byte	.LASF63
- 933 0015 29020000 		.4byte	.LASF64
+ 932 0011 B3000000 		.4byte	.LASF63
+ 933 0015 DE000000 		.4byte	.LASF64
  934 0019 18000000 		.4byte	.Ldebug_ranges0+0x18
  935 001d 00000000 		.4byte	0
  936 0021 00000000 		.4byte	.Ldebug_line0
  937 0025 02       		.uleb128 0x2
  938 0026 01       		.byte	0x1
  939 0027 06       		.byte	0x6
- 940 0028 9F010000 		.4byte	.LASF0
+ 940 0028 B1010000 		.4byte	.LASF0
  941 002c 03       		.uleb128 0x3
- 942 002d 65010000 		.4byte	.LASF3
+ 942 002d 77010000 		.4byte	.LASF3
  943 0031 02       		.byte	0x2
  944 0032 1D       		.byte	0x1d
  945 0033 37000000 		.4byte	0x37
  946 0037 02       		.uleb128 0x2
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 25
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 25
 
 
  947 0038 01       		.byte	0x1
  948 0039 08       		.byte	0x8
- 949 003a 91010000 		.4byte	.LASF1
+ 949 003a A3010000 		.4byte	.LASF1
  950 003e 02       		.uleb128 0x2
  951 003f 02       		.byte	0x2
  952 0040 05       		.byte	0x5
  953 0041 52000000 		.4byte	.LASF2
  954 0045 03       		.uleb128 0x3
- 955 0046 C5000000 		.4byte	.LASF4
+ 955 0046 9B000000 		.4byte	.LASF4
  956 004a 02       		.byte	0x2
  957 004b 2B       		.byte	0x2b
  958 004c 50000000 		.4byte	0x50
  959 0050 02       		.uleb128 0x2
  960 0051 02       		.byte	0x2
  961 0052 07       		.byte	0x7
- 962 0053 69020000 		.4byte	.LASF5
+ 962 0053 43020000 		.4byte	.LASF5
  963 0057 03       		.uleb128 0x3
- 964 0058 01030000 		.4byte	.LASF6
+ 964 0058 DB020000 		.4byte	.LASF6
  965 005c 02       		.byte	0x2
  966 005d 3F       		.byte	0x3f
  967 005e 62000000 		.4byte	0x62
  968 0062 02       		.uleb128 0x2
  969 0063 04       		.byte	0x4
  970 0064 05       		.byte	0x5
- 971 0065 3C010000 		.4byte	.LASF7
+ 971 0065 4E010000 		.4byte	.LASF7
  972 0069 02       		.uleb128 0x2
  973 006a 04       		.byte	0x4
  974 006b 07       		.byte	0x7
- 975 006c B4020000 		.4byte	.LASF8
+ 975 006c 8E020000 		.4byte	.LASF8
  976 0070 02       		.uleb128 0x2
  977 0071 08       		.byte	0x8
  978 0072 05       		.byte	0x5
- 979 0073 1B010000 		.4byte	.LASF9
+ 979 0073 2D010000 		.4byte	.LASF9
  980 0077 02       		.uleb128 0x2
  981 0078 08       		.byte	0x8
  982 0079 07       		.byte	0x7
- 983 007a AB010000 		.4byte	.LASF10
+ 983 007a BD010000 		.4byte	.LASF10
  984 007e 04       		.uleb128 0x4
  985 007f 04       		.byte	0x4
  986 0080 05       		.byte	0x5
@@ -1485,20 +1485,20 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  988 0085 02       		.uleb128 0x2
  989 0086 04       		.byte	0x4
  990 0087 07       		.byte	0x7
- 991 0088 D1010000 		.4byte	.LASF11
+ 991 0088 E3010000 		.4byte	.LASF11
  992 008c 03       		.uleb128 0x3
- 993 008d DD000000 		.4byte	.LASF12
+ 993 008d BF000000 		.4byte	.LASF12
  994 0091 03       		.byte	0x3
  995 0092 18       		.byte	0x18
  996 0093 2C000000 		.4byte	0x2c
  997 0097 03       		.uleb128 0x3
- 998 0098 DE010000 		.4byte	.LASF13
+ 998 0098 F0010000 		.4byte	.LASF13
  999 009c 03       		.byte	0x3
  1000 009d 24       		.byte	0x24
  1001 009e 45000000 		.4byte	0x45
  1002 00a2 03       		.uleb128 0x3
- 1003 00a3 61020000 		.4byte	.LASF14
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 26
+ 1003 00a3 3B020000 		.4byte	.LASF14
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 26
 
 
  1004 00a7 03       		.byte	0x3
@@ -1507,24 +1507,24 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1007 00ad 02       		.uleb128 0x2
  1008 00ae 04       		.byte	0x4
  1009 00af 04       		.byte	0x4
- 1010 00b0 FC000000 		.4byte	.LASF15
+ 1010 00b0 0E010000 		.4byte	.LASF15
  1011 00b4 02       		.uleb128 0x2
  1012 00b5 08       		.byte	0x8
  1013 00b6 04       		.byte	0x4
- 1014 00b7 E5020000 		.4byte	.LASF16
+ 1014 00b7 BF020000 		.4byte	.LASF16
  1015 00bb 02       		.uleb128 0x2
  1016 00bc 01       		.byte	0x1
  1017 00bd 08       		.byte	0x8
- 1018 00be 1B020000 		.4byte	.LASF17
+ 1018 00be 2D020000 		.4byte	.LASF17
  1019 00c2 05       		.uleb128 0x5
- 1020 00c3 20020000 		.4byte	.LASF18
+ 1020 00c3 32020000 		.4byte	.LASF18
  1021 00c7 04       		.byte	0x4
  1022 00c8 8602     		.2byte	0x286
  1023 00ca 69000000 		.4byte	0x69
  1024 00ce 02       		.uleb128 0x2
  1025 00cf 08       		.byte	0x8
  1026 00d0 04       		.byte	0x4
- 1027 00d1 7D010000 		.4byte	.LASF19
+ 1027 00d1 8F010000 		.4byte	.LASF19
  1028 00d5 02       		.uleb128 0x2
  1029 00d6 04       		.byte	0x4
  1030 00d7 07       		.byte	0x7
@@ -1557,8 +1557,8 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1057 010a BB000000 		.4byte	0xbb
  1058 010e 81       		.byte	0x81
  1059 010f 0B       		.uleb128 0xb
- 1060 0110 12030000 		.4byte	.LASF22
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 27
+ 1060 0110 EC020000 		.4byte	.LASF22
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 27
 
 
  1061 0114 01       		.byte	0x1
@@ -1577,7 +1577,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1074 012d 04       		.byte	0x4
  1075 012e 8C000000 		.4byte	0x8c
  1076 0132 0E       		.uleb128 0xe
- 1077 0133 0D020000 		.4byte	.LASF65
+ 1077 0133 1F020000 		.4byte	.LASF65
  1078 0137 01       		.byte	0x1
  1079 0138 2A       		.byte	0x2a
  1080 0139 00000000 		.4byte	.LFB63
@@ -1585,7 +1585,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1082 0141 01       		.uleb128 0x1
  1083 0142 9C       		.byte	0x9c
  1084 0143 0F       		.uleb128 0xf
- 1085 0144 A8000000 		.4byte	.LASF23
+ 1085 0144 7E000000 		.4byte	.LASF23
  1086 0148 01       		.byte	0x1
  1087 0149 36       		.byte	0x36
  1088 014a 7E000000 		.4byte	0x7e
@@ -1603,7 +1603,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1100 016b 01       		.uleb128 0x1
  1101 016c 9C       		.byte	0x9c
  1102 016d 0F       		.uleb128 0xf
- 1103 016e D0000000 		.4byte	.LASF25
+ 1103 016e A6000000 		.4byte	.LASF25
  1104 0172 01       		.byte	0x1
  1105 0173 4C       		.byte	0x4c
  1106 0174 DE000000 		.4byte	0xde
@@ -1612,13 +1612,13 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1109 0180 01       		.uleb128 0x1
  1110 0181 9C       		.byte	0x9c
  1111 0182 10       		.uleb128 0x10
- 1112 0183 45010000 		.4byte	.LASF26
+ 1112 0183 57010000 		.4byte	.LASF26
  1113 0187 01       		.byte	0x1
  1114 0188 57       		.byte	0x57
  1115 0189 00000000 		.4byte	.LFB67
  1116 018d 14000000 		.4byte	.LFE67-.LFB67
  1117 0191 01       		.uleb128 0x1
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 28
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 28
 
 
  1118 0192 9C       		.byte	0x9c
@@ -1644,7 +1644,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1138 01bc 00       		.byte	0
  1139 01bd 00       		.byte	0
  1140 01be 10       		.uleb128 0x10
- 1141 01bf A6020000 		.4byte	.LASF27
+ 1141 01bf 80020000 		.4byte	.LASF27
  1142 01c3 01       		.byte	0x1
  1143 01c4 8C       		.byte	0x8c
  1144 01c5 00000000 		.4byte	.LFB69
@@ -1659,7 +1659,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1153 01da E4000000 		.4byte	0xe4
  1154 01de 1E000000 		.4byte	.LLST1
  1155 01e2 15       		.uleb128 0x15
- 1156 01e3 58010000 		.4byte	.LASF28
+ 1156 01e3 6A010000 		.4byte	.LASF28
  1157 01e7 01       		.byte	0x1
  1158 01e8 8C       		.byte	0x8c
  1159 01e9 7E000000 		.4byte	0x7e
@@ -1669,7 +1669,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1163 01f6 1C000000 		.4byte	.LBE2-.LBB2
  1164 01fa 39020000 		.4byte	0x239
  1165 01fe 17       		.uleb128 0x17
- 1166 01ff EC020000 		.4byte	.LASF29
+ 1166 01ff C6020000 		.4byte	.LASF29
  1167 0203 01       		.byte	0x1
  1168 0204 92       		.byte	0x92
  1169 0205 7E000000 		.4byte	0x7e
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1172 020e 0C000000 		.4byte	.LVL6
  1173 0212 0A080000 		.4byte	0x80a
  1174 0216 13       		.uleb128 0x13
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 29
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 29
 
 
  1175 0217 20000000 		.4byte	.LVL9
@@ -1738,19 +1738,19 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1229 026c EC020000 		.4byte	0x2ec
  1230 0270 16       		.uleb128 0x16
  1231 0271 22000000 		.4byte	.LBB3
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 30
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 30
 
 
  1232 0275 50000000 		.4byte	.LBE3-.LBB3
  1233 0279 BE020000 		.4byte	0x2be
  1234 027d 17       		.uleb128 0x17
- 1235 027e FB020000 		.4byte	.LASF30
+ 1235 027e D5020000 		.4byte	.LASF30
  1236 0282 01       		.byte	0x1
  1237 0283 B6       		.byte	0xb6
  1238 0284 7E000000 		.4byte	0x7e
  1239 0288 86000000 		.4byte	.LLST4
  1240 028c 17       		.uleb128 0x17
- 1241 028d 06040000 		.4byte	.LASF31
+ 1241 028d E0030000 		.4byte	.LASF31
  1242 0291 01       		.byte	0x1
  1243 0292 B7       		.byte	0xb7
  1244 0293 7E000000 		.4byte	0x7e
@@ -1789,7 +1789,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1277 02e7 64080000 		.4byte	0x864
  1278 02eb 00       		.byte	0
  1279 02ec 18       		.uleb128 0x18
- 1280 02ed EE010000 		.4byte	.LASF33
+ 1280 02ed 00020000 		.4byte	.LASF33
  1281 02f1 01       		.byte	0x1
  1282 02f2 67       		.byte	0x67
  1283 02f3 7E000000 		.4byte	0x7e
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1286 02ff 01       		.uleb128 0x1
  1287 0300 9C       		.byte	0x9c
  1288 0301 B8030000 		.4byte	0x3b8
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 31
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 31
 
 
  1289 0305 11       		.uleb128 0x11
@@ -1808,7 +1808,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1293 030c DC000000 		.4byte	0xdc
  1294 0310 D2000000 		.4byte	.LLST6
  1295 0314 15       		.uleb128 0x15
- 1296 0315 58010000 		.4byte	.LASF28
+ 1296 0315 6A010000 		.4byte	.LASF28
  1297 0319 01       		.byte	0x1
  1298 031a 67       		.byte	0x67
  1299 031b 7E000000 		.4byte	0x7e
@@ -1822,13 +1822,13 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1307 0332 1A       		.uleb128 0x1a
  1308 0333 00000000 		.4byte	.Ldebug_ranges0+0
  1309 0337 17       		.uleb128 0x17
- 1310 0338 8C020000 		.4byte	.LASF34
+ 1310 0338 66020000 		.4byte	.LASF34
  1311 033c 01       		.byte	0x1
  1312 033d 73       		.byte	0x73
  1313 033e 7E000000 		.4byte	0x7e
  1314 0342 3A010000 		.4byte	.LLST9
  1315 0346 17       		.uleb128 0x17
- 1316 0347 06040000 		.4byte	.LASF31
+ 1316 0347 E0030000 		.4byte	.LASF31
  1317 034b 01       		.byte	0x1
  1318 034c 74       		.byte	0x74
  1319 034d 7E000000 		.4byte	0x7e
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1343 0383 14       		.uleb128 0x14
  1344 0384 01       		.uleb128 0x1
  1345 0385 52       		.byte	0x52
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 32
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 32
 
 
  1346 0386 02       		.uleb128 0x2
@@ -1897,7 +1897,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1379 03b6 00       		.byte	0
  1380 03b7 00       		.byte	0
  1381 03b8 1C       		.uleb128 0x1c
- 1382 03b9 43030000 		.4byte	.LASF66
+ 1382 03b9 1D030000 		.4byte	.LASF66
  1383 03bd 01       		.byte	0x1
  1384 03be D1       		.byte	0xd1
  1385 03bf 7E000000 		.4byte	0x7e
@@ -1907,7 +1907,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1389 03cc 9C       		.byte	0x9c
  1390 03cd A6040000 		.4byte	0x4a6
  1391 03d1 15       		.uleb128 0x15
- 1392 03d2 EC020000 		.4byte	.LASF29
+ 1392 03d2 C6020000 		.4byte	.LASF29
  1393 03d6 01       		.byte	0x1
  1394 03d7 D1       		.byte	0xd1
  1395 03d8 97000000 		.4byte	0x97
@@ -1918,26 +1918,26 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1400 03e6 D3       		.byte	0xd3
  1401 03e7 A6040000 		.4byte	0x4a6
  1402 03eb 05       		.uleb128 0x5
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 33
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 33
 
 
  1403 03ec 03       		.byte	0x3
- 1404 03ed 00000000 		.4byte	flash_addr.7130
+ 1404 03ed 00000000 		.4byte	flash_addr.7068
  1405 03f1 1E       		.uleb128 0x1e
- 1406 03f2 23030000 		.4byte	.LASF67
+ 1406 03f2 FD020000 		.4byte	.LASF67
  1407 03f6 01       		.byte	0x1
  1408 03f7 D4       		.byte	0xd4
  1409 03f8 B1040000 		.4byte	0x4b1
  1410 03fc 1D       		.uleb128 0x1d
- 1411 03fd D6020000 		.4byte	.LASF36
+ 1411 03fd B0020000 		.4byte	.LASF36
  1412 0401 01       		.byte	0x1
  1413 0402 D5       		.byte	0xd5
  1414 0403 7E000000 		.4byte	0x7e
  1415 0407 05       		.uleb128 0x5
  1416 0408 03       		.byte	0x3
- 1417 0409 88000000 		.4byte	bytecode_index.7132
+ 1417 0409 88000000 		.4byte	bytecode_index.7070
  1418 040d 17       		.uleb128 0x17
- 1419 040e E7010000 		.4byte	.LASF37
+ 1419 040e F9010000 		.4byte	.LASF37
  1420 0412 01       		.byte	0x1
  1421 0413 D7       		.byte	0xd7
  1422 0414 C2000000 		.4byte	0xc2
@@ -1951,7 +1951,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1430 0428 91       		.byte	0x91
  1431 0429 F07D     		.sleb128 -272
  1432 042b 1D       		.uleb128 0x1d
- 1433 042c FB010000 		.4byte	.LASF38
+ 1433 042c 0D020000 		.4byte	.LASF38
  1434 0430 01       		.byte	0x1
  1435 0431 D9       		.byte	0xd9
  1436 0432 C6040000 		.4byte	0x4c6
@@ -1963,7 +1963,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1442 043f 30000000 		.4byte	.LBE6-.LBB6
  1443 0443 83040000 		.4byte	0x483
  1444 0447 17       		.uleb128 0x17
- 1445 0448 F1020000 		.4byte	.LASF39
+ 1445 0448 CB020000 		.4byte	.LASF39
  1446 044c 01       		.byte	0x1
  1447 044d EE       		.byte	0xee
  1448 044e 7E000000 		.4byte	0x7e
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1457 0466 03       		.uleb128 0x3
  1458 0467 91       		.byte	0x91
  1459 0468 F07D     		.sleb128 -272
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 34
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 34
 
 
  1460 046a 00       		.byte	0
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1514 04cb D6040000 		.4byte	0x4d6
  1515 04cf 0D       		.uleb128 0xd
  1516 04d0 D5000000 		.4byte	0xd5
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 35
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 35
 
 
  1517 04d4 03       		.byte	0x3
@@ -2059,9 +2059,9 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1532 04f3 C3070000 		.4byte	0x7c3
  1533 04f7 05       		.uleb128 0x5
  1534 04f8 03       		.byte	0x3
- 1535 04f9 00000000 		.4byte	ws.7145
+ 1535 04f9 00000000 		.4byte	ws.7083
  1536 04fd 22       		.uleb128 0x22
- 1537 04fe 1A030000 		.4byte	.LASF41
+ 1537 04fe F4020000 		.4byte	.LASF41
  1538 0502 01       		.byte	0x1
  1539 0503 0C01     		.2byte	0x10c
  1540 0505 C8070000 		.4byte	0x7c8
@@ -2070,7 +2070,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1543 050b 20000000 		.4byte	.LC3
  1544 050f 9F       		.byte	0x9f
  1545 0510 23       		.uleb128 0x23
- 1546 0511 E5000000 		.4byte	.LASF68
+ 1546 0511 C7000000 		.4byte	.LASF68
  1547 0515 01       		.byte	0x1
  1548 0516 5501     		.2byte	0x155
  1549 0518 E4000000 		.4byte	.L69
@@ -2088,7 +2088,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1561 053a 46000000 		.4byte	.LBE8-.LBB8
  1562 053e E8050000 		.4byte	0x5e8
  1563 0542 25       		.uleb128 0x25
- 1564 0543 EC020000 		.4byte	.LASF29
+ 1564 0543 C6020000 		.4byte	.LASF29
  1565 0547 01       		.byte	0x1
  1566 0548 3901     		.2byte	0x139
  1567 054a 7E000000 		.4byte	0x7e
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1571 0557 8E080000 		.4byte	0x88e
  1572 055b 1B       		.uleb128 0x1b
  1573 055c A2000000 		.4byte	.LVL86
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 36
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 36
 
 
  1574 0560 82010000 		.4byte	0x182
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1628 05cf F8000000 		.4byte	.LC13
  1629 05d3 00       		.byte	0
  1630 05d4 13       		.uleb128 0x13
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 37
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 37
 
 
  1631 05d5 D4000000 		.4byte	.LVL93
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1685 064d 82010000 		.4byte	0x182
  1686 0651 5F060000 		.4byte	0x65f
  1687 0655 14       		.uleb128 0x14
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 38
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 38
 
 
  1688 0656 01       		.uleb128 0x1
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1742 06bc 6C000000 		.4byte	.LC6
  1743 06c0 00       		.byte	0
  1744 06c1 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 39
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 39
 
 
  1745 06c2 5A000000 		.4byte	.LVL74
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1799 0728 05       		.uleb128 0x5
  1800 0729 03       		.byte	0x3
  1801 072a A0000000 		.4byte	.LC8
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 40
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 40
 
 
  1802 072e 00       		.byte	0
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1856 079a A8070000 		.4byte	0x7a8
  1857 079e 14       		.uleb128 0x14
  1858 079f 01       		.uleb128 0x1
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 41
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 41
 
 
  1859 07a0 50       		.byte	0x50
@@ -2423,7 +2423,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1878 07c8 08       		.uleb128 0x8
  1879 07c9 E4000000 		.4byte	0xe4
  1880 07cd 1D       		.uleb128 0x1d
- 1881 07ce 6F010000 		.4byte	.LASF43
+ 1881 07ce 81010000 		.4byte	.LASF43
  1882 07d2 01       		.byte	0x1
  1883 07d3 23       		.byte	0x23
  1884 07d4 EF000000 		.4byte	0xef
@@ -2431,7 +2431,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1886 07d9 03       		.byte	0x3
  1887 07da 00000000 		.4byte	usbuart_
  1888 07de 26       		.uleb128 0x26
- 1889 07df 63030000 		.4byte	.LASF44
+ 1889 07df 3D030000 		.4byte	.LASF44
  1890 07e3 05       		.byte	0x5
  1891 07e4 1207     		.2byte	0x712
  1892 07e6 EA070000 		.4byte	0x7ea
@@ -2443,38 +2443,38 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1898 07f8 28       		.uleb128 0x28
  1899 07f9 00       		.byte	0
  1900 07fa 29       		.uleb128 0x29
- 1901 07fb C2010000 		.4byte	.LASF45
+ 1901 07fb D4010000 		.4byte	.LASF45
  1902 07ff 06       		.byte	0x6
  1903 0800 1D       		.byte	0x1d
  1904 0801 05080000 		.4byte	0x805
  1905 0805 08       		.uleb128 0x8
  1906 0806 EF070000 		.4byte	0x7ef
  1907 080a 2A       		.uleb128 0x2a
- 1908 080b 29010000 		.4byte	.LASF46
- 1909 080f 29010000 		.4byte	.LASF46
+ 1908 080b 3B010000 		.4byte	.LASF46
+ 1909 080f 3B010000 		.4byte	.LASF46
  1910 0813 07       		.byte	0x7
  1911 0814 28       		.byte	0x28
  1912 0815 2A       		.uleb128 0x2a
- 1913 0816 EA000000 		.4byte	.LASF47
- 1914 081a EA000000 		.4byte	.LASF47
+ 1913 0816 CC000000 		.4byte	.LASF47
+ 1914 081a CC000000 		.4byte	.LASF47
  1915 081e 07       		.byte	0x7
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 42
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 42
 
 
  1916 081f 24       		.byte	0x24
  1917 0820 2A       		.uleb128 0x2a
- 1918 0821 C6020000 		.4byte	.LASF48
- 1919 0825 C6020000 		.4byte	.LASF48
+ 1918 0821 A0020000 		.4byte	.LASF48
+ 1919 0825 A0020000 		.4byte	.LASF48
  1920 0829 07       		.byte	0x7
  1921 082a 23       		.byte	0x23
  1922 082b 2A       		.uleb128 0x2a
- 1923 082c 32030000 		.4byte	.LASF49
- 1924 0830 32030000 		.4byte	.LASF49
+ 1923 082c 0C030000 		.4byte	.LASF49
+ 1924 0830 0C030000 		.4byte	.LASF49
  1925 0834 07       		.byte	0x7
  1926 0835 27       		.byte	0x27
  1927 0836 2A       		.uleb128 0x2a
- 1928 0837 0D040000 		.4byte	.LASF50
- 1929 083b 0D040000 		.4byte	.LASF50
+ 1928 0837 E7030000 		.4byte	.LASF50
+ 1929 083b E7030000 		.4byte	.LASF50
  1930 083f 07       		.byte	0x7
  1931 0840 2A       		.byte	0x2a
  1932 0841 2B       		.uleb128 0x2b
@@ -2483,59 +2483,59 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  1935 084a 08       		.byte	0x8
  1936 084b 2E01     		.2byte	0x12e
  1937 084d 2B       		.uleb128 0x2b
- 1938 084e 02010000 		.4byte	.LASF52
- 1939 0852 02010000 		.4byte	.LASF52
+ 1938 084e 14010000 		.4byte	.LASF52
+ 1939 0852 14010000 		.4byte	.LASF52
  1940 0856 08       		.byte	0x8
  1941 0857 2D01     		.2byte	0x12d
  1942 0859 2A       		.uleb128 0x2a
- 1943 085a 52030000 		.4byte	.LASF53
- 1944 085e 52030000 		.4byte	.LASF53
+ 1943 085a 2C030000 		.4byte	.LASF53
+ 1944 085e 2C030000 		.4byte	.LASF53
  1945 0862 07       		.byte	0x7
  1946 0863 22       		.byte	0x22
  1947 0864 2A       		.uleb128 0x2a
- 1948 0865 1D040000 		.4byte	.LASF54
- 1949 0869 1D040000 		.4byte	.LASF54
+ 1948 0865 F7030000 		.4byte	.LASF54
+ 1949 0869 F7030000 		.4byte	.LASF54
  1950 086d 07       		.byte	0x7
  1951 086e 29       		.byte	0x29
  1952 086f 2C       		.uleb128 0x2c
- 1953 0870 BE000000 		.4byte	.LASF69
- 1954 0874 BE000000 		.4byte	.LASF69
+ 1953 0870 94000000 		.4byte	.LASF69
+ 1954 0874 94000000 		.4byte	.LASF69
  1955 0878 2A       		.uleb128 0x2a
- 1956 0879 89010000 		.4byte	.LASF55
- 1957 087d 89010000 		.4byte	.LASF55
+ 1956 0879 9B010000 		.4byte	.LASF55
+ 1957 087d 9B010000 		.4byte	.LASF55
  1958 0881 09       		.byte	0x9
  1959 0882 18       		.byte	0x18
  1960 0883 2A       		.uleb128 0x2a
- 1961 0884 7C020000 		.4byte	.LASF56
- 1962 0888 7C020000 		.4byte	.LASF56
+ 1961 0884 56020000 		.4byte	.LASF56
+ 1962 0888 56020000 		.4byte	.LASF56
  1963 088c 0A       		.byte	0xa
  1964 088d 2F       		.byte	0x2f
  1965 088e 2A       		.uleb128 0x2a
- 1966 088f 78010000 		.4byte	.LASF57
- 1967 0893 78010000 		.4byte	.LASF57
+ 1966 088f 8A010000 		.4byte	.LASF57
+ 1967 0893 8A010000 		.4byte	.LASF57
  1968 0897 0B       		.byte	0xb
  1969 0898 4D       		.byte	0x4d
  1970 0899 2A       		.uleb128 0x2a
- 1971 089a 5E010000 		.4byte	.LASF58
- 1972 089e 5E010000 		.4byte	.LASF58
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 43
+ 1971 089a 70010000 		.4byte	.LASF58
+ 1972 089e 70010000 		.4byte	.LASF58
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 43
 
 
  1973 08a2 09       		.byte	0x9
  1974 08a3 2A       		.byte	0x2a
  1975 08a4 2A       		.uleb128 0x2a
- 1976 08a5 0B030000 		.4byte	.LASF59
- 1977 08a9 0B030000 		.4byte	.LASF59
+ 1976 08a5 E5020000 		.4byte	.LASF59
+ 1977 08a9 E5020000 		.4byte	.LASF59
  1978 08ad 09       		.byte	0x9
  1979 08ae 1C       		.byte	0x1c
  1980 08af 2A       		.uleb128 0x2a
- 1981 08b0 FE030000 		.4byte	.LASF60
- 1982 08b4 FE030000 		.4byte	.LASF60
+ 1981 08b0 D8030000 		.4byte	.LASF60
+ 1982 08b4 D8030000 		.4byte	.LASF60
  1983 08b8 0C       		.byte	0xc
  1984 08b9 76       		.byte	0x76
  1985 08ba 2A       		.uleb128 0x2a
- 1986 08bb 96020000 		.4byte	.LASF61
- 1987 08bf 96020000 		.4byte	.LASF61
+ 1986 08bb 70020000 		.4byte	.LASF61
+ 1987 08bf 70020000 		.4byte	.LASF61
  1988 08c3 0C       		.byte	0xc
  1989 08c4 7B       		.byte	0x7b
  1990 08c5 00       		.byte	0
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2027 0022 0E       		.uleb128 0xe
  2028 0023 3A       		.uleb128 0x3a
  2029 0024 0B       		.uleb128 0xb
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 44
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 44
 
 
  2030 0025 3B       		.uleb128 0x3b
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2084 005b 13       		.uleb128 0x13
  2085 005c 01       		.byte	0x1
  2086 005d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 45
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 45
 
 
  2087 005e 0B       		.uleb128 0xb
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2141 0094 0B       		.uleb128 0xb
  2142 0095 00       		.byte	0
  2143 0096 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 46
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 46
 
 
  2144 0097 0E       		.uleb128 0xe
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2198 00cf 0E       		.uleb128 0xe
  2199 00d0 3A       		.uleb128 0x3a
  2200 00d1 0B       		.uleb128 0xb
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 47
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 47
 
 
  2201 00d2 3B       		.uleb128 0x3b
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2255 010f 9142     		.uleb128 0x2111
  2256 0111 18       		.uleb128 0x18
  2257 0112 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 48
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 48
 
 
  2258 0113 00       		.byte	0
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2312 0149 19       		.uleb128 0x19
  2313 014a 49       		.uleb128 0x49
  2314 014b 13       		.uleb128 0x13
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 49
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 49
 
 
  2315 014c 11       		.uleb128 0x11
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2369 0185 27       		.uleb128 0x27
  2370 0186 19       		.uleb128 0x19
  2371 0187 49       		.uleb128 0x49
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 50
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 50
 
 
  2372 0188 13       		.uleb128 0x13
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2426 01bf 00       		.byte	0
  2427 01c0 00       		.byte	0
  2428 01c1 20       		.uleb128 0x20
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 51
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 51
 
 
  2429 01c2 2E       		.uleb128 0x2e
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2483 01f9 23       		.uleb128 0x23
  2484 01fa 0A       		.uleb128 0xa
  2485 01fb 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 52
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 52
 
 
  2486 01fc 03       		.uleb128 0x3
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2540 0232 49       		.uleb128 0x49
  2541 0233 13       		.uleb128 0x13
  2542 0234 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 53
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 53
 
 
  2543 0235 00       		.byte	0
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2597 026b 05       		.uleb128 0x5
  2598 026c 00       		.byte	0
  2599 026d 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 54
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 54
 
 
  2600 026e 2C       		.uleb128 0x2c
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2654 0065 1F000000 		.4byte	.LVL9-1
  2655 0069 24000000 		.4byte	.LVL11
  2656 006d 0F00     		.2byte	0xf
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 55
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 55
 
 
  2657 006f 08       		.byte	0x8
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2711 00e5 0100     		.2byte	0x1
  2712 00e7 58       		.byte	0x58
  2713 00e8 00000000 		.4byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 56
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 56
 
 
  2714 00ec 00000000 		.4byte	0
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2768 0177 50       		.byte	0x50
  2769 0178 9F       		.byte	0x9f
  2770 0179 42000000 		.4byte	.LVL45
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 57
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 57
 
 
  2771 017d 68000000 		.4byte	.LVL52
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2825              	.LLST14:
  2826 020d 18000000 		.4byte	.LVL64
  2827 0211 1E000000 		.4byte	.LVL65
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 58
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 58
 
 
  2828 0215 0100     		.2byte	0x1
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2882 001c 0C000000 		.4byte	.LFE64-.LFB64
  2883 0020 00000000 		.4byte	.LFB65
  2884 0024 10000000 		.4byte	.LFE65-.LFB65
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 59
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 59
 
 
  2885 0028 00000000 		.4byte	.LFB66
@@ -3529,8 +3529,8 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2930 006c 00000000 		.4byte	0
  2931              		.section	.debug_line,"",%progbits
  2932              	.Ldebug_line0:
- 2933 0000 A9030000 		.section	.debug_str,"MS",%progbits,1
- 2933      02003602 
+ 2933 0000 8B030000 		.section	.debug_str,"MS",%progbits,1
+ 2933      02001802 
  2933      00000201 
  2933      FB0E0D00 
  2933      01010101 
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2935 0000 746F6B65 		.ascii	"token\000"
  2935      6E00
  2936              	.LASF51:
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 60
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 60
 
 
  2937 0006 55534255 		.ascii	"USBUART_IsConfigurationChanged\000"
@@ -3579,302 +3579,298 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 1
  2951 0073 666C6173 		.ascii	"flash_addr\000"
  2951      685F6164 
  2951      647200
- 2952              	.LASF63:
- 2953 007e 2E2E5C2E 		.ascii	"..\\..\\mruby_c2\\Design01.cydsn\\mrbc_firm.c\000"
- 2953      2E5C6D72 
- 2953      7562795F 
- 2953      63325C44 
- 2953      65736967 
- 2954              	.LASF23:
- 2955 00a8 75736275 		.ascii	"usbuart_can_read_line\000"
- 2955      6172745F 
- 2955      63616E5F 
- 2955      72656164 
- 2955      5F6C696E 
- 2956              	.LASF69:
- 2957 00be 6D656D63 		.ascii	"memcpy\000"
- 2957      707900
- 2958              	.LASF4:
- 2959 00c5 5F5F7569 		.ascii	"__uint16_t\000"
- 2959      6E743136 
- 2959      5F7400
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 61
+ 2952              	.LASF23:
+ 2953 007e 75736275 		.ascii	"usbuart_can_read_line\000"
+ 2953      6172745F 
+ 2953      63616E5F 
+ 2953      72656164 
+ 2953      5F6C696E 
+ 2954              	.LASF69:
+ 2955 0094 6D656D63 		.ascii	"memcpy\000"
+ 2955      707900
+ 2956              	.LASF4:
+ 2957 009b 5F5F7569 		.ascii	"__uint16_t\000"
+ 2957      6E743136 
+ 2957      5F7400
+ 2958              	.LASF25:
+ 2959 00a6 75736275 		.ascii	"usbuart_cstr\000"
+ 2959      6172745F 
+ 2959      63737472 
+ 2959      00
+ 2960              	.LASF63:
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 61
 
 
- 2960              	.LASF25:
- 2961 00d0 75736275 		.ascii	"usbuart_cstr\000"
- 2961      6172745F 
- 2961      63737472 
- 2961      00
+ 2961 00b3 6D726263 		.ascii	"mrbc_firm.c\000"
+ 2961      5F666972 
+ 2961      6D2E6300 
  2962              	.LASF12:
- 2963 00dd 75696E74 		.ascii	"uint8_t\000"
+ 2963 00bf 75696E74 		.ascii	"uint8_t\000"
  2963      385F7400 
  2964              	.LASF68:
- 2965 00e5 444F4E45 		.ascii	"DONE\000"
+ 2965 00c7 444F4E45 		.ascii	"DONE\000"
  2965      00
  2966              	.LASF47:
- 2967 00ea 55534255 		.ascii	"USBUART_PutString\000"
+ 2967 00cc 55534255 		.ascii	"USBUART_PutString\000"
  2967      4152545F 
  2967      50757453 
  2967      7472696E 
  2967      6700
- 2968              	.LASF15:
- 2969 00fc 666C6F61 		.ascii	"float\000"
- 2969      7400
- 2970              	.LASF52:
- 2971 0102 55534255 		.ascii	"USBUART_GetConfiguration\000"
- 2971      4152545F 
- 2971      47657443 
- 2971      6F6E6669 
- 2971      67757261 
- 2972              	.LASF9:
- 2973 011b 6C6F6E67 		.ascii	"long long int\000"
- 2973      206C6F6E 
- 2973      6720696E 
- 2973      7400
- 2974              	.LASF46:
- 2975 0129 55534255 		.ascii	"USBUART_CDCIsReady\000"
- 2975      4152545F 
- 2975      43444349 
- 2975      73526561 
- 2975      647900
- 2976              	.LASF7:
- 2977 013c 6C6F6E67 		.ascii	"long int\000"
- 2977      20696E74 
- 2977      00
- 2978              	.LASF26:
- 2979 0145 75736275 		.ascii	"usbuart_put_string\000"
- 2979      6172745F 
- 2979      7075745F 
- 2979      73747269 
- 2979      6E6700
- 2980              	.LASF28:
- 2981 0158 6E627974 		.ascii	"nbyte\000"
- 2981      6500
- 2982              	.LASF58:
- 2983 015e 73747274 		.ascii	"strtok\000"
- 2983      6F6B00
- 2984              	.LASF3:
- 2985 0165 5F5F7569 		.ascii	"__uint8_t\000"
- 2985      6E74385F 
- 2985      7400
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 62
+ 2968              	.LASF64:
+ 2969 00de 433A5C55 		.ascii	"C:\\Users\\164\\Desktop\\github\\mcmc\\Design01.cyd"
+ 2969      73657273 
+ 2969      5C313634 
+ 2969      5C446573 
+ 2969      6B746F70 
+ 2970 010b 736E00   		.ascii	"sn\000"
+ 2971              	.LASF15:
+ 2972 010e 666C6F61 		.ascii	"float\000"
+ 2972      7400
+ 2973              	.LASF52:
+ 2974 0114 55534255 		.ascii	"USBUART_GetConfiguration\000"
+ 2974      4152545F 
+ 2974      47657443 
+ 2974      6F6E6669 
+ 2974      67757261 
+ 2975              	.LASF9:
+ 2976 012d 6C6F6E67 		.ascii	"long long int\000"
+ 2976      206C6F6E 
+ 2976      6720696E 
+ 2976      7400
+ 2977              	.LASF46:
+ 2978 013b 55534255 		.ascii	"USBUART_CDCIsReady\000"
+ 2978      4152545F 
+ 2978      43444349 
+ 2978      73526561 
+ 2978      647900
+ 2979              	.LASF7:
+ 2980 014e 6C6F6E67 		.ascii	"long int\000"
+ 2980      20696E74 
+ 2980      00
+ 2981              	.LASF26:
+ 2982 0157 75736275 		.ascii	"usbuart_put_string\000"
+ 2982      6172745F 
+ 2982      7075745F 
+ 2982      73747269 
+ 2982      6E6700
+ 2983              	.LASF28:
+ 2984 016a 6E627974 		.ascii	"nbyte\000"
+ 2984      6500
+ 2985              	.LASF58:
+ 2986 0170 73747274 		.ascii	"strtok\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 62
 
 
- 2986              	.LASF43:
- 2987 016f 75736275 		.ascii	"usbuart_\000"
- 2987      6172745F 
- 2987      00
- 2988              	.LASF57:
- 2989 0178 61746F69 		.ascii	"atoi\000"
- 2989      00
- 2990              	.LASF19:
- 2991 017d 6C6F6E67 		.ascii	"long double\000"
- 2991      20646F75 
- 2991      626C6500 
- 2992              	.LASF55:
- 2993 0189 6D656D6D 		.ascii	"memmove\000"
- 2993      6F766500 
- 2994              	.LASF1:
- 2995 0191 756E7369 		.ascii	"unsigned char\000"
- 2995      676E6564 
- 2995      20636861 
- 2995      7200
- 2996              	.LASF0:
- 2997 019f 7369676E 		.ascii	"signed char\000"
- 2997      65642063 
- 2997      68617200 
- 2998              	.LASF10:
- 2999 01ab 6C6F6E67 		.ascii	"long long unsigned int\000"
- 2999      206C6F6E 
- 2999      6720756E 
- 2999      7369676E 
- 2999      65642069 
- 3000              	.LASF45:
- 3001 01c2 6D727562 		.ascii	"mruby_bytecode\000"
- 3001      795F6279 
- 3001      7465636F 
- 3001      646500
- 3002              	.LASF11:
- 3003 01d1 756E7369 		.ascii	"unsigned int\000"
- 3003      676E6564 
- 3003      20696E74 
- 3003      00
- 3004              	.LASF13:
- 3005 01de 75696E74 		.ascii	"uint16_t\000"
- 3005      31365F74 
- 3005      00
- 3006              	.LASF37:
- 3007 01e7 73746174 		.ascii	"status\000"
- 3007      757300
- 3008              	.LASF33:
- 3009 01ee 75736275 		.ascii	"usbuart_read\000"
- 3009      6172745F 
- 3009      72656164 
- 3009      00
- 3010              	.LASF38:
- 3011 01fb 74626C5F 		.ascii	"tbl_bytecode_size\000"
- 3011      62797465 
- 3011      636F6465 
- 3011      5F73697A 
- 3011      6500
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 63
+ 2986      6F6B00
+ 2987              	.LASF3:
+ 2988 0177 5F5F7569 		.ascii	"__uint8_t\000"
+ 2988      6E74385F 
+ 2988      7400
+ 2989              	.LASF43:
+ 2990 0181 75736275 		.ascii	"usbuart_\000"
+ 2990      6172745F 
+ 2990      00
+ 2991              	.LASF57:
+ 2992 018a 61746F69 		.ascii	"atoi\000"
+ 2992      00
+ 2993              	.LASF19:
+ 2994 018f 6C6F6E67 		.ascii	"long double\000"
+ 2994      20646F75 
+ 2994      626C6500 
+ 2995              	.LASF55:
+ 2996 019b 6D656D6D 		.ascii	"memmove\000"
+ 2996      6F766500 
+ 2997              	.LASF1:
+ 2998 01a3 756E7369 		.ascii	"unsigned char\000"
+ 2998      676E6564 
+ 2998      20636861 
+ 2998      7200
+ 2999              	.LASF0:
+ 3000 01b1 7369676E 		.ascii	"signed char\000"
+ 3000      65642063 
+ 3000      68617200 
+ 3001              	.LASF10:
+ 3002 01bd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 3002      206C6F6E 
+ 3002      6720756E 
+ 3002      7369676E 
+ 3002      65642069 
+ 3003              	.LASF45:
+ 3004 01d4 6D727562 		.ascii	"mruby_bytecode\000"
+ 3004      795F6279 
+ 3004      7465636F 
+ 3004      646500
+ 3005              	.LASF11:
+ 3006 01e3 756E7369 		.ascii	"unsigned int\000"
+ 3006      676E6564 
+ 3006      20696E74 
+ 3006      00
+ 3007              	.LASF13:
+ 3008 01f0 75696E74 		.ascii	"uint16_t\000"
+ 3008      31365F74 
+ 3008      00
+ 3009              	.LASF37:
+ 3010 01f9 73746174 		.ascii	"status\000"
+ 3010      757300
+ 3011              	.LASF33:
+ 3012 0200 75736275 		.ascii	"usbuart_read\000"
+ 3012      6172745F 
+ 3012      72656164 
+ 3012      00
+ 3013              	.LASF38:
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 63
 
 
- 3012              	.LASF65:
- 3013 020d 75736275 		.ascii	"usbuart_clear\000"
- 3013      6172745F 
- 3013      636C6561 
- 3013      7200
- 3014              	.LASF17:
- 3015 021b 63686172 		.ascii	"char\000"
- 3015      00
- 3016              	.LASF18:
- 3017 0220 63797374 		.ascii	"cystatus\000"
- 3017      61747573 
- 3017      00
- 3018              	.LASF64:
- 3019 0229 433A5C55 		.ascii	"C:\\Users\\164\\Documents\\PSoC Creator\\mcmc\\Desi"
- 3019      73657273 
- 3019      5C313634 
- 3019      5C446F63 
- 3019      756D656E 
- 3020 0256 676E3031 		.ascii	"gn01.cydsn\000"
- 3020      2E637964 
- 3020      736E00
+ 3014 020d 74626C5F 		.ascii	"tbl_bytecode_size\000"
+ 3014      62797465 
+ 3014      636F6465 
+ 3014      5F73697A 
+ 3014      6500
+ 3015              	.LASF65:
+ 3016 021f 75736275 		.ascii	"usbuart_clear\000"
+ 3016      6172745F 
+ 3016      636C6561 
+ 3016      7200
+ 3017              	.LASF17:
+ 3018 022d 63686172 		.ascii	"char\000"
+ 3018      00
+ 3019              	.LASF18:
+ 3020 0232 63797374 		.ascii	"cystatus\000"
+ 3020      61747573 
+ 3020      00
  3021              	.LASF14:
- 3022 0261 696E7433 		.ascii	"int32_t\000"
+ 3022 023b 696E7433 		.ascii	"int32_t\000"
  3022      325F7400 
  3023              	.LASF5:
- 3024 0269 73686F72 		.ascii	"short unsigned int\000"
+ 3024 0243 73686F72 		.ascii	"short unsigned int\000"
  3024      7420756E 
  3024      7369676E 
  3024      65642069 
  3024      6E7400
  3025              	.LASF56:
- 3026 027c 456D5F45 		.ascii	"Em_EEPROM_Write\000"
+ 3026 0256 456D5F45 		.ascii	"Em_EEPROM_Write\000"
  3026      4550524F 
  3026      4D5F5772 
  3026      69746500 
  3027              	.LASF34:
- 3028 028c 636F7079 		.ascii	"copy_size\000"
+ 3028 0266 636F7079 		.ascii	"copy_size\000"
  3028      5F73697A 
  3028      6500
  3029              	.LASF61:
- 3030 0296 4379536F 		.ascii	"CySoftwareReset\000"
+ 3030 0270 4379536F 		.ascii	"CySoftwareReset\000"
  3030      66747761 
  3030      72655265 
  3030      73657400 
  3031              	.LASF27:
- 3032 02a6 75736275 		.ascii	"usbuart_write\000"
+ 3032 0280 75736275 		.ascii	"usbuart_write\000"
  3032      6172745F 
  3032      77726974 
  3032      6500
  3033              	.LASF8:
- 3034 02b4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 3034 028e 6C6F6E67 		.ascii	"long unsigned int\000"
  3034      20756E73 
  3034      69676E65 
  3034      6420696E 
  3034      7400
  3035              	.LASF48:
- 3036 02c6 55534255 		.ascii	"USBUART_PutData\000"
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 64
-
-
+ 3036 02a0 55534255 		.ascii	"USBUART_PutData\000"
  3036      4152545F 
  3036      50757444 
  3036      61746100 
  3037              	.LASF36:
- 3038 02d6 62797465 		.ascii	"bytecode_index\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 64
+
+
+ 3038 02b0 62797465 		.ascii	"bytecode_index\000"
  3038      636F6465 
  3038      5F696E64 
  3038      657800
  3039              	.LASF16:
- 3040 02e5 646F7562 		.ascii	"double\000"
+ 3040 02bf 646F7562 		.ascii	"double\000"
  3040      6C6500
  3041              	.LASF29:
- 3042 02ec 73697A65 		.ascii	"size\000"
+ 3042 02c6 73697A65 		.ascii	"size\000"
  3042      00
  3043              	.LASF39:
- 3044 02f1 72656164 		.ascii	"read_size\000"
+ 3044 02cb 72656164 		.ascii	"read_size\000"
  3044      5F73697A 
  3044      6500
  3045              	.LASF30:
- 3046 02fb 636F756E 		.ascii	"count\000"
+ 3046 02d5 636F756E 		.ascii	"count\000"
  3046      7400
  3047              	.LASF6:
- 3048 0301 5F5F696E 		.ascii	"__int32_t\000"
+ 3048 02db 5F5F696E 		.ascii	"__int32_t\000"
  3048      7433325F 
  3048      7400
  3049              	.LASF59:
- 3050 030b 73747263 		.ascii	"strcmp\000"
+ 3050 02e5 73747263 		.ascii	"strcmp\000"
  3050      6D7000
  3051              	.LASF22:
- 3052 0312 705F6275 		.ascii	"p_buf_w\000"
+ 3052 02ec 705F6275 		.ascii	"p_buf_w\000"
  3052      665F7700 
  3053              	.LASF41:
- 3054 031a 68656C70 		.ascii	"help_msg\000"
+ 3054 02f4 68656C70 		.ascii	"help_msg\000"
  3054      5F6D7367 
  3054      00
  3055              	.LASF67:
- 3056 0323 666C6173 		.ascii	"flash_addr_end\000"
+ 3056 02fd 666C6173 		.ascii	"flash_addr_end\000"
  3056      685F6164 
  3056      64725F65 
  3056      6E6400
  3057              	.LASF49:
- 3058 0332 55534255 		.ascii	"USBUART_GetCount\000"
+ 3058 030c 55534255 		.ascii	"USBUART_GetCount\000"
  3058      4152545F 
  3058      47657443 
  3058      6F756E74 
  3058      00
  3059              	.LASF66:
- 3060 0343 77726974 		.ascii	"write_bytecode\000"
+ 3060 031d 77726974 		.ascii	"write_bytecode\000"
  3060      655F6279 
  3060      7465636F 
  3060      646500
  3061              	.LASF53:
- 3062 0352 55534255 		.ascii	"USBUART_CDC_Init\000"
+ 3062 032c 55534255 		.ascii	"USBUART_CDC_Init\000"
  3062      4152545F 
  3062      4344435F 
  3062      496E6974 
  3062      00
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccnL4W4p.s 			page 65
-
-
  3063              	.LASF44:
- 3064 0363 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 3064 033d 49544D5F 		.ascii	"ITM_RxBuffer\000"
  3064      52784275 
  3064      66666572 
+ARM GAS  C:\Users\164\AppData\Local\Temp\cc4hRMoo.s 			page 65
+
+
  3064      00
  3065              	.LASF62:
- 3066 0370 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 3066 034a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
  3066      43313120 
  3066      352E342E 
  3066      31203230 
  3066      31363036 
- 3067 03a3 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 3067 037d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
  3067      20726576 
  3067      6973696F 
  3067      6E203233 
  3067      37373135 
- 3068 03d6 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 3068 03b0 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
  3068      66756E63 
  3068      74696F6E 
  3068      2D736563 
  3068      74696F6E 
  3069              	.LASF60:
- 3070 03fe 43794465 		.ascii	"CyDelay\000"
+ 3070 03d8 43794465 		.ascii	"CyDelay\000"
  3070      6C617900 
  3071              	.LASF31:
- 3072 0406 72656D61 		.ascii	"remain\000"
+ 3072 03e0 72656D61 		.ascii	"remain\000"
  3072      696E00
  3073              	.LASF50:
- 3074 040d 55534255 		.ascii	"USBUART_GetData\000"
+ 3074 03e7 55534255 		.ascii	"USBUART_GetData\000"
  3074      4152545F 
  3074      47657444 
  3074      61746100 
  3075              	.LASF54:
- 3076 041d 55534255 		.ascii	"USBUART_DataIsReady\000"
+ 3076 03f7 55534255 		.ascii	"USBUART_DataIsReady\000"
  3076      4152545F 
  3076      44617461 
  3076      49735265 

@@ -2,7 +2,6 @@
 #include "mrubyc.h"
 #include <math.h>
 
-//#include "sample1.c"
 #include "c_uart.h"
 #include "c_i2c.h"
 #include "c_adc.h"
@@ -94,11 +93,13 @@ static void digital_out(mrb_vm *vm, mrb_value *v, int argc)
 static void digital_interrupt(mrb_vm *vm, mrb_value *v, int argc)
 {
   if(GET_INT_ARG(1)==1){
-    D1_ClearInterrupt();
     isr_1_StartEx( isr_D1 );
   }
 }
 
+//================================================================
+ /*! P2 IO
+*/
 static void P_Write(mrb_vm *vm, mrb_value *v, int argc)
 {
     uint8 mask = ((uint8)pow(2,(uint8)GET_INT_ARG(1)));
@@ -132,24 +133,21 @@ static void P_byte_read(mrb_vm *vm, mrb_value *v, int argc)
 }
 
 //=========================================================================
-/*! Hibernate Mode
+/*! sleep Modes
 */
 static void c_hibernate(mrb_vm *vm, mrb_value *v, int argc)
 {
   I2C_1_Sleep();
   UART_1_Sleep();
-  isr_SleepTimer_Stop();
-  SleepTimer_Stop();
   USBUART_Stop();
+  isr_SleepTimer_Disable();
   CyPmSaveClocks();
-  //CyPmSleep( PM_SLEEP_TIME_NONE, PM_SLEEP_SRC_CTW|PM_SLEEP_SRC_PICU );
   CyPmHibernate();
   CyPmRestoreClocks();
   UART_1_Wakeup();
   I2C_1_Wakeup();
   USBUART_Start(0, USBUART_3V_OPERATION);
-  SleepTimer_Start();
-  isr_SleepTimer_Start();
+  isr_SleepTimer_Enable();
 }
 
 static void c_sleep_until_nexttime(mrb_vm *vm, mrb_value v[], int argc)
@@ -159,9 +157,8 @@ static void c_sleep_until_nexttime(mrb_vm *vm, mrb_value v[], int argc)
   UART_1_Sleep();
   I2C_1_Sleep();
   USBUART_Stop();
-  Em_EEPROM_Stop();
-  ADC_1_Stop();
-  ADC_2_Stop();
+  ADC_1_Sleep();
+  ADC_2_Sleep();
   CyPmSaveClocks();
 
   while( sleep_int_counter_ < sleep_wakeup_timing_ ) {
@@ -226,6 +223,10 @@ int _write(int fd, const void *buf, int nbytes)
 //  return nbytes;
 //#endif
 }
+
+//================================================================
+/*! main
+*/
 
 int check_timeout(void)
 {

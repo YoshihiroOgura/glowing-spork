@@ -110,7 +110,7 @@ static void c_uart_write(mrb_vm *vm, mrb_value v[], int argc)
   UART_HANDLE *handle = *(UART_HANDLE **)v->instance->data;
 
   switch( v[1].tt ) {
-  case MRB_TT_STRING: {
+  case MRBC_TT_STRING: {
     int n = uart_write( handle,
 			mrbc_string_cstr(&v[1]), mrbc_string_size(&v[1]) );
     SET_INT_RETURN(n);
@@ -156,7 +156,7 @@ static void c_uart_puts(mrb_vm *vm, mrb_value v[], int argc)
 {
   char *s = NULL;
   switch( v[1].tt ) {
-  case MRB_TT_STRING: {
+  case MRBC_TT_STRING: {
     s = mrbc_string_cstr(&v[1]);
   } break;
 

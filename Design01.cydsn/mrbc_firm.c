@@ -228,7 +228,9 @@ static int write_bytecode( uint16_t size )
   status = Em_EEPROM_Write((const uint8_t *)tbl_bytecode_size,
 			   mruby_bytecode, sizeof(tbl_bytecode_size));
   if (CYRET_SUCCESS != status) {
-    CONS_PutString("Em EEPROM size write error.\r\n");
+    //ogura
+    //CONS_PutString("Em EEPROM size write error.\r\n");
+    //usbuart_put_string("Em EEPROM size write error.\r\n");
     while (1) { /* Will stay here */ }
   }
 
@@ -239,7 +241,9 @@ static int write_bytecode( uint16_t size )
     status = Em_EEPROM_Write(buf, flash_addr, read_size);
 
     if (CYRET_SUCCESS != status) {
-      CONS_PutString("Em EEPROM error3\r\n");
+      //ogura
+      //CONS_PutString("Em EEPROM error3\r\n");
+      //usbuart_put_string("Em EEPROM error3\r\n");
       while (1) { /* Will stay here */ }
     }
 

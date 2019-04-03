@@ -1,16 +1,15 @@
 -- Project:   Design01
--- Generated: 03/19/2019 11:43:06
+-- Generated: 04/03/2019 11:10:42
 -- PSoC Creator  4.2
 
 ENTITY Design01 IS
     PORT(
-        D1(0)_PAD : INOUT std_ulogic;
-        D2(0)_PAD : INOUT std_ulogic;
+        D1(0)_PAD : IN std_ulogic;
+        D2(0)_PAD : IN std_ulogic;
         SDA_1(0)_PAD : INOUT std_ulogic;
         SCL_1(0)_PAD : INOUT std_ulogic;
         UART_1_Rx(0)_PAD : IN std_ulogic;
         UART_1_Tx(0)_PAD : OUT std_ulogic;
-        DO2(0)_PAD : OUT std_ulogic;
         SW1(0)_PAD : IN std_ulogic;
         LED4(0)_PAD : OUT std_ulogic;
         LED3(0)_PAD : OUT std_ulogic;
@@ -50,7 +49,6 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL ClockBlock_XTAL_32KHZ : bit;
     SIGNAL D1(0)__PA : bit;
     SIGNAL D2(0)__PA : bit;
-    SIGNAL DO2(0)__PA : bit;
     SIGNAL LED1(0)__PA : bit;
     SIGNAL LED2(0)__PA : bit;
     SIGNAL LED3(0)__PA : bit;
@@ -66,9 +64,6 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL Net_54 : bit;
     ATTRIBUTE global_signal OF Net_54 : SIGNAL IS true;
     SIGNAL Net_54_local : bit;
-    SIGNAL Net_57 : bit;
-    ATTRIBUTE global_signal OF Net_57 : SIGNAL IS true;
-    SIGNAL Net_57_local : bit;
     SIGNAL Net_93 : bit;
     SIGNAL Net_96 : bit;
     SIGNAL P2(0)__PA : bit;
@@ -218,39 +213,37 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     ATTRIBUTE Location OF UART_1_Tx(0) : LABEL IS "P12[1]";
     ATTRIBUTE lib_model OF VDD1(0) : LABEL IS "iocell7";
     ATTRIBUTE Location OF VDD1(0) : LABEL IS "P0[2]";
-    ATTRIBUTE lib_model OF DO2(0) : LABEL IS "iocell8";
-    ATTRIBUTE Location OF DO2(0) : LABEL IS "P15[2]";
-    ATTRIBUTE lib_model OF SW1(0) : LABEL IS "iocell9";
+    ATTRIBUTE lib_model OF SW1(0) : LABEL IS "iocell8";
     ATTRIBUTE Location OF SW1(0) : LABEL IS "P5[2]";
-    ATTRIBUTE lib_model OF VDD2(0) : LABEL IS "iocell10";
+    ATTRIBUTE lib_model OF VDD2(0) : LABEL IS "iocell9";
     ATTRIBUTE Location OF VDD2(0) : LABEL IS "P0[3]";
-    ATTRIBUTE lib_model OF LED4(0) : LABEL IS "iocell11";
+    ATTRIBUTE lib_model OF LED4(0) : LABEL IS "iocell10";
     ATTRIBUTE Location OF LED4(0) : LABEL IS "P6[7]";
-    ATTRIBUTE lib_model OF LED3(0) : LABEL IS "iocell12";
+    ATTRIBUTE lib_model OF LED3(0) : LABEL IS "iocell11";
     ATTRIBUTE Location OF LED3(0) : LABEL IS "P6[6]";
-    ATTRIBUTE lib_model OF \USBUART:Dm(0)\ : LABEL IS "iocell13";
+    ATTRIBUTE lib_model OF \USBUART:Dm(0)\ : LABEL IS "iocell12";
     ATTRIBUTE Location OF \USBUART:Dm(0)\ : LABEL IS "P15[7]";
-    ATTRIBUTE lib_model OF \USBUART:Dp(0)\ : LABEL IS "iocell14";
+    ATTRIBUTE lib_model OF \USBUART:Dp(0)\ : LABEL IS "iocell13";
     ATTRIBUTE Location OF \USBUART:Dp(0)\ : LABEL IS "P15[6]";
-    ATTRIBUTE lib_model OF LED1(0) : LABEL IS "iocell15";
+    ATTRIBUTE lib_model OF LED1(0) : LABEL IS "iocell14";
     ATTRIBUTE Location OF LED1(0) : LABEL IS "P6[4]";
-    ATTRIBUTE lib_model OF LED2(0) : LABEL IS "iocell16";
+    ATTRIBUTE lib_model OF LED2(0) : LABEL IS "iocell15";
     ATTRIBUTE Location OF LED2(0) : LABEL IS "P6[5]";
-    ATTRIBUTE lib_model OF P2(0) : LABEL IS "iocell17";
+    ATTRIBUTE lib_model OF P2(0) : LABEL IS "iocell16";
     ATTRIBUTE Location OF P2(0) : LABEL IS "P2[0]";
-    ATTRIBUTE lib_model OF P2(1) : LABEL IS "iocell18";
+    ATTRIBUTE lib_model OF P2(1) : LABEL IS "iocell17";
     ATTRIBUTE Location OF P2(1) : LABEL IS "P2[1]";
-    ATTRIBUTE lib_model OF P2(2) : LABEL IS "iocell19";
+    ATTRIBUTE lib_model OF P2(2) : LABEL IS "iocell18";
     ATTRIBUTE Location OF P2(2) : LABEL IS "P2[2]";
-    ATTRIBUTE lib_model OF P2(3) : LABEL IS "iocell20";
+    ATTRIBUTE lib_model OF P2(3) : LABEL IS "iocell19";
     ATTRIBUTE Location OF P2(3) : LABEL IS "P2[3]";
-    ATTRIBUTE lib_model OF P2(4) : LABEL IS "iocell21";
+    ATTRIBUTE lib_model OF P2(4) : LABEL IS "iocell20";
     ATTRIBUTE Location OF P2(4) : LABEL IS "P2[4]";
-    ATTRIBUTE lib_model OF P2(5) : LABEL IS "iocell22";
+    ATTRIBUTE lib_model OF P2(5) : LABEL IS "iocell21";
     ATTRIBUTE Location OF P2(5) : LABEL IS "P2[5]";
-    ATTRIBUTE lib_model OF P2(6) : LABEL IS "iocell23";
+    ATTRIBUTE lib_model OF P2(6) : LABEL IS "iocell22";
     ATTRIBUTE Location OF P2(6) : LABEL IS "P2[6]";
-    ATTRIBUTE lib_model OF P2(7) : LABEL IS "iocell24";
+    ATTRIBUTE lib_model OF P2(7) : LABEL IS "iocell23";
     ATTRIBUTE Location OF P2(7) : LABEL IS "P2[7]";
     ATTRIBUTE lib_model OF Net_15 : LABEL IS "macrocell1";
     ATTRIBUTE lib_model OF \UART_1:BUART:counter_load_not\ : LABEL IS "macrocell2";
@@ -689,17 +682,15 @@ BEGIN
             clk_a_dig_1 => \ADC_1:Net_381_local\,
             dclk_glb_0 => \UART_1:Net_9\,
             dclk_0 => \UART_1:Net_9_local\,
-            dclk_glb_1 => Net_57,
-            dclk_1 => Net_57_local,
-            dclk_glb_2 => Net_54,
-            dclk_2 => Net_54_local,
+            dclk_glb_1 => Net_54,
+            dclk_1 => Net_54_local,
             clk_bus_glb_ff => \ClockBlock.clk_bus_glb_ff__sig\,
             aclk_glb_ff_0 => \ClockBlock.aclk_glb_ff_0__sig\,
             aclk_glb_ff_1 => \ClockBlock.aclk_glb_ff_1__sig\);
 
     D1:logicalport
         GENERIC MAP(
-            drive_mode => "010",
+            drive_mode => "011",
             ibuf_enabled => "1",
             id => "8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
             init_dr_st => "0",
@@ -707,7 +698,7 @@ BEGIN
             input_clk_en => 0,
             input_sync => "0",
             input_sync_mode => "0",
-            intr_mode => "01",
+            intr_mode => "10",
             invert_in_clock => 0,
             invert_in_clock_en => 0,
             invert_in_reset => 0,
@@ -735,7 +726,7 @@ BEGIN
             pa_out_clock_en => -1,
             pa_out_reset => -1,
             pin_aliases => "",
-            pin_mode => "B",
+            pin_mode => "I",
             por_state => 4,
             port_alias_group => "",
             port_alias_required => 0,
@@ -790,7 +781,7 @@ BEGIN
 
     D2:logicalport
         GENERIC MAP(
-            drive_mode => "010",
+            drive_mode => "011",
             ibuf_enabled => "1",
             id => "e851a3b9-efb8-48be-bbb8-b303b216c393",
             init_dr_st => "0",
@@ -826,7 +817,7 @@ BEGIN
             pa_out_clock_en => -1,
             pa_out_reset => -1,
             pin_aliases => "",
-            pin_mode => "B",
+            pin_mode => "I",
             por_state => 4,
             port_alias_group => "",
             port_alias_required => 0,
@@ -1339,102 +1330,12 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    DO2:logicalport
-        GENERIC MAP(
-            drive_mode => "110",
-            ibuf_enabled => "1",
-            id => "13ca44b0-68fd-4804-8bb3-c7768484a48e",
-            init_dr_st => "0",
-            input_buffer_sel => "00",
-            input_clk_en => 0,
-            input_sync => "1",
-            input_sync_mode => "0",
-            intr_mode => "00",
-            invert_in_clock => 0,
-            invert_in_clock_en => 0,
-            invert_in_reset => 0,
-            invert_out_clock => 0,
-            invert_out_clock_en => 0,
-            invert_out_reset => 0,
-            io_voltage => "",
-            layout_mode => "CONTIGUOUS",
-            oe_conn => "0",
-            oe_reset => 0,
-            oe_sync => "0",
-            output_clk_en => 0,
-            output_clock_mode => "0",
-            output_conn => "0",
-            output_mode => "0",
-            output_reset => 0,
-            output_sync => "0",
-            ovt_hyst_trim => "0",
-            ovt_needed => "0",
-            ovt_slew_control => "00",
-            pa_in_clock => -1,
-            pa_in_clock_en => -1,
-            pa_in_reset => -1,
-            pa_out_clock => -1,
-            pa_out_clock_en => -1,
-            pa_out_reset => -1,
-            pin_aliases => "",
-            pin_mode => "O",
-            por_state => 4,
-            port_alias_group => "",
-            port_alias_required => 0,
-            sio_group_cnt => 0,
-            sio_hifreq => "00000000",
-            sio_hyst => "1",
-            sio_ibuf => "00000000",
-            sio_info => "00",
-            sio_obuf => "00000000",
-            sio_refsel => "00000000",
-            sio_vohsel => "00000000",
-            sio_vtrip => "00000000",
-            slew_rate => "0",
-            spanning => 0,
-            sw_only => 0,
-            use_annotation => "0",
-            vtrip => "10",
-            width => 1,
-            in_clk_inv => 0,
-            in_clken_inv => 0,
-            in_clken_mode => 1,
-            in_rst_inv => 0,
-            out_clk_inv => 0,
-            out_clken_inv => 0,
-            out_clken_mode => 1,
-            out_rst_inv => 0)
-        PORT MAP(
-            in_clock_en => open,
-            in_reset => open,
-            out_clock_en => open,
-            out_reset => open);
-
-    DO2(0):iocell
-        GENERIC MAP(
-            in_sync_mode => 0,
-            out_sync_mode => 0,
-            oe_sync_mode => 0,
-            logicalport => "DO2",
-            logicalport_pin_id => 0,
-            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
-        PORT MAP(
-            pa_out => DO2(0)__PA,
-            oe => open,
-            pad_in => DO2(0)_PAD,
-            in_clock => open,
-            in_clock_en => '1',
-            in_reset => '0',
-            out_clock => open,
-            out_clock_en => '1',
-            out_reset => '0');
-
     SW1:logicalport
         GENERIC MAP(
             drive_mode => "010",
             ibuf_enabled => "1",
             id => "435b2dd9-f714-4e65-a4c8-26361625f4d9",
-            init_dr_st => "0",
+            init_dr_st => "1",
             input_buffer_sel => "00",
             input_clk_en => 0,
             input_sync => "0",
@@ -2150,7 +2051,7 @@ BEGIN
 
     P2:logicalport
         GENERIC MAP(
-            drive_mode => "010010010010010010010010",
+            drive_mode => "011011011011011011011011",
             ibuf_enabled => "11111111",
             id => "456662ee-dad1-4764-b26e-53f22d2e560d",
             init_dr_st => "00000000",
@@ -2861,14 +2762,6 @@ BEGIN
             is_nmi => 0)
         PORT MAP(
             interrupt => CTW_OUT,
-            clock => ClockBlock_BUS_CLK);
-
-    isr_Tick_1:interrupt
-        GENERIC MAP(
-            int_type => "10",
-            is_nmi => 0)
-        PORT MAP(
-            interrupt => Net_57_local,
             clock => ClockBlock_BUS_CLK);
 
     \UART_1:BUART:txn\:macrocell
