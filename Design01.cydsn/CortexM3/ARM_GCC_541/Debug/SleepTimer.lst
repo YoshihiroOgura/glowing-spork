@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
   28:Generated_Source\PSoC5/SleepTimer.c **** *  sets the initVar variable, calls the SleepTimer_Init() function, and then
   29:Generated_Source\PSoC5/SleepTimer.c **** *  calls the SleepTimer_Enable() function. It enables the 1-kHz ILO clock and
   30:Generated_Source\PSoC5/SleepTimer.c **** *  leaves it enabled after the Sleep Timer component is stopped.
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 2
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 2
 
 
   31:Generated_Source\PSoC5/SleepTimer.c **** *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
   85:Generated_Source\PSoC5/SleepTimer.c **** *******************************************************************************/
   86:Generated_Source\PSoC5/SleepTimer.c **** void SleepTimer_Init(void)  
   87:Generated_Source\PSoC5/SleepTimer.c **** {
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 3
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 3
 
 
   88:Generated_Source\PSoC5/SleepTimer.c ****     /* Sets default (passed from customizer) interval */
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
   38 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
   39 0006 13F0020F 		tst	r3, #2
   40 000a 0ED1     		bne	.L2
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 4
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 4
 
 
  132:Generated_Source\PSoC5/SleepTimer.c ****     {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
   72 003e 00BF     		.align	2
   73              	.L5:
   74 0040 00430040 		.word	1073758976
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 5
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 5
 
 
   75 0044 82430040 		.word	1073759106
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  186:Generated_Source\PSoC5/SleepTimer.c ****     SleepTimer_TW_CFG_REG &= (uint8)(~SleepTimer_CTW_EN);
   98              		.loc 1 186 0
   99 0006 044A     		ldr	r2, .L9
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 6
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 6
 
 
  100 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  211:Generated_Source\PSoC5/SleepTimer.c ****     /* Enter critical section */
  212:Generated_Source\PSoC5/SleepTimer.c ****     interruptState = CyEnterCriticalSection();
  130              		.loc 1 212 0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 7
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 7
 
 
  131 0002 FFF7FEFF 		bl	CyEnterCriticalSection
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  160              		@ frame_needed = 0, uses_anonymous_args = 0
  161 0000 08B5     		push	{r3, lr}
  162              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 8
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 8
 
 
  163              		.cfi_offset 3, -8
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  263:Generated_Source\PSoC5/SleepTimer.c **** *
  264:Generated_Source\PSoC5/SleepTimer.c **** *  PSoC 5:
  265:Generated_Source\PSoC5/SleepTimer.c **** *  Only the 4-, 8-, 16-, 32-, 64-, 128-, and 256-ms selections are supported.
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 9
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 9
 
 
  266:Generated_Source\PSoC5/SleepTimer.c **** *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  203              		.loc 1 308 0
  204 000a 054A     		ldr	r2, .L21+4
  205 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 10
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 10
 
 
  307:Generated_Source\PSoC5/SleepTimer.c ****             (SleepTimer_CTW_INTERVAL_REG & ((uint8)~SleepTimer_INTERVAL_MASK)) | \
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  256              	.LFB0:
   54:Generated_Source\PSoC5/SleepTimer.c ****     /* Execute once in normal flow */
  257              		.loc 1 54 0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 11
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 11
 
 
  258              		.cfi_startproc
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  321:Generated_Source\PSoC5/SleepTimer.c **** *  clears the pending interrupt status bit. The application code must always
  322:Generated_Source\PSoC5/SleepTimer.c **** *  call this function after wakeup to clear the ctw_int status bit. The code
  323:Generated_Source\PSoC5/SleepTimer.c **** *  must call this function whether the Sleep Timer's interrupt is disabled or
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 12
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 12
 
 
  324:Generated_Source\PSoC5/SleepTimer.c **** *  enabled.
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  308              		.loc 1 365 0
  309 0008 08BD     		pop	{r3, pc}
  310              		.cfi_endproc
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 13
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 13
 
 
  311              	.LFE7:
@@ -742,48 +742,48 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  329 0006 00000000 		.4byte	.Ldebug_abbrev0
  330 000a 04       		.byte	0x4
  331 000b 01       		.uleb128 0x1
- 332 000c A2000000 		.4byte	.LASF27
+ 332 000c D2000000 		.4byte	.LASF27
  333 0010 0C       		.byte	0xc
- 334 0011 25020000 		.4byte	.LASF28
- 335 0015 6D010000 		.4byte	.LASF29
+ 334 0011 1D020000 		.4byte	.LASF28
+ 335 0015 00000000 		.4byte	.LASF29
  336 0019 00000000 		.4byte	.Ldebug_ranges0+0
  337 001d 00000000 		.4byte	0
  338 0021 00000000 		.4byte	.Ldebug_line0
  339 0025 02       		.uleb128 0x2
  340 0026 01       		.byte	0x1
  341 0027 06       		.byte	0x6
- 342 0028 86020000 		.4byte	.LASF0
+ 342 0028 7E020000 		.4byte	.LASF0
  343 002c 02       		.uleb128 0x2
  344 002d 01       		.byte	0x1
  345 002e 08       		.byte	0x8
- 346 002f 94000000 		.4byte	.LASF1
+ 346 002f C4000000 		.4byte	.LASF1
  347 0033 02       		.uleb128 0x2
  348 0034 02       		.byte	0x2
  349 0035 05       		.byte	0x5
- 350 0036 4E020000 		.4byte	.LASF2
+ 350 0036 46020000 		.4byte	.LASF2
  351 003a 02       		.uleb128 0x2
  352 003b 02       		.byte	0x2
  353 003c 07       		.byte	0x7
- 354 003d 1D000000 		.4byte	.LASF3
+ 354 003d 4D000000 		.4byte	.LASF3
  355 0041 02       		.uleb128 0x2
  356 0042 04       		.byte	0x4
  357 0043 05       		.byte	0x5
- 358 0044 61020000 		.4byte	.LASF4
+ 358 0044 59020000 		.4byte	.LASF4
  359 0048 02       		.uleb128 0x2
  360 0049 04       		.byte	0x4
  361 004a 07       		.byte	0x7
- 362 004b 44010000 		.4byte	.LASF5
+ 362 004b 74010000 		.4byte	.LASF5
  363 004f 02       		.uleb128 0x2
  364 0050 08       		.byte	0x8
  365 0051 05       		.byte	0x5
- 366 0052 17020000 		.4byte	.LASF6
+ 366 0052 0F020000 		.4byte	.LASF6
  367 0056 02       		.uleb128 0x2
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 14
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 14
 
 
  368 0057 08       		.byte	0x8
  369 0058 07       		.byte	0x7
- 370 0059 68000000 		.4byte	.LASF7
+ 370 0059 98000000 		.4byte	.LASF7
  371 005d 03       		.uleb128 0x3
  372 005e 04       		.byte	0x4
  373 005f 05       		.byte	0x5
@@ -791,26 +791,26 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  375 0064 02       		.uleb128 0x2
  376 0065 04       		.byte	0x4
  377 0066 07       		.byte	0x7
- 378 0067 C3010000 		.4byte	.LASF8
+ 378 0067 BB010000 		.4byte	.LASF8
  379 006b 04       		.uleb128 0x4
- 380 006c 56010000 		.4byte	.LASF12
+ 380 006c 86010000 		.4byte	.LASF12
  381 0070 02       		.byte	0x2
  382 0071 E401     		.2byte	0x1e4
  383 0073 2C000000 		.4byte	0x2c
  384 0077 02       		.uleb128 0x2
  385 0078 04       		.byte	0x4
  386 0079 04       		.byte	0x4
- 387 007a 00000000 		.4byte	.LASF9
+ 387 007a 30000000 		.4byte	.LASF9
  388 007e 02       		.uleb128 0x2
  389 007f 08       		.byte	0x8
  390 0080 04       		.byte	0x4
- 391 0081 A5010000 		.4byte	.LASF10
+ 391 0081 9D010000 		.4byte	.LASF10
  392 0085 02       		.uleb128 0x2
  393 0086 01       		.byte	0x1
  394 0087 08       		.byte	0x8
- 395 0088 49020000 		.4byte	.LASF11
+ 395 0088 41020000 		.4byte	.LASF11
  396 008c 04       		.uleb128 0x4
- 397 008d 30010000 		.4byte	.LASF13
+ 397 008d 60010000 		.4byte	.LASF13
  398 0091 02       		.byte	0x2
  399 0092 8E02     		.2byte	0x28e
  400 0094 98000000 		.4byte	0x98
@@ -819,13 +819,13 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  403 009d 02       		.uleb128 0x2
  404 009e 08       		.byte	0x8
  405 009f 04       		.byte	0x4
- 406 00a0 6A020000 		.4byte	.LASF14
+ 406 00a0 62020000 		.4byte	.LASF14
  407 00a4 02       		.uleb128 0x2
  408 00a5 04       		.byte	0x4
  409 00a6 07       		.byte	0x7
- 410 00a7 FC010000 		.4byte	.LASF15
+ 410 00a7 F4010000 		.4byte	.LASF15
  411 00ab 06       		.uleb128 0x6
- 412 00ac 05020000 		.4byte	.LASF16
+ 412 00ac FD010000 		.4byte	.LASF16
  413 00b0 01       		.byte	0x1
  414 00b1 7E       		.byte	0x7e
  415 00b2 00000000 		.4byte	.LFB2
@@ -834,11 +834,11 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  418 00bb 9C       		.byte	0x9c
  419 00bc F4000000 		.4byte	0xf4
  420 00c0 07       		.uleb128 0x7
- 421 00c1 35010000 		.4byte	.LASF18
+ 421 00c1 65010000 		.4byte	.LASF18
  422 00c5 01       		.byte	0x1
  423 00c6 80       		.byte	0x80
  424 00c7 6B000000 		.4byte	0x6b
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 15
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 15
 
 
  425 00cb 00000000 		.4byte	.LLST0
@@ -856,7 +856,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  437 00ef 60020000 		.4byte	0x260
  438 00f3 00       		.byte	0
  439 00f4 06       		.uleb128 0x6
- 440 00f5 45000000 		.4byte	.LASF17
+ 440 00f5 75000000 		.4byte	.LASF17
  441 00f9 01       		.byte	0x1
  442 00fa B2       		.byte	0xb2
  443 00fb 00000000 		.4byte	.LFB3
@@ -865,7 +865,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  446 0104 9C       		.byte	0x9c
  447 0105 2B010000 		.4byte	0x12b
  448 0109 07       		.uleb128 0x7
- 449 010a 35010000 		.4byte	.LASF18
+ 449 010a 65010000 		.4byte	.LASF18
  450 010e 01       		.byte	0x1
  451 010f B4       		.byte	0xb4
  452 0110 6B000000 		.4byte	0x6b
@@ -878,7 +878,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  459 0126 60020000 		.4byte	0x260
  460 012a 00       		.byte	0
  461 012b 06       		.uleb128 0x6
- 462 012c 30000000 		.4byte	.LASF19
+ 462 012c 60000000 		.4byte	.LASF19
  463 0130 01       		.byte	0x1
  464 0131 CF       		.byte	0xcf
  465 0132 00000000 		.4byte	.LFB4
@@ -887,7 +887,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  468 013b 9C       		.byte	0x9c
  469 013c 62010000 		.4byte	0x162
  470 0140 07       		.uleb128 0x7
- 471 0141 35010000 		.4byte	.LASF18
+ 471 0141 65010000 		.4byte	.LASF18
  472 0145 01       		.byte	0x1
  473 0146 D1       		.byte	0xd1
  474 0147 6B000000 		.4byte	0x6b
@@ -898,12 +898,12 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  479 0158 08       		.uleb128 0x8
  480 0159 14000000 		.4byte	.LVL7
  481 015d 60020000 		.4byte	0x260
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 16
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 16
 
 
  482 0161 00       		.byte	0
  483 0162 06       		.uleb128 0x6
- 484 0163 E6010000 		.4byte	.LASF20
+ 484 0163 DE010000 		.4byte	.LASF20
  485 0167 01       		.byte	0x1
  486 0168 EC       		.byte	0xec
  487 0169 00000000 		.4byte	.LFB5
@@ -912,7 +912,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  490 0172 9C       		.byte	0x9c
  491 0173 99010000 		.4byte	0x199
  492 0177 07       		.uleb128 0x7
- 493 0178 35010000 		.4byte	.LASF18
+ 493 0178 65010000 		.4byte	.LASF18
  494 017c 01       		.byte	0x1
  495 017d EE       		.byte	0xee
  496 017e 6B000000 		.4byte	0x6b
@@ -925,7 +925,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  503 0194 60020000 		.4byte	0x260
  504 0198 00       		.byte	0
  505 0199 09       		.uleb128 0x9
- 506 019a 06000000 		.4byte	.LASF21
+ 506 019a 36000000 		.4byte	.LASF21
  507 019e 01       		.byte	0x1
  508 019f 2101     		.2byte	0x121
  509 01a1 00000000 		.4byte	.LFB6
@@ -934,14 +934,14 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  512 01aa 9C       		.byte	0x9c
  513 01ab C0010000 		.4byte	0x1c0
  514 01af 0A       		.uleb128 0xa
- 515 01b0 58020000 		.4byte	.LASF30
+ 515 01b0 50020000 		.4byte	.LASF30
  516 01b4 01       		.byte	0x1
  517 01b5 2101     		.2byte	0x121
  518 01b7 6B000000 		.4byte	0x6b
  519 01bb 57000000 		.4byte	.LLST4
  520 01bf 00       		.byte	0
  521 01c0 06       		.uleb128 0x6
- 522 01c1 76020000 		.4byte	.LASF22
+ 522 01c1 6E020000 		.4byte	.LASF22
  523 01c5 01       		.byte	0x1
  524 01c6 56       		.byte	0x56
  525 01c7 00000000 		.4byte	.LFB1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  536 01e4 50       		.byte	0x50
  537 01e5 01       		.uleb128 0x1
  538 01e6 3A       		.byte	0x3a
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 17
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 17
 
 
  539 01e7 00       		.byte	0
@@ -967,7 +967,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  542 01ed 2B010000 		.4byte	0x12b
  543 01f1 00       		.byte	0
  544 01f2 06       		.uleb128 0x6
- 545 01f3 5C010000 		.4byte	.LASF23
+ 545 01f3 8C010000 		.4byte	.LASF23
  546 01f7 01       		.byte	0x1
  547 01f8 35       		.byte	0x35
  548 01f9 00000000 		.4byte	.LFB0
@@ -983,7 +983,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  558 0215 AB000000 		.4byte	0xab
  559 0219 00       		.byte	0
  560 021a 0D       		.uleb128 0xd
- 561 021b 7F000000 		.4byte	.LASF31
+ 561 021b AF000000 		.4byte	.LASF31
  562 021f 01       		.byte	0x1
  563 0220 6901     		.2byte	0x169
  564 0222 6B000000 		.4byte	0x6b
@@ -1003,7 +1003,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  578 0242 00       		.byte	0
  579 0243 00       		.byte	0
  580 0244 0F       		.uleb128 0xf
- 581 0245 55000000 		.4byte	.LASF32
+ 581 0245 85000000 		.4byte	.LASF32
  582 0249 01       		.byte	0x1
  583 024a 13       		.byte	0x13
  584 024b 6B000000 		.4byte	0x6b
@@ -1011,21 +1011,21 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  586 0250 03       		.byte	0x3
  587 0251 00000000 		.4byte	SleepTimer_initVar
  588 0255 10       		.uleb128 0x10
- 589 0256 AC010000 		.4byte	.LASF24
- 590 025a AC010000 		.4byte	.LASF24
+ 589 0256 A4010000 		.4byte	.LASF24
+ 590 025a A4010000 		.4byte	.LASF24
  591 025e 03       		.byte	0x3
  592 025f 7D       		.byte	0x7d
  593 0260 10       		.uleb128 0x10
- 594 0261 D0010000 		.4byte	.LASF25
- 595 0265 D0010000 		.4byte	.LASF25
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 18
+ 594 0261 C8010000 		.4byte	.LASF25
+ 595 0265 C8010000 		.4byte	.LASF25
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 18
 
 
  596 0269 03       		.byte	0x3
  597 026a 7E       		.byte	0x7e
  598 026b 10       		.uleb128 0x10
- 599 026c 92020000 		.4byte	.LASF26
- 600 0270 92020000 		.4byte	.LASF26
+ 599 026c 8A020000 		.4byte	.LASF26
+ 600 0270 8A020000 		.4byte	.LASF26
  601 0274 04       		.byte	0x4
  602 0275 26       		.byte	0x26
  603 0276 00       		.byte	0
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  650 002c 03       		.uleb128 0x3
  651 002d 0E       		.uleb128 0xe
  652 002e 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 19
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 19
 
 
  653 002f 0B       		.uleb128 0xb
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  707 0066 08       		.uleb128 0x8
  708 0067 898201   		.uleb128 0x4109
  709 006a 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 20
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 20
 
 
  710 006b 11       		.uleb128 0x11
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  764 00a4 13       		.uleb128 0x13
  765 00a5 00       		.byte	0
  766 00a6 00       		.byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 21
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 21
 
 
  767 00a7 0C       		.uleb128 0xc
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  821 00e3 49       		.uleb128 0x49
  822 00e4 13       		.uleb128 0x13
  823 00e5 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 22
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 22
 
 
  824 00e6 19       		.uleb128 0x19
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  878 004e 50       		.byte	0x50
  879 004f 00000000 		.4byte	0
  880 0053 00000000 		.4byte	0
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 23
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 23
 
 
  881              	.LLST4:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  935 0030 00000000 		.4byte	.LFB0
  936 0034 1C000000 		.4byte	.LFE0
  937 0038 00000000 		.4byte	.LFB7
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 24
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 24
 
 
  938 003c 0A000000 		.4byte	.LFE7
@@ -1391,189 +1391,187 @@ ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 1
  943      00000201 
  943      FB0E0D00 
  943      01010101 
- 944              	.LASF9:
- 945 0000 666C6F61 		.ascii	"float\000"
- 945      7400
- 946              	.LASF21:
- 947 0006 536C6565 		.ascii	"SleepTimer_SetInterval\000"
- 947      7054696D 
- 947      65725F53 
- 947      6574496E 
- 947      74657276 
- 948              	.LASF3:
- 949 001d 73686F72 		.ascii	"short unsigned int\000"
- 949      7420756E 
- 949      7369676E 
- 949      65642069 
- 949      6E7400
- 950              	.LASF19:
- 951 0030 536C6565 		.ascii	"SleepTimer_EnableInt\000"
- 951      7054696D 
- 951      65725F45 
- 951      6E61626C 
- 951      65496E74 
- 952              	.LASF17:
- 953 0045 536C6565 		.ascii	"SleepTimer_Stop\000"
- 953      7054696D 
- 953      65725F53 
- 953      746F7000 
- 954              	.LASF32:
- 955 0055 536C6565 		.ascii	"SleepTimer_initVar\000"
- 955      7054696D 
- 955      65725F69 
- 955      6E697456 
- 955      617200
- 956              	.LASF7:
- 957 0068 6C6F6E67 		.ascii	"long long unsigned int\000"
- 957      206C6F6E 
- 957      6720756E 
- 957      7369676E 
- 957      65642069 
- 958              	.LASF31:
- 959 007f 536C6565 		.ascii	"SleepTimer_GetStatus\000"
- 959      7054696D 
- 959      65725F47 
- 959      65745374 
- 959      61747573 
- 960              	.LASF1:
- 961 0094 756E7369 		.ascii	"unsigned char\000"
- 961      676E6564 
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 25
+ 944              	.LASF29:
+ 945 0000 433A5C55 		.ascii	"C:\\Users\\164\\Desktop\\github\\mcmc\\Design01.cyd"
+ 945      73657273 
+ 945      5C313634 
+ 945      5C446573 
+ 945      6B746F70 
+ 946 002d 736E00   		.ascii	"sn\000"
+ 947              	.LASF9:
+ 948 0030 666C6F61 		.ascii	"float\000"
+ 948      7400
+ 949              	.LASF21:
+ 950 0036 536C6565 		.ascii	"SleepTimer_SetInterval\000"
+ 950      7054696D 
+ 950      65725F53 
+ 950      6574496E 
+ 950      74657276 
+ 951              	.LASF3:
+ 952 004d 73686F72 		.ascii	"short unsigned int\000"
+ 952      7420756E 
+ 952      7369676E 
+ 952      65642069 
+ 952      6E7400
+ 953              	.LASF19:
+ 954 0060 536C6565 		.ascii	"SleepTimer_EnableInt\000"
+ 954      7054696D 
+ 954      65725F45 
+ 954      6E61626C 
+ 954      65496E74 
+ 955              	.LASF17:
+ 956 0075 536C6565 		.ascii	"SleepTimer_Stop\000"
+ 956      7054696D 
+ 956      65725F53 
+ 956      746F7000 
+ 957              	.LASF32:
+ 958 0085 536C6565 		.ascii	"SleepTimer_initVar\000"
+ 958      7054696D 
+ 958      65725F69 
+ 958      6E697456 
+ 958      617200
+ 959              	.LASF7:
+ 960 0098 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 960      206C6F6E 
+ 960      6720756E 
+ 960      7369676E 
+ 960      65642069 
+ 961              	.LASF31:
+ 962 00af 536C6565 		.ascii	"SleepTimer_GetStatus\000"
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 25
 
 
- 961      20636861 
- 961      7200
- 962              	.LASF27:
- 963 00a2 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 963      43313120 
- 963      352E342E 
- 963      31203230 
- 963      31363036 
- 964 00d5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 964      20726576 
- 964      6973696F 
- 964      6E203233 
- 964      37373135 
- 965 0108 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 965      66756E63 
- 965      74696F6E 
- 965      2D736563 
- 965      74696F6E 
- 966              	.LASF13:
- 967 0130 72656738 		.ascii	"reg8\000"
- 967      00
- 968              	.LASF18:
- 969 0135 696E7465 		.ascii	"interruptState\000"
- 969      72727570 
- 969      74537461 
- 969      746500
- 970              	.LASF5:
- 971 0144 6C6F6E67 		.ascii	"long unsigned int\000"
- 971      20756E73 
- 971      69676E65 
- 971      6420696E 
- 971      7400
- 972              	.LASF12:
- 973 0156 75696E74 		.ascii	"uint8\000"
- 973      3800
- 974              	.LASF23:
- 975 015c 536C6565 		.ascii	"SleepTimer_Start\000"
- 975      7054696D 
- 975      65725F53 
- 975      74617274 
- 975      00
- 976              	.LASF29:
- 977 016d 433A5C55 		.ascii	"C:\\Users\\164\\Documents\\PSoC Creator\\mcmc\\Desi"
- 977      73657273 
- 977      5C313634 
- 977      5C446F63 
- 977      756D656E 
- 978 019a 676E3031 		.ascii	"gn01.cydsn\000"
- 978      2E637964 
- 978      736E00
+ 962      7054696D 
+ 962      65725F47 
+ 962      65745374 
+ 962      61747573 
+ 963              	.LASF1:
+ 964 00c4 756E7369 		.ascii	"unsigned char\000"
+ 964      676E6564 
+ 964      20636861 
+ 964      7200
+ 965              	.LASF27:
+ 966 00d2 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 966      43313120 
+ 966      352E342E 
+ 966      31203230 
+ 966      31363036 
+ 967 0105 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 967      20726576 
+ 967      6973696F 
+ 967      6E203233 
+ 967      37373135 
+ 968 0138 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 968      66756E63 
+ 968      74696F6E 
+ 968      2D736563 
+ 968      74696F6E 
+ 969              	.LASF13:
+ 970 0160 72656738 		.ascii	"reg8\000"
+ 970      00
+ 971              	.LASF18:
+ 972 0165 696E7465 		.ascii	"interruptState\000"
+ 972      72727570 
+ 972      74537461 
+ 972      746500
+ 973              	.LASF5:
+ 974 0174 6C6F6E67 		.ascii	"long unsigned int\000"
+ 974      20756E73 
+ 974      69676E65 
+ 974      6420696E 
+ 974      7400
+ 975              	.LASF12:
+ 976 0186 75696E74 		.ascii	"uint8\000"
+ 976      3800
+ 977              	.LASF23:
+ 978 018c 536C6565 		.ascii	"SleepTimer_Start\000"
+ 978      7054696D 
+ 978      65725F53 
+ 978      74617274 
+ 978      00
  979              	.LASF10:
- 980 01a5 646F7562 		.ascii	"double\000"
+ 980 019d 646F7562 		.ascii	"double\000"
  980      6C6500
  981              	.LASF24:
- 982 01ac 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 982 01a4 4379456E 		.ascii	"CyEnterCriticalSection\000"
  982      74657243 
  982      72697469 
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 26
-
-
  982      63616C53 
  982      65637469 
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 26
+
+
  983              	.LASF8:
- 984 01c3 756E7369 		.ascii	"unsigned int\000"
+ 984 01bb 756E7369 		.ascii	"unsigned int\000"
  984      676E6564 
  984      20696E74 
  984      00
  985              	.LASF25:
- 986 01d0 43794578 		.ascii	"CyExitCriticalSection\000"
+ 986 01c8 43794578 		.ascii	"CyExitCriticalSection\000"
  986      69744372 
  986      69746963 
  986      616C5365 
  986      6374696F 
  987              	.LASF20:
- 988 01e6 536C6565 		.ascii	"SleepTimer_DisableInt\000"
+ 988 01de 536C6565 		.ascii	"SleepTimer_DisableInt\000"
  988      7054696D 
  988      65725F44 
  988      69736162 
  988      6C65496E 
  989              	.LASF15:
- 990 01fc 73697A65 		.ascii	"sizetype\000"
+ 990 01f4 73697A65 		.ascii	"sizetype\000"
  990      74797065 
  990      00
  991              	.LASF16:
- 992 0205 536C6565 		.ascii	"SleepTimer_Enable\000"
+ 992 01fd 536C6565 		.ascii	"SleepTimer_Enable\000"
  992      7054696D 
  992      65725F45 
  992      6E61626C 
  992      6500
  993              	.LASF6:
- 994 0217 6C6F6E67 		.ascii	"long long int\000"
+ 994 020f 6C6F6E67 		.ascii	"long long int\000"
  994      206C6F6E 
  994      6720696E 
  994      7400
  995              	.LASF28:
- 996 0225 47656E65 		.ascii	"Generated_Source\\PSoC5\\SleepTimer.c\000"
+ 996 021d 47656E65 		.ascii	"Generated_Source\\PSoC5\\SleepTimer.c\000"
  996      72617465 
  996      645F536F 
  996      75726365 
  996      5C50536F 
  997              	.LASF11:
- 998 0249 63686172 		.ascii	"char\000"
+ 998 0241 63686172 		.ascii	"char\000"
  998      00
  999              	.LASF2:
- 1000 024e 73686F72 		.ascii	"short int\000"
+ 1000 0246 73686F72 		.ascii	"short int\000"
  1000      7420696E 
  1000      7400
  1001              	.LASF30:
- 1002 0258 696E7465 		.ascii	"interval\000"
+ 1002 0250 696E7465 		.ascii	"interval\000"
  1002      7276616C 
  1002      00
  1003              	.LASF4:
- 1004 0261 6C6F6E67 		.ascii	"long int\000"
+ 1004 0259 6C6F6E67 		.ascii	"long int\000"
  1004      20696E74 
  1004      00
  1005              	.LASF14:
- 1006 026a 6C6F6E67 		.ascii	"long double\000"
-ARM GAS  C:\Users\164\AppData\Local\Temp\ccFtC6up.s 			page 27
-
-
+ 1006 0262 6C6F6E67 		.ascii	"long double\000"
  1006      20646F75 
  1006      626C6500 
+ARM GAS  C:\Users\164\AppData\Local\Temp\cckzxIKt.s 			page 27
+
+
  1007              	.LASF22:
- 1008 0276 536C6565 		.ascii	"SleepTimer_Init\000"
+ 1008 026e 536C6565 		.ascii	"SleepTimer_Init\000"
  1008      7054696D 
  1008      65725F49 
  1008      6E697400 
  1009              	.LASF0:
- 1010 0286 7369676E 		.ascii	"signed char\000"
+ 1010 027e 7369676E 		.ascii	"signed char\000"
  1010      65642063 
  1010      68617200 
  1011              	.LASF26:
- 1012 0292 4379506D 		.ascii	"CyPmReadStatus\000"
+ 1012 028a 4379506D 		.ascii	"CyPmReadStatus\000"
  1012      52656164 
  1012      53746174 
  1012      757300

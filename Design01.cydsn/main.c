@@ -199,8 +199,9 @@ static void c_sleep_set_interval(mrb_vm *vm, mrb_value v[], int argc)
 */
 int hal_write(int fd, const void *buf, int nbytes)
 {
-//#if 0
-  usbuart_write( buf, nbytes );
+  if(USBUART_bGetConfiguration()){
+    usbuart_write( buf, nbytes );
+  }
   return nbytes;
 //#else
 //  CONS_PutArray( buf, nbytes );
@@ -215,8 +216,9 @@ int hal_flush(int fd)
 
 int _write(int fd, const void *buf, int nbytes)
 {
-//#if 0
-  usbuart_write( buf, nbytes );
+  if(USBUART_bGetConfiguration()){
+    usbuart_write( buf, nbytes );
+  }
   return nbytes;
 //#else
 //  CONS_PutArray( buf, nbytes );

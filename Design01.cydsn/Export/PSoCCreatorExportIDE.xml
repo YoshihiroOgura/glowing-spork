@@ -37,8 +37,6 @@
       <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
         <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
-          <File BuildType="BUILD" Toolchain="">c_adc.c</File>
-          <File BuildType="BUILD" Toolchain="">standard_io.c</File>
           <File BuildType="BUILD" Toolchain="">alloc.c</File>
           <File BuildType="BUILD" Toolchain="">c_array.c</File>
           <File BuildType="BUILD" Toolchain="">c_hash.c</File>
@@ -61,6 +59,8 @@
           <File BuildType="BUILD" Toolchain="">uart2.c</File>
           <File BuildType="BUILD" Toolchain="">value.c</File>
           <File BuildType="BUILD" Toolchain="">vm.c</File>
+          <File BuildType="BUILD" Toolchain="">c_adc.c</File>
+          <File BuildType="BUILD" Toolchain="">standard_io.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
         </Files>
       </Folder>

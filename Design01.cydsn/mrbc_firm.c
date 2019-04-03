@@ -230,7 +230,7 @@ static int write_bytecode( uint16_t size )
   if (CYRET_SUCCESS != status) {
     //ogura
     //CONS_PutString("Em EEPROM size write error.\r\n");
-    //usbuart_put_string("Em EEPROM size write error.\r\n");
+    if(USBUART_bGetConfiguration()){usbuart_put_string("Em EEPROM size write error.\r\n");};
     while (1) { /* Will stay here */ }
   }
 
@@ -243,7 +243,7 @@ static int write_bytecode( uint16_t size )
     if (CYRET_SUCCESS != status) {
       //ogura
       //CONS_PutString("Em EEPROM error3\r\n");
-      //usbuart_put_string("Em EEPROM error3\r\n");
+      if(USBUART_bGetConfiguration()){usbuart_put_string("Em EEPROM error3\r\n");};
       while (1) { /* Will stay here */ }
     }
 
