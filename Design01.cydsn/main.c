@@ -63,17 +63,6 @@ static void p2_new(mrb_vm *vm, mrb_value v[], int argc)
     }
 }
 
-
-//================================================================
- /*! 数学関数
-*/
-static void c_log(mrb_vm *vm, mrb_value *v, int argc)
-{
-  double val = v[1].d;
-  val = log(val);
-  SET_FLOAT_RETURN(val);
-}
-
 //================================================================
  /*! Digital IO
 */
@@ -195,7 +184,7 @@ static void c_sleep_set_interval(mrb_vm *vm, mrb_value v[], int argc)
 }
 
 //================================================================
-/*! HAL （別途説明します）
+/*! HAL
 */
 int hal_write(int fd, const void *buf, int nbytes)
 {
@@ -262,7 +251,6 @@ void mrubyc(void)
   mrbc_define_method(0, p2, "read", P_read);
   mrbc_define_method(0, p2, "byte_read", P_byte_read);
   mrbc_define_method(0, p2, "nibble_write", P_nibble_Write);
-  mrbc_define_method(0, mrbc_class_object, "log", c_log);
   mrbc_define_method(0, mrbc_class_object, "hibernate",   c_hibernate);
   mrbc_define_method(0, mrbc_class_object, "sleep_set_interval", c_sleep_set_interval);
   mrbc_define_method(0, mrbc_class_object, "sleep_until_nexttime", c_sleep_until_nexttime);

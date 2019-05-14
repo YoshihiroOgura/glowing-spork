@@ -1,5 +1,5 @@
 # Design01
-# 2019-04-03 04:40:03Z
+# 2019-05-14 06:06:57Z
 
 # IO_0@[IOP=(1)][IoId=(0)] is reserved: SWDDebugEnabled
 dont_use_io iocell 1 0
@@ -15,9 +15,9 @@ set_io "SDA_1(0)" iocell 12 5
 set_io "SCL_1(0)" iocell 12 4
 set_io "UART_1_Rx(0)" iocell 12 0
 set_io "UART_1_Tx(0)" iocell 12 1
-set_io "VDD1(0)" iocell 0 2
+set_io "VDD1(0)" iocell 3 6
 set_io "SW1(0)" iocell 5 2
-set_io "VDD2(0)" iocell 0 3
+set_io "VDD2(0)" iocell 3 7
 set_io "LED4(0)" iocell 6 7
 set_io "LED3(0)" iocell 6 6
 set_io "\USBUART:Dm(0)\" iocell 15 7

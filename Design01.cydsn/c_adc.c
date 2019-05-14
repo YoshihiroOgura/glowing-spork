@@ -3,6 +3,9 @@
 #include "class.h"
 #include "value.h"
 #include "static.h"
+#include "c_adc.h"
+
+ADC_HANDLE ah[2];
 
 int ADC_1_GetResult()
 {
@@ -18,37 +21,6 @@ int ADC_2_GetResult()
     int val = ADC_2_GetResult16();
     return val;
 }
-
-#define adc_init(ah, NAME)                           \
-  do {                                                \
-    adc_init_m(ah,                                   \
-                NAME ## _Start,                       \
-                NAME ## _Stop,                        \
-                NAME ## _GetResult);                 \
-  } while( 0 )
-
-typedef struct ADC_HANDLE {
-  void (*Start)(void);
-  void (*Stop)(void);
-  int (*Get)(void);
-} ADC_HANDLE;
-
-void adc_init_m(ADC_HANDLE *ah,
-                 void         *Start,
-                 void         *Stop,
-                 void         *Get);
-
-void adc_init_m(ADC_HANDLE *ah,
-                 void         *Start,
-                 void         *Stop,
-                 void         *Get)
-{
-    ah->Start         = Start;
-    ah->Stop          = Stop;
-    ah->Get          = Get;
-}
-
-ADC_HANDLE ah[2];
 
 static void adc_new(mrb_vm *vm, mrb_value v[], int argc)
 {
@@ -89,4 +61,5 @@ void mrbc_init_class_adc(struct VM *vm)
   mrbc_define_method(0, adc, "new",   adc_new);
   mrbc_define_method(0, adc, "start",   adc_start);
   mrbc_define_method(0, adc, "read", adc_get);
+  mrbc_define_method(0, adc, "stop", adc_stop);
 }

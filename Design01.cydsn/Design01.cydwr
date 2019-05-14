@@ -3660,7 +3660,7 @@
     </Group>
     <Group key="77715107-f8d5-47e5-a629-0fb83101ac6b">
       <Group key="0">
-        <Data key="Port Format" value="0,2" />
+        <Data key="Port Format" value="3,6" />
       </Group>
     </Group>
     <Group key="a96a93d3-94bb-4065-9f7d-6e8a77f9f7c2">
@@ -3680,7 +3680,7 @@
     </Group>
     <Group key="cce5e874-e09f-4731-bd4e-25208c20bbaf">
       <Group key="0">
-        <Data key="Port Format" value="0,3" />
+        <Data key="Port Format" value="3,7" />
       </Group>
     </Group>
     <Group key="cfa77b4e-6613-4481-9743-b26bf2e9fe42">

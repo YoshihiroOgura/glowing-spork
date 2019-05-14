@@ -75,8 +75,8 @@ set_location "\USBUART:dp_int\" interrupt -1 -1 12
 set_location "isr_UART_1_Tx" interrupt -1 -1 8
 set_location "\I2C_1:I2C_IRQ\" interrupt -1 -1 15
 set_location "isr_UART_1_Rx" interrupt -1 -1 7
-set_io "VDD1(0)" iocell 0 2
-set_io "VDD2(0)" iocell 0 3
+set_io "VDD1(0)" iocell 3 6
+set_io "VDD2(0)" iocell 3 7
 set_io "LED3(0)" iocell 6 6
 set_io "LED4(0)" iocell 6 7
 # Note: port 15 is the logical name for port 8

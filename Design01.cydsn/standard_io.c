@@ -18,10 +18,9 @@ static void led_new(mrb_vm *vm, mrb_value v[], int argc)
 {
     uint8 status = 0xf0;
     if(GET_INT_ARG(1) == 0){
-        uint8 status = 0x00u;
+        status = 0x00u;
     }
-    uint8 staticBits = (LED1_DR & (uint8)(~0xF0u));
-    LED1_DR = staticBits | ( status & 0xF0u);
+    LED1_DR = status;
 }
 
 static void sw(mrb_vm *vm, mrb_value *v, int argc)

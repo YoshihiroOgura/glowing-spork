@@ -1,5 +1,5 @@
 -- Project:   C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Design01.cyprj
--- Generated: 04/03/2019 13:40:07
+-- Generated: 05/14/2019 15:07:00
 -- PSoC Creator  4.2
 
 ENTITY Design01 IS
@@ -238,11 +238,11 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     ATTRIBUTE lib_model OF UART_1_Tx(0) : LABEL IS "iocell6";
     ATTRIBUTE Location OF UART_1_Tx(0) : LABEL IS "P12[1]";
     ATTRIBUTE lib_model OF VDD1(0) : LABEL IS "iocell7";
-    ATTRIBUTE Location OF VDD1(0) : LABEL IS "P0[2]";
+    ATTRIBUTE Location OF VDD1(0) : LABEL IS "P3[6]";
     ATTRIBUTE lib_model OF SW1(0) : LABEL IS "iocell8";
     ATTRIBUTE Location OF SW1(0) : LABEL IS "P5[2]";
     ATTRIBUTE lib_model OF VDD2(0) : LABEL IS "iocell9";
-    ATTRIBUTE Location OF VDD2(0) : LABEL IS "P0[3]";
+    ATTRIBUTE Location OF VDD2(0) : LABEL IS "P3[7]";
     ATTRIBUTE lib_model OF LED4(0) : LABEL IS "iocell10";
     ATTRIBUTE Location OF LED4(0) : LABEL IS "P6[7]";
     ATTRIBUTE lib_model OF LED3(0) : LABEL IS "iocell11";
