@@ -409,6 +409,7 @@
       <Data key="10efce27-f569-44e2-b43e-135f5a4fa59d" value="D6" />
       <Data key="13ca44b0-68fd-4804-8bb3-c7768484a48e" value="DO2" />
       <Data key="20e583e5-2321-4a97-87db-527f9f3aff7c" value="P2_2" />
+      <Data key="24d035e0-3076-4edd-8a58-e9f6fb530a19" value="UART_2_Rx" />
       <Data key="33a03542-26a9-41ff-bcfe-5fb394fb4709" value="P2_6" />
       <Data key="34a016f4-3a58-45f3-9165-9f18d218970c" value="P2_1" />
       <Data key="36a63f06-d574-48f8-97ce-ed31733789de" value="LED3" />
@@ -425,6 +426,7 @@
       <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="UART_1_Rx" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="VDD1" />
       <Data key="a96a93d3-94bb-4065-9f7d-6e8a77f9f7c2" value="P2_4" />
+      <Data key="bce4f0dc-d60e-4a45-9366-58d2d269ea14" value="UART_2_Tx" />
       <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/8b77a6c4-10a0-4390-971c-672353e2a49c" value="USBUART_Dm" />
       <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/618a72fc-5ddd-4df5-958f-a3d55102db42" value="USBUART_Dp" />
       <Data key="cce5e874-e09f-4731-bd4e-25208c20bbaf" value="VDD2" />
@@ -3567,6 +3569,11 @@
         <Data key="Port Format" value="2,2" />
       </Group>
     </Group>
+    <Group key="24d035e0-3076-4edd-8a58-e9f6fb530a19">
+      <Group key="0">
+        <Data key="Port Format" value="12,6" />
+      </Group>
+    </Group>
     <Group key="33a03542-26a9-41ff-bcfe-5fb394fb4709">
       <Group key="0">
         <Data key="Port Format" value="2,6" />
@@ -3666,6 +3673,11 @@
     <Group key="a96a93d3-94bb-4065-9f7d-6e8a77f9f7c2">
       <Group key="0">
         <Data key="Port Format" value="2,4" />
+      </Group>
+    </Group>
+    <Group key="bce4f0dc-d60e-4a45-9366-58d2d269ea14">
+      <Group key="0">
+        <Data key="Port Format" value="12,7" />
       </Group>
     </Group>
     <Group key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/8b77a6c4-10a0-4390-971c-672353e2a49c">

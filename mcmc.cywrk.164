@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="mcmc\Design01\Source Files\c_uart.c">
 <ExpandedNodeIds>
 <v>mcmc</v>
 <v>mcmc\Design01</v>
@@ -60,57 +60,7 @@
 <v>mcmc\Design01\Generated_Source\PSoC5</v>
 <v>mcmc\Design01\Generated_Source\PSoC5\D1</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>mcmc</v>
-<v>mcmc\Design01</v>
-<v>mcmc\Design01\TopDesign</v>
-<v>mcmc\Design01\Design01.cydwr</v>
-<v>mcmc\Design01\Design01.cydwr\Pins</v>
-<v>mcmc\Design01\Design01.cydwr\Analog</v>
-<v>mcmc\Design01\Design01.cydwr\Clocks</v>
-<v>mcmc\Design01\Design01.cydwr\Interrupts</v>
-<v>mcmc\Design01\Design01.cydwr\DMA</v>
-<v>mcmc\Design01\Design01.cydwr\System</v>
-<v>mcmc\Design01\Design01.cydwr\Directives</v>
-<v>mcmc\Design01\Design01.cydwr\Flash Security</v>
-<v>mcmc\Design01\Design01.cydwr\EEPROM</v>
-<v>mcmc\Design01\Header Files</v>
-<v>mcmc\Design01\Header Files\cyapicallbacks.h</v>
-<v>mcmc\Design01\Source Files</v>
-<v>mcmc\Design01\Source Files\alloc.c</v>
-<v>mcmc\Design01\Source Files\c_adc.c</v>
-<v>mcmc\Design01\Source Files\c_array.c</v>
-<v>mcmc\Design01\Source Files\c_hash.c</v>
-<v>mcmc\Design01\Source Files\c_i2c.c</v>
-<v>mcmc\Design01\Source Files\c_math.c</v>
-<v>mcmc\Design01\Source Files\c_numeric.c</v>
-<v>mcmc\Design01\Source Files\c_range.c</v>
-<v>mcmc\Design01\Source Files\c_string.c</v>
-<v>mcmc\Design01\Source Files\c_uart.c</v>
-<v>mcmc\Design01\Source Files\class.c</v>
-<v>mcmc\Design01\Source Files\console.c</v>
-<v>mcmc\Design01\Source Files\global.c</v>
-<v>mcmc\Design01\Source Files\keyvalue.c</v>
-<v>mcmc\Design01\Source Files\load.c</v>
-<v>mcmc\Design01\Source Files\main.c</v>
-<v>mcmc\Design01\Source Files\mrbc_firm.c</v>
-<v>mcmc\Design01\Source Files\mrblib.c</v>
-<v>mcmc\Design01\Source Files\rrt0.c</v>
-<v>mcmc\Design01\Source Files\standard_io.c</v>
-<v>mcmc\Design01\Source Files\static.c</v>
-<v>mcmc\Design01\Source Files\symbol.c</v>
-<v>mcmc\Design01\Source Files\uart2.c</v>
-<v>mcmc\Design01\Source Files\value.c</v>
-<v>mcmc\Design01\Source Files\vm.c</v>
-<v>mcmc\Design01\Generated_Source</v>
-<v>mcmc\Design01\Generated_Source\PSoC5</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_1</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_1_IRQ</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_1_theACLK</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_2</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_2_IRQ</v>
-<v>mcmc\Design01\Generated_Source\PSoC5\ADC_2_theACLK</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="mcmc">
 <ExpandedNodeIds>
@@ -119,12 +69,7 @@
 <v>mcmc\Design01\TopDesign</v>
 <v>mcmc\Design01\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>mcmc</v>
-<v>mcmc\Design01</v>
-<v>mcmc\Design01\TopDesign</v>
-<v>mcmc\Design01\TopDesign\TopDesign.cysch</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="mcmc">
 <ExpandedNodeIds>
@@ -183,6 +128,8 @@
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_Tick.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_UART_1_Rx.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_UART_1_Tx.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_UART_2_Rx.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_UART_2_Tx.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\keyvalue.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LED1.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LED2.lst</v>
@@ -206,6 +153,11 @@
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_INT.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_IntClock.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_1_PM.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_2.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_2_BOOT.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_2_INT.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_2_IntClock.lst</v>
+<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_2_PM.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\uart2.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\USBUART.lst</v>
 <v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\USBUART_audio.lst</v>
@@ -234,57 +186,7 @@
 <v>mcmc\Design01\Design01.rpt</v>
 <v>mcmc\Design01\Design01_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>mcmc</v>
-<v>mcmc\Design01</v>
-<v>mcmc\Design01\CortexM3</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_1.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_1_INT.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_1_IRQ.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_1_PM.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_1_theACLK.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_2.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_2_INT.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_2_IRQ.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_2_PM.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\ADC_2_theACLK.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\alloc.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_adc.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_array.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_hash.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_i2c.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_math.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_numeric.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_range.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_string.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\c_uart.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\class.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Clock_Tick.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\console.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\D1.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\D2.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Em_EEPROM.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\global.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\I2C_1.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\I2C_1_BOOT.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\I2C_1_INT.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\I2C_1_MASTER.lst</v>
-<v>mcmc\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\I2C_1_PM.lst</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -311,31 +213,11 @@
 <v>mcmc\Design01\Em_EEPROM_v1_20.pdf</v>
 <v>mcmc\Design01\I2C_v3_50.pdf</v>
 <v>mcmc\Design01\SleepTimer_v3_20.pdf</v>
-<v>mcmc\Design01\UART_v2_50.pdf</v>
+<v>mcmc\Design01\UART_v2_50</v>
+<v>mcmc\Design01\UART_v2_50\UART_v2_50.pdf</v>
 <v>mcmc\Design01\USBFS_v3_20.pdf</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>mcmc</v>
-<v>mcmc\Design01</v>
-<v>mcmc\Design01\PSoC 5LP Architecture TRM</v>
-<v>mcmc\Design01\CY8C58LP Family Datasheet</v>
-<v>mcmc\Design01\System Reference Guides</v>
-<v>mcmc\Design01\System Reference Guides\cy_boot_v5_70</v>
-<v>mcmc\Design01\ADC_SAR_v3_10</v>
-<v>mcmc\Design01\ADC_SAR_v3_10\ADC_SAR_v3_10.pdf</v>
-<v>mcmc\Design01\cy_clock_v2_20.pdf</v>
-<v>mcmc\Design01\cy_constant_v1_0</v>
-<v>mcmc\Design01\cy_constant_v1_0\cy_constant_v1_0.pdf</v>
-<v>mcmc\Design01\cy_isr_v1_70</v>
-<v>mcmc\Design01\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
-<v>mcmc\Design01\cy_pins_v2_20</v>
-<v>mcmc\Design01\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
-<v>mcmc\Design01\Em_EEPROM_v1_20.pdf</v>
-<v>mcmc\Design01\I2C_v3_50.pdf</v>
-<v>mcmc\Design01\SleepTimer_v3_20.pdf</v>
-<v>mcmc\Design01\UART_v2_50.pdf</v>
-<v>mcmc\Design01\USBFS_v3_20.pdf</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -350,12 +232,9 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\Design01.cydsn\main.c" />
-<name v=".\Design01.cydsn\mrbc_firm.c" />
-<name v=".\Design01.cydsn\c_adc.c" />
-<name v=".\Design01.cydsn\standard_io.c" />
 <name v=".\Design01.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\Design01.cydsn\c_math.c" />
 <name v=".\Design01.cydsn\Design01.cydwr" />
+<name v=".\Design01.cydsn\Generated_Source\PSoC5\D1.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -363,7 +242,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="470, 899" SelectedTabbedMdiWindow="6ec16444-f91f-4b8b-b8a6-ed255c854c13"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="e019da87-d7a2-4747-abdf-0e8762ec08a7" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\main.c" Guid="04b4b438-f9c4-4287-965b-65c9b8f32bf1" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\mrbc_firm.c" Guid="20faf9c3-33f8-45bb-a323-80b8804e1827" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\c_adc.c" Guid="8942fc5e-5970-4a90-bc01-725f01a8a3d0" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\standard_io.c" Guid="bf2bf92e-c9b1-416e-ae30-a4ce7531d304" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\TopDesign\TopDesign.cysch" Guid="f6252653-53a9-4453-a401-09fd4d367be9" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\c_math.c" Guid="02d9e975-ff02-4bd0-92e4-503bd1556f70" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Design01.cydwr" Guid="6ec16444-f91f-4b8b-b8a6-ed255c854c13" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1211, 915" SelectedTabbedMdiWindow="bd8821dc-513a-4136-9b7f-d36418be0f06"><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\main.c" Guid="bd8821dc-513a-4136-9b7f-d36418be0f06" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\TopDesign\TopDesign.cysch" Guid="c0b14f34-924b-45fd-8e1d-f2f53f0624c2" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Design01.cydwr" Guid="1e46efe8-32b2-4e19-af3c-182924fe139d" /><DocumentWindow Key="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Generated_Source\PSoC5\D1.c" Guid="8c4e166c-1af9-456c-b26d-bd9bd98ccd57" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

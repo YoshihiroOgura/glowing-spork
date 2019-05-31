@@ -53,10 +53,10 @@
 //================================================================
 /*! UART用設定
 */
-#define NUM_UART 1
+#define NUM_UART 3
 UART_HANDLE uh[NUM_UART];
 UART_ISR( &uh[0], UART_1 );
-// UART_ISR( &uh[1], UART_2 );
+UART_ISR( &uh[1], UART_2 );
 
 
 //================================================================
@@ -64,15 +64,15 @@ UART_ISR( &uh[0], UART_1 );
 */
 static void c_uart_new(mrb_vm *vm, mrb_value v[], int argc)
 {
-  static int num = 0;
+  int num = GET_INT_ARG(1);
 
-  if( num >= NUM_UART ) {
+  if( num >= NUM_UART || num == 0 ) {
     *v = mrb_nil_value();
     return;
   }
 
   *v = mrbc_instance_new(vm, v->cls, sizeof(UART_HANDLE *));
-  *((UART_HANDLE **)v->instance->data) = &uh[num++];
+  *((UART_HANDLE **)v->instance->data) = &uh[num-1];
 }
 
 
@@ -198,7 +198,7 @@ void mrbc_init_class_uart(struct VM *vm)
 {
   // start physical device
   uart_init( &uh[0], UART_1 );
-  // uart_init( &uh[1], UART_2 );
+  uart_init( &uh[1], UART_2 );
 
   // define class and methods.
   mrb_class *uart;

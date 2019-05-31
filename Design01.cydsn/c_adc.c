@@ -25,7 +25,7 @@ int ADC_2_GetResult()
 static void adc_new(mrb_vm *vm, mrb_value v[], int argc)
 {
     *v = mrbc_instance_new(vm, v->cls, sizeof(ADC_HANDLE *));
-    *((ADC_HANDLE **)v->instance->data) = &ah[GET_INT_ARG(1)];
+    *((ADC_HANDLE **)v->instance->data) = &ah[GET_INT_ARG(1)-1];
 }
 
 static void adc_start(mrb_vm *vm, mrb_value *v, int argc)
@@ -51,7 +51,6 @@ static void adc_stop(mrb_vm *vm, mrb_value *v, int argc)
 */
 void mrbc_init_class_adc(struct VM *vm)
 {
-  // start physical device
   adc_init(&ah[0], ADC_1);
   adc_init(&ah[1], ADC_2);
 

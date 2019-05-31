@@ -114,6 +114,15 @@
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\SleepTimer.h" value="HEADER;;;;;SleepTimer" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_SleepTimer.c" value="SOURCE_C;CortexM3;;;;isr_SleepTimer" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_SleepTimer.h" value="HEADER;;;;;isr_SleepTimer" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2.c" value="SOURCE_C;CortexM3;;;;UART_2" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2.h" value="HEADER;;;;;UART_2" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2_PM.c" value="SOURCE_C;CortexM3;;;;UART_2" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2_INT.c" value="SOURCE_C;CortexM3;;;;UART_2" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2_BOOT.c" value="SOURCE_C;CortexM3;;;;UART_2" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Tx.c" value="SOURCE_C;CortexM3;;;;isr_UART_2_Tx" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Tx.h" value="HEADER;;;;;isr_UART_2_Tx" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Rx.c" value="SOURCE_C;CortexM3;;;;isr_UART_2_Rx" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Rx.h" value="HEADER;;;;;isr_UART_2_Rx" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_1_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_1_IntClock" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_1_IntClock.h" value="HEADER;;;;;UART_1_IntClock" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\ADC_1_IRQ.c" value="SOURCE_C;CortexM3;;;;ADC_1_IRQ" />
@@ -130,6 +139,8 @@
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\USBUART_Dp_aliases.h" value="HEADER;;;;;USBUART_Dp" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\USBUART_Dp.c" value="SOURCE_C;CortexM3;;;;USBUART_Dp" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\USBUART_Dp.h" value="HEADER;;;;;USBUART_Dp" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_2_IntClock" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_2_IntClock.h" value="HEADER;;;;;UART_2_IntClock" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\cy_em_eeprom.c" value="SOURCE_C;CortexM3;;;;Em_EEPROM_Dynamic" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\cy_em_eeprom.h" value="HEADER;;;;;Em_EEPROM_Dynamic" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\cm3gcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />

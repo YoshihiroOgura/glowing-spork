@@ -5,6 +5,7 @@
 #include "c_uart.h"
 #include "c_i2c.h"
 #include "c_adc.h"
+#include "c_math.h"
 #include "c_standard_io.h"
 #include <stdio.h>
 #include "mrbc_firm.h"
@@ -38,6 +39,7 @@ CY_ISR(isr_Tick)
 CY_ISR( isr_D1 )
 {
   D1_ClearInterrupt();
+  sleep_int_counter_ == sleep_wakeup_timing_;
 }
 CY_ISR( isr_SleepTimer )
 {
@@ -82,6 +84,7 @@ static void digital_out(mrb_vm *vm, mrb_value *v, int argc)
 static void digital_interrupt(mrb_vm *vm, mrb_value *v, int argc)
 {
   if(GET_INT_ARG(1)==1){
+    D1_ClearInterrupt();
     isr_1_StartEx( isr_D1 );
   }
 }
@@ -238,6 +241,7 @@ void mrubyc(void)
   mrbc_init_class_i2c(0);
   mrbc_init_class_adc(0);
   mrbc_init_class_standard_io(0);
+  mrbc_init_class_math(0);
   mrb_class *io, *p2;
   io = mrbc_define_class(0, "Digital",	mrbc_class_object);
   mrbc_define_method(0, io, "new",   io_new);

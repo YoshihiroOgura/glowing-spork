@@ -226,6 +226,17 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\SleepTimer.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_SleepTimer.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_SleepTimer.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2_INT.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2_BOOT.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_UART_2_Tx.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_UART_2_Tx.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_UART_2_Rx.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\isr_UART_2_Rx.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2_IntClock.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\UART_2_IntClock.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Export\ARM_GCC_Generic">
