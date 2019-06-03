@@ -1,11 +1,11 @@
 -- Project:   Design01
--- Generated: 05/30/2019 15:31:45
+-- Generated: 05/31/2019 13:15:06
 -- PSoC Creator  4.2
 
 ENTITY Design01 IS
     PORT(
-        D1(0)_PAD : IN std_ulogic;
-        D2(0)_PAD : IN std_ulogic;
+        D1(0)_PAD : INOUT std_ulogic;
+        D2(0)_PAD : INOUT std_ulogic;
         SDA_1(0)_PAD : INOUT std_ulogic;
         SCL_1(0)_PAD : INOUT std_ulogic;
         UART_1_Rx(0)_PAD : IN std_ulogic;
@@ -15,14 +15,14 @@ ENTITY Design01 IS
         LED3(0)_PAD : OUT std_ulogic;
         LED1(0)_PAD : OUT std_ulogic;
         LED2(0)_PAD : OUT std_ulogic;
-        P2(0)_PAD : IN std_ulogic;
-        P2(1)_PAD : IN std_ulogic;
-        P2(2)_PAD : IN std_ulogic;
-        P2(3)_PAD : IN std_ulogic;
-        P2(4)_PAD : IN std_ulogic;
-        P2(5)_PAD : IN std_ulogic;
-        P2(6)_PAD : IN std_ulogic;
-        P2(7)_PAD : IN std_ulogic;
+        P2(0)_PAD : INOUT std_ulogic;
+        P2(1)_PAD : INOUT std_ulogic;
+        P2(2)_PAD : INOUT std_ulogic;
+        P2(3)_PAD : INOUT std_ulogic;
+        P2(4)_PAD : INOUT std_ulogic;
+        P2(5)_PAD : INOUT std_ulogic;
+        P2(6)_PAD : INOUT std_ulogic;
+        P2(7)_PAD : INOUT std_ulogic;
         UART_2_Rx(0)_PAD : IN std_ulogic;
         UART_2_Tx(0)_PAD : OUT std_ulogic);
     ATTRIBUTE voltage_VDDABUF OF __DEFAULT__ : ENTITY IS 3.3e0;
@@ -811,7 +811,7 @@ BEGIN
             pa_out_clock_en => -1,
             pa_out_reset => -1,
             pin_aliases => "",
-            pin_mode => "I",
+            pin_mode => "B",
             por_state => 4,
             port_alias_group => "",
             port_alias_required => 0,
@@ -902,7 +902,7 @@ BEGIN
             pa_out_clock_en => -1,
             pa_out_reset => -1,
             pin_aliases => "",
-            pin_mode => "I",
+            pin_mode => "B",
             por_state => 4,
             port_alias_group => "",
             port_alias_required => 0,
@@ -2172,7 +2172,7 @@ BEGIN
             pa_out_clock_en => -1,
             pa_out_reset => -1,
             pin_aliases => ",,,,,,,",
-            pin_mode => "IIIIIIII",
+            pin_mode => "BBBBBBBB",
             por_state => 4,
             port_alias_group => "",
             port_alias_required => 0,

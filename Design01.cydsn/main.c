@@ -5,6 +5,7 @@
 #include "c_uart.h"
 #include "c_i2c.h"
 #include "c_adc.h"
+#include "c_digital.h"
 #include "c_math.h"
 #include "c_standard_io.h"
 #include <stdio.h>
@@ -36,26 +37,17 @@ CY_ISR(isr_Tick)
   mrbc_tick();
 }
 
-CY_ISR( isr_D1 )
-{
-  D1_ClearInterrupt();
-  sleep_int_counter_ == sleep_wakeup_timing_;
-}
 CY_ISR( isr_SleepTimer )
 {
   SleepTimer_GetStatus();
   sleep_int_counter_++;
 }
 
-static void io_new(mrb_vm *vm, mrb_value v[], int argc)
+CY_ISR( isr_D1 )
 {
-    uint8 staticBits = (D1_DR & (uint8)(~0x03u));
-    if(GET_INT_ARG(1) == 1){
-        D1_DR = staticBits | 0x03u;
-    }else{
-        D1_DR = staticBits | 0x00u;
-    }
+  D1_ClearInterrupt();
 }
+
 static void p2_new(mrb_vm *vm, mrb_value v[], int argc)
 {
     if(GET_INT_ARG(1) == 1){
@@ -63,30 +55,6 @@ static void p2_new(mrb_vm *vm, mrb_value v[], int argc)
     }else{
         P2_DR = 0x00u;
     }
-}
-
-//================================================================
- /*! Digital IO
-*/
-static void digital_in(mrb_vm *vm, mrb_value *v, int argc)
-{
-  uint8 out_mask = ((uint8)pow(2,(GET_INT_ARG(1)-1)) * 0x01u);
-  SET_INT_RETURN((D1_PS & out_mask) >> (GET_INT_ARG(1)-1));
-}
-
-static void digital_out(mrb_vm *vm, mrb_value *v, int argc)
-{
-  uint8 out_mask = ((uint8)pow(2,(GET_INT_ARG(1)-1)) * 0x01u);
-  uint8 staticBits = (D1_DR & (uint8)(~out_mask));
-  D1_DR = staticBits | ((uint8)(GET_INT_ARG(2) << (GET_INT_ARG(1)-1)) & out_mask);
-}
-
-static void digital_interrupt(mrb_vm *vm, mrb_value *v, int argc)
-{
-  if(GET_INT_ARG(1)==1){
-    D1_ClearInterrupt();
-    isr_1_StartEx( isr_D1 );
-  }
 }
 
 //================================================================
@@ -241,13 +209,9 @@ void mrubyc(void)
   mrbc_init_class_i2c(0);
   mrbc_init_class_adc(0);
   mrbc_init_class_standard_io(0);
+  mrbc_init_class_digital(0);
   mrbc_init_class_math(0);
-  mrb_class *io, *p2;
-  io = mrbc_define_class(0, "Digital",	mrbc_class_object);
-  mrbc_define_method(0, io, "new",   io_new);
-  mrbc_define_method(0, io, "write",   digital_out);
-  mrbc_define_method(0, io, "interrupt",  digital_interrupt);
-  mrbc_define_method(0, io, "read", digital_in);
+  mrb_class *p2;
   p2 = mrbc_define_class(0, "P2",	mrbc_class_object);
   mrbc_define_method(0, p2, "new",   p2_new);
   mrbc_define_method(0, p2, "write", P_Write);

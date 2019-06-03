@@ -2,7 +2,7 @@
 --	Conversion of Design01.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu May 30 15:31:42 2019
+--	Fri May 31 13:15:04 2019
 --
 
 USE cypress.cypress.all;
@@ -1253,7 +1253,7 @@ D1:cy_psoc3_pins_v1_10
 		oe_conn=>"0",
 		oe_reset=>'0',
 		pin_aliases=>"",
-		pin_mode=>"I",
+		pin_mode=>"B",
 		por_state=>4,
 		sio_group_cnt=>0,
 		sio_hifreq=>"00000000",
@@ -1323,7 +1323,7 @@ D2:cy_psoc3_pins_v1_10
 		oe_conn=>"0",
 		oe_reset=>'0',
 		pin_aliases=>"",
-		pin_mode=>"I",
+		pin_mode=>"B",
 		por_state=>4,
 		sio_group_cnt=>0,
 		sio_hifreq=>"00000000",
@@ -2843,7 +2843,7 @@ P2:cy_psoc3_pins_v1_10
 		oe_conn=>"00000000",
 		oe_reset=>'0',
 		pin_aliases=>",,,,,,,",
-		pin_mode=>"IIIIIIII",
+		pin_mode=>"BBBBBBBB",
 		por_state=>4,
 		sio_group_cnt=>0,
 		sio_hifreq=>"00000000",

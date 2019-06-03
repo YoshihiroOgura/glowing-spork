@@ -61,7 +61,36 @@
           <File BuildType="BUILD" Toolchain="">vm.c</File>
           <File BuildType="BUILD" Toolchain="">c_adc.c</File>
           <File BuildType="BUILD" Toolchain="">standard_io.c</File>
+          <File BuildType="BUILD" Toolchain="">c_digital.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
+          <File BuildType="BUILD" Toolchain="">alloc.h</File>
+          <File BuildType="BUILD" Toolchain="">c_adc.h</File>
+          <File BuildType="BUILD" Toolchain="">c_array.h</File>
+          <File BuildType="BUILD" Toolchain="">c_digital.h</File>
+          <File BuildType="BUILD" Toolchain="">c_hash.h</File>
+          <File BuildType="BUILD" Toolchain="">c_i2c.h</File>
+          <File BuildType="BUILD" Toolchain="">c_math.h</File>
+          <File BuildType="BUILD" Toolchain="">c_numeric.h</File>
+          <File BuildType="BUILD" Toolchain="">c_range.h</File>
+          <File BuildType="BUILD" Toolchain="">c_standard_io.h</File>
+          <File BuildType="BUILD" Toolchain="">c_string.h</File>
+          <File BuildType="BUILD" Toolchain="">c_uart.h</File>
+          <File BuildType="BUILD" Toolchain="">class.h</File>
+          <File BuildType="BUILD" Toolchain="">console.h</File>
+          <File BuildType="BUILD" Toolchain="">errorcode.h</File>
+          <File BuildType="BUILD" Toolchain="">global.h</File>
+          <File BuildType="BUILD" Toolchain="">keyvalue.h</File>
+          <File BuildType="BUILD" Toolchain="">load.h</File>
+          <File BuildType="BUILD" Toolchain="">mrbc_firm.h</File>
+          <File BuildType="BUILD" Toolchain="">mrubyc.h</File>
+          <File BuildType="BUILD" Toolchain="">opcode.h</File>
+          <File BuildType="BUILD" Toolchain="">rrt0.h</File>
+          <File BuildType="BUILD" Toolchain="">static.h</File>
+          <File BuildType="BUILD" Toolchain="">symbol.h</File>
+          <File BuildType="BUILD" Toolchain="">uart2.h</File>
+          <File BuildType="BUILD" Toolchain="">value.h</File>
+          <File BuildType="BUILD" Toolchain="">vm.h</File>
+          <File BuildType="BUILD" Toolchain="">vm_config.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Generated_Source\PSoC5">
