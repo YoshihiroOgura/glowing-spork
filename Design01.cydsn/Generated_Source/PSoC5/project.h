@@ -67,6 +67,7 @@
 #include "UART_2.h"
 #include "isr_UART_2_Tx.h"
 #include "isr_UART_2_Rx.h"
+#include "Clock_1.h"
 #include "UART_1_IntClock.h"
 #include "ADC_1_IRQ.h"
 #include "ADC_1_theACLK.h"

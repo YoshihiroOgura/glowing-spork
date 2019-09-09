@@ -202,6 +202,11 @@ int check_timeout(void)
   return 1;
 }
 
+static void clock_write(mrb_vm *vm, mrb_value *v, int argc)
+{
+    Clock_1_SetDividerValue(GET_INT_ARG(1));
+}
+
 void mrubyc(void)
 {
   mrbc_init_class_uart(0);
@@ -218,6 +223,7 @@ void mrubyc(void)
   mrbc_define_method(0, p2, "read", P_read);
   mrbc_define_method(0, p2, "byte_read", P_byte_read);
   mrbc_define_method(0, p2, "nibble_write", P_nibble_Write);
+  mrbc_define_method(0, mrbc_class_object, "cw",   clock_write);
   mrbc_define_method(0, mrbc_class_object, "hibernate",   c_hibernate);
   mrbc_define_method(0, mrbc_class_object, "sleep_set_interval", c_sleep_set_interval);
   mrbc_define_method(0, mrbc_class_object, "sleep_until_nexttime", c_sleep_until_nexttime);

@@ -123,6 +123,8 @@
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Tx.h" value="HEADER;;;;;isr_UART_2_Tx" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Rx.c" value="SOURCE_C;CortexM3;;;;isr_UART_2_Rx" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\isr_UART_2_Rx.h" value="HEADER;;;;;isr_UART_2_Rx" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\Clock_1.c" value="SOURCE_C;CortexM3;;;;Clock_1" />
+  <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\Clock_1.h" value="HEADER;;;;;Clock_1" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_1_IntClock.c" value="SOURCE_C;CortexM3;;;;UART_1_IntClock" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\UART_1_IntClock.h" value="HEADER;;;;;UART_1_IntClock" />
   <file name="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\codegentemp\ADC_1_IRQ.c" value="SOURCE_C;CortexM3;;;;ADC_1_IRQ" />

@@ -20,6 +20,9 @@ static void sw(mrb_vm *vm, mrb_value *v, int argc)
   SET_INT_RETURN(sw1);
 }
 
+//=========================================
+/*オンボードLED書き込み
+　　　　引数：0~15(4bit)*/
 static void decimal_led_write(mrb_vm *vm, mrb_value *v, int argc)
 {
   uint8 led_mask = ((uint8)pow(2,0x10u));
@@ -27,8 +30,11 @@ static void decimal_led_write(mrb_vm *vm, mrb_value *v, int argc)
   LED1_DR = staticBits | ((uint8)(GET_INT_ARG(1) << 4u) & led_mask);
 }
 
+//=========================================
+/*オンボードスイッチ読み込み
+　　　　戻り値：0,1*/
 void mrbc_init_class_standard_io(struct VM *vm)
 {
   mrbc_define_method(0, mrbc_class_object, "leds_write", decimal_led_write);
-  mrbc_define_method(0, mrbc_class_object, "SW", sw);
+  mrbc_define_method(0, mrbc_class_object, "sw", sw);
 }

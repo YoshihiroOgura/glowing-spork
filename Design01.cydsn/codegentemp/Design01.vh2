@@ -2,7 +2,7 @@
 --	Conversion of Design01.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Fri May 31 13:15:04 2019
+--	Mon Jun 10 09:40:13 2019
 --
 
 USE cypress.cypress.all;
@@ -62,6 +62,14 @@ SIGNAL tmpINTERRUPT_0__SCL_1_net_0 : bit;
 SIGNAL \UART_1:Net_9\ : bit;
 SIGNAL \UART_1:Net_61\ : bit;
 SIGNAL \UART_1:BUART:clock_op\ : bit;
+SIGNAL \UART_1:BUART:control_7\ : bit;
+SIGNAL \UART_1:BUART:control_6\ : bit;
+SIGNAL \UART_1:BUART:control_5\ : bit;
+SIGNAL \UART_1:BUART:control_4\ : bit;
+SIGNAL \UART_1:BUART:control_3\ : bit;
+SIGNAL \UART_1:BUART:control_2\ : bit;
+SIGNAL \UART_1:BUART:control_1\ : bit;
+SIGNAL \UART_1:BUART:control_0\ : bit;
 SIGNAL \UART_1:BUART:reset_reg\ : bit;
 SIGNAL Net_19 : bit;
 SIGNAL \UART_1:BUART:tx_hd_send_break\ : bit;
@@ -164,7 +172,7 @@ SIGNAL \UART_1:BUART:tx_status_0\ : bit;
 SIGNAL \UART_1:BUART:tx_status_1\ : bit;
 SIGNAL \UART_1:BUART:tx_status_2\ : bit;
 SIGNAL \UART_1:BUART:tx_status_3\ : bit;
-SIGNAL Net_17 : bit;
+SIGNAL Net_126 : bit;
 SIGNAL \UART_1:BUART:tx_bitclk\ : bit;
 SIGNAL \UART_1:BUART:tx_ctrl_mark_last\ : bit;
 SIGNAL \UART_1:BUART:tx_mark\ : bit;
@@ -176,6 +184,7 @@ SIGNAL \UART_1:BUART:rx_state_1\ : bit;
 SIGNAL \UART_1:BUART:rx_state_0\ : bit;
 SIGNAL \UART_1:BUART:rx_bitclk_enable\ : bit;
 SIGNAL \UART_1:BUART:rx_postpoll\ : bit;
+ATTRIBUTE soft of \UART_1:BUART:rx_postpoll\:SIGNAL IS '1';
 SIGNAL \UART_1:BUART:rx_load_fifo\ : bit;
 SIGNAL \UART_1:BUART:sRX:RxShifter:cl0\ : bit;
 ATTRIBUTE port_state_att of \UART_1:BUART:sRX:RxShifter:cl0\:SIGNAL IS 2;
@@ -308,7 +317,7 @@ SIGNAL \UART_1:BUART:rx_status_4\ : bit;
 SIGNAL \UART_1:BUART:rx_status_5\ : bit;
 SIGNAL \UART_1:BUART:rx_status_6\ : bit;
 SIGNAL \UART_1:BUART:rx_addr_match_status\ : bit;
-SIGNAL Net_16 : bit;
+SIGNAL Net_125 : bit;
 SIGNAL \UART_1:BUART:rx_markspace_pre\ : bit;
 SIGNAL \UART_1:BUART:rx_parity_error_pre\ : bit;
 SIGNAL \UART_1:BUART:rx_break_status\ : bit;
@@ -946,12 +955,13 @@ SIGNAL tmpFB_0__UART_2_Tx_net_0 : bit;
 SIGNAL tmpIO_0__UART_2_Tx_net_0 : bit;
 TERMINAL tmpSIOVREF__UART_2_Tx_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__UART_2_Tx_net_0 : bit;
+SIGNAL Net_127 : bit;
 SIGNAL \UART_1:BUART:reset_reg\\D\ : bit;
 SIGNAL \UART_1:BUART:txn\\D\ : bit;
 SIGNAL \UART_1:BUART:tx_state_1\\D\ : bit;
 SIGNAL \UART_1:BUART:tx_state_0\\D\ : bit;
 SIGNAL \UART_1:BUART:tx_state_2\\D\ : bit;
-SIGNAL Net_17D : bit;
+SIGNAL Net_126D : bit;
 SIGNAL \UART_1:BUART:tx_bitclk\\D\ : bit;
 SIGNAL \UART_1:BUART:tx_ctrl_mark_last\\D\ : bit;
 SIGNAL \UART_1:BUART:tx_mark\\D\ : bit;
@@ -1020,7 +1030,7 @@ Net_15 <= (not \UART_1:BUART:txn\);
 
 \UART_1:BUART:tx_status_2\ <= (not \UART_1:BUART:tx_fifo_notfull\);
 
-Net_17D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
+Net_126D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_0\)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_1\));
 
@@ -1078,26 +1088,59 @@ Net_17D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
 \UART_1:BUART:rx_postpoll\ <= ((Net_20 and MODIN1_0)
 	OR MODIN1_1);
 
+\UART_1:BUART:rx_status_0\ <= ((\UART_1:BUART:control_5\ and \UART_1:BUART:rx_markspace_status\)
+	OR (\UART_1:BUART:control_6\ and \UART_1:BUART:rx_markspace_status\)
+	OR (\UART_1:BUART:control_7\ and \UART_1:BUART:rx_markspace_status\));
+
 \UART_1:BUART:rx_status_4\ <= ((\UART_1:BUART:rx_load_fifo\ and \UART_1:BUART:rx_fifofull\));
 
 \UART_1:BUART:rx_status_5\ <= ((\UART_1:BUART:rx_fifonotempty\ and \UART_1:BUART:rx_state_stop1_reg\));
 
-\UART_1:BUART:rx_stop_bit_error\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not MODIN1_1 and not MODIN1_0 and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
-	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not Net_20 and not MODIN1_1 and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\));
+\UART_1:BUART:rx_status_6\ <= ((\UART_1:BUART:control_5\ and \UART_1:BUART:rx_addr_match_status\)
+	OR (\UART_1:BUART:control_6\ and \UART_1:BUART:rx_addr_match_status\)
+	OR (\UART_1:BUART:control_7\ and \UART_1:BUART:rx_addr_match_status\));
 
-\UART_1:BUART:rx_load_fifo\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+\UART_1:BUART:rx_addr_match_status\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\));
+
+\UART_1:BUART:rx_stop_bit_error\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\));
+
+\UART_1:BUART:rx_markspace_status\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_markspace_pre\));
+
+\UART_1:BUART:rx_load_fifo\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_4 and \UART_1:BUART:rx_state_0\)
-	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_5 and \UART_1:BUART:rx_state_0\));
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_5 and \UART_1:BUART:rx_state_0\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_postpoll\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_address_detected\));
 
-\UART_1:BUART:rx_state_3\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_4 and \UART_1:BUART:rx_state_0\)
+\UART_1:BUART:rx_state_3\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_4 and \UART_1:BUART:rx_state_0\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_2\ and not MODIN4_6 and not MODIN4_5 and \UART_1:BUART:rx_state_0\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_postpoll\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_address_detected\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_1\ and \UART_1:BUART:rx_state_3\)
-	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_state_3\)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_0\ and \UART_1:BUART:rx_state_3\));
 
-\UART_1:BUART:rx_state_2\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and not Net_20 and \UART_1:BUART:rx_last\)
-	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+\UART_1:BUART:rx_state_2\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_postpoll\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and not Net_20 and \UART_1:BUART:rx_last\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not MODIN4_6 and not MODIN4_4 and \UART_1:BUART:rx_state_0\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not MODIN4_6 and not MODIN4_5 and \UART_1:BUART:rx_state_0\)
 	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_2\)
@@ -1106,8 +1149,7 @@ Net_17D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
 
 \UART_1:BUART:rx_state_1\\D\ <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_1\));
 
-\UART_1:BUART:rx_state_0\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not MODIN1_1 and not MODIN1_0 and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_2\)
-	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_3\ and not Net_20 and not MODIN1_1 and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_2\)
+\UART_1:BUART:rx_state_0\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_postpoll\ and not \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_state_2\)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_0\ and MODIN4_5 and MODIN4_4)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_0\ and MODIN4_6)
 	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_0\ and \UART_1:BUART:rx_state_3\)
@@ -1116,7 +1158,36 @@ Net_17D <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:tx_state_2\)
 
 \UART_1:BUART:rx_last\\D\ <= ((not \UART_1:BUART:reset_reg\ and Net_20));
 
-\UART_1:BUART:rx_address_detected\\D\ <= ((not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_address_detected\));
+\UART_1:BUART:rx_address_detected\\D\ <= ((not \UART_1:BUART:control_7\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:reset_reg\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:control_7\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_6\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch2\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_6\ and not \UART_1:BUART:control_5\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_6\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_addressmatch1\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_0\ and \UART_1:BUART:rx_address_detected\)
+	OR (not \UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_state_1\ and \UART_1:BUART:rx_address_detected\));
+
+\UART_1:BUART:rx_parity_bit\\D\ <= ((not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_parity_bit\)
+	OR (\UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_parity_bit\)
+	OR (not \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_0\ and \UART_1:BUART:rx_parity_bit\)
+	OR \UART_1:BUART:rx_parity_bit\);
+
+\UART_1:BUART:rx_markspace_pre\\D\ <= ((not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_5\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_6\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:reset_reg\ and not \UART_1:BUART:rx_state_1\ and not \UART_1:BUART:rx_state_0\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:control_7\ and \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_state_3\)
+	OR (not \UART_1:BUART:control_7\ and not \UART_1:BUART:control_6\ and not \UART_1:BUART:control_5\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (\UART_1:BUART:rx_state_3\ and \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (not \UART_1:BUART:rx_state_3\ and not \UART_1:BUART:rx_state_2\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (\UART_1:BUART:rx_postpoll\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (not \UART_1:BUART:rx_bitclk_enable\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (\UART_1:BUART:rx_state_0\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (\UART_1:BUART:rx_state_1\ and \UART_1:BUART:rx_markspace_pre\)
+	OR (\UART_1:BUART:reset_reg\ and \UART_1:BUART:rx_markspace_pre\));
 
 Net_98 <= (not \UART_2:BUART:txn\);
 
@@ -1558,6 +1629,16 @@ SCL_1:cy_psoc3_pins_v1_10
 	PORT MAP(clock_in=>\UART_1:Net_9\,
 		enable=>tmpOE__D1_net_0,
 		clock_out=>\UART_1:BUART:clock_op\);
+\UART_1:BUART:sCR_SyncCtl:CtrlReg\:cy_psoc3_control
+	GENERIC MAP(cy_init_value=>"00000000",
+		cy_force_order=>'1',
+		cy_ctrl_mode_1=>"00000000",
+		cy_ctrl_mode_0=>"11111111",
+		cy_ext_reset=>'0')
+	PORT MAP(reset=>zero,
+		clock=>\UART_1:BUART:clock_op\,
+		control=>(\UART_1:BUART:control_7\, \UART_1:BUART:control_6\, \UART_1:BUART:control_5\, \UART_1:BUART:control_4\,
+			\UART_1:BUART:control_3\, \UART_1:BUART:control_2\, \UART_1:BUART:control_1\, \UART_1:BUART:control_0\));
 \UART_1:BUART:sTX:TxShifter:u0\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000000000000000000000000000000000000000000000000000011000000000000000000000000000010010000000000000000000000000000000000000011111111000000001111111111111111000000000000000001000100111100000000000000001100",
 		d0_init=>"00000000",
@@ -1845,8 +1926,8 @@ SCL_1:cy_psoc3_pins_v1_10
 		cy_int_mask=>"1111111")
 	PORT MAP(reset=>\UART_1:BUART:reset_reg\,
 		clock=>\UART_1:BUART:clock_op\,
-		status=>(zero, \UART_1:BUART:rx_status_5\, \UART_1:BUART:rx_status_4\, \UART_1:BUART:rx_status_3\,
-			\UART_1:BUART:rx_status_2\, zero, zero),
+		status=>(\UART_1:BUART:rx_status_6\, \UART_1:BUART:rx_status_5\, \UART_1:BUART:rx_status_4\, \UART_1:BUART:rx_status_3\,
+			\UART_1:BUART:rx_status_2\, zero, \UART_1:BUART:rx_status_0\),
 		interrupt=>Net_22);
 isr_UART_1_Tx:cy_isr_v1_0
 	GENERIC MAP(int_type=>"10",
@@ -3352,6 +3433,16 @@ UART_2_Tx:cy_psoc3_pins_v1_10
 		out_clock_en=>tmpOE__D1_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__UART_2_Tx_net_0);
+Clock_1:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"7c222160-c733-4390-aa78-beaaf1195e61",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"1111111111.11111",
+		is_direct=>'0',
+		is_digital=>'1')
+	PORT MAP(clock_out=>Net_127,
+		dig_domain_out=>open);
 \UART_1:BUART:reset_reg\:cy_dff
 	PORT MAP(d=>zero,
 		clk=>\UART_1:BUART:clock_op\,
@@ -3372,10 +3463,10 @@ UART_2_Tx:cy_psoc3_pins_v1_10
 	PORT MAP(d=>\UART_1:BUART:tx_state_2\\D\,
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:tx_state_2\);
-Net_17:cy_dff
-	PORT MAP(d=>Net_17D,
+Net_126:cy_dff
+	PORT MAP(d=>Net_126D,
 		clk=>\UART_1:BUART:clock_op\,
-		q=>Net_17);
+		q=>Net_126);
 \UART_1:BUART:tx_bitclk\:cy_dff
 	PORT MAP(d=>\UART_1:BUART:tx_bitclk\\D\,
 		clk=>\UART_1:BUART:clock_op\,
@@ -3429,7 +3520,7 @@ Net_17:cy_dff
 		clk=>\UART_1:BUART:clock_op\,
 		q=>MODIN1_0);
 \UART_1:BUART:rx_markspace_status\:cy_dff
-	PORT MAP(d=>zero,
+	PORT MAP(d=>\UART_1:BUART:rx_markspace_status\\D\,
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_markspace_status\);
 \UART_1:BUART:rx_parity_error_status\:cy_dff
@@ -3441,11 +3532,11 @@ Net_17:cy_dff
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_status_3\);
 \UART_1:BUART:rx_addr_match_status\:cy_dff
-	PORT MAP(d=>zero,
+	PORT MAP(d=>\UART_1:BUART:rx_addr_match_status\\D\,
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_addr_match_status\);
 \UART_1:BUART:rx_markspace_pre\:cy_dff
-	PORT MAP(d=>\UART_1:BUART:rx_markspace_pre\,
+	PORT MAP(d=>\UART_1:BUART:rx_markspace_pre\\D\,
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_markspace_pre\);
 \UART_1:BUART:rx_parity_error_pre\:cy_dff
@@ -3465,7 +3556,7 @@ Net_17:cy_dff
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_last\);
 \UART_1:BUART:rx_parity_bit\:cy_dff
-	PORT MAP(d=>\UART_1:BUART:rx_parity_bit\,
+	PORT MAP(d=>\UART_1:BUART:rx_parity_bit\\D\,
 		clk=>\UART_1:BUART:clock_op\,
 		q=>\UART_1:BUART:rx_parity_bit\);
 \UART_2:BUART:reset_reg\:cy_dff

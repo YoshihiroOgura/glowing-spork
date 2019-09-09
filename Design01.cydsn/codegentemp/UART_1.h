@@ -34,7 +34,7 @@
 #define UART_1_RX_INTERRUPT_ENABLED           (0u)
 #define UART_1_TX_INTERRUPT_ENABLED           (0u)
 #define UART_1_INTERNAL_CLOCK_USED            (1u)
-#define UART_1_RXHW_ADDRESS_ENABLED           (0u)
+#define UART_1_RXHW_ADDRESS_ENABLED           (1u)
 #define UART_1_OVER_SAMPLE_COUNT              (8u)
 #define UART_1_PARITY_TYPE                    (0u)
 #define UART_1_PARITY_TYPE_SW                 (0u)
@@ -353,7 +353,7 @@ extern uint8 UART_1_initVar;
 #define UART_1_NUMBER_OF_STOP_BITS    (1u)
 
 #if (UART_1_RXHW_ADDRESS_ENABLED)
-    #define UART_1_RX_ADDRESS_MODE    (0u)
+    #define UART_1_RX_ADDRESS_MODE    (4u)
     #define UART_1_RX_HW_ADDRESS1     (0u)
     #define UART_1_RX_HW_ADDRESS2     (0u)
 #endif /* (UART_1_RXHW_ADDRESS_ENABLED) */
