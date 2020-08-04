@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device schemaVersion="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_0.xsd">
-  <name>CY8C5888AXI_LP096</name>
+  <name>CY8C5468AXI_LP106</name>
   <version>0.1</version>
-  <description>CY8C58LP</description>
+  <description>CY8C54LP</description>
   <addressUnitBits>8</addressUnitBits>
   <width>32</width>
   <peripherals>
@@ -2032,7 +2032,7 @@
         <register>
           <name>TX_UART_2_TX_DATA</name>
           <description>TX Data Register</description>
-          <addressOffset>0x40006440</addressOffset>
+          <addressOffset>0x40006442</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2041,7 +2041,7 @@
         <register>
           <name>TX_UART_2_TX_STATUS</name>
           <description>TX status register</description>
-          <addressOffset>0x40006461</addressOffset>
+          <addressOffset>0x40006462</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2080,7 +2080,7 @@
         <register>
           <name>RX_UART_2_RX_ADDRESS1</name>
           <description>RX Address1 Register</description>
-          <addressOffset>0x40006526</addressOffset>
+          <addressOffset>0x40006524</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2089,7 +2089,7 @@
         <register>
           <name>RX_UART_2_RX_ADDRESS2</name>
           <description>RX Address2 Register</description>
-          <addressOffset>0x40006536</addressOffset>
+          <addressOffset>0x40006534</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2098,7 +2098,7 @@
         <register>
           <name>RX_UART_2_RX_DATA</name>
           <description>RX Data Register</description>
-          <addressOffset>0x40006546</addressOffset>
+          <addressOffset>0x40006544</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2107,7 +2107,7 @@
         <register>
           <name>RX_UART_2_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x40006566</addressOffset>
+          <addressOffset>0x40006567</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2179,7 +2179,7 @@
         <register>
           <name>TX_UART_1_TX_DATA</name>
           <description>TX Data Register</description>
-          <addressOffset>0x40006444</addressOffset>
+          <addressOffset>0x40006441</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2188,7 +2188,7 @@
         <register>
           <name>TX_UART_1_TX_STATUS</name>
           <description>TX status register</description>
-          <addressOffset>0x40006460</addressOffset>
+          <addressOffset>0x40006461</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2227,7 +2227,7 @@
         <register>
           <name>RX_UART_1_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x40006464</addressOffset>
+          <addressOffset>0x40006466</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2287,7 +2287,7 @@
         <register>
           <name>RX_UART_1_RX_ADDRESS1</name>
           <description>RX Address1 Register</description>
-          <addressOffset>0x40006524</addressOffset>
+          <addressOffset>0x40006526</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2296,7 +2296,7 @@
         <register>
           <name>RX_UART_1_RX_ADDRESS2</name>
           <description>RX Address2 Register</description>
-          <addressOffset>0x40006534</addressOffset>
+          <addressOffset>0x40006536</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2305,7 +2305,7 @@
         <register>
           <name>RX_UART_1_RX_DATA</name>
           <description>RX Data Register</description>
-          <addressOffset>0x40006544</addressOffset>
+          <addressOffset>0x40006546</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2720,153 +2720,6 @@
               <access>read-write</access>
             </field>
           </fields>
-        </register>
-      </registers>
-    </peripheral>
-    <peripheral>
-      <name>ADC_2</name>
-      <description>SAR ADC</description>
-      <baseAddress>0x0</baseAddress>
-      <addressBlock>
-        <offset>0</offset>
-        <size>0x0</size>
-        <usage>registers</usage>
-      </addressBlock>
-      <registers>
-        <register>
-          <name>SAR_TR0</name>
-          <description>SAR trim register</description>
-          <addressOffset>0x40004616</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR0</name>
-          <description>SAR status and control register 0</description>
-          <addressOffset>0x40005908</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR1</name>
-          <description>SAR status and control register 1</description>
-          <addressOffset>0x40005909</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR2</name>
-          <description>SAR status and control register 2</description>
-          <addressOffset>0x4000590A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR3</name>
-          <description>SAR status and control register 3</description>
-          <addressOffset>0x4000590B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR4</name>
-          <description>SAR status and control register 4</description>
-          <addressOffset>0x4000590C</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR5</name>
-          <description>SAR status and control register 5</description>
-          <addressOffset>0x4000590D</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CSR6</name>
-          <description>SAR status and control register 6</description>
-          <addressOffset>0x4000590E</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_SW0</name>
-          <description>SAR Analog Routing Register 0</description>
-          <addressOffset>0x40005B28</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_SW2</name>
-          <description>SAR Analog Routing Register 2</description>
-          <addressOffset>0x40005B2A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_SW3</name>
-          <description>SAR Analog Routing Register 3</description>
-          <addressOffset>0x40005B2B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_SW4</name>
-          <description>SAR Analog Routing Register 4</description>
-          <addressOffset>0x40005B2C</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_SW6</name>
-          <description>SAR Analog Routing Register 6</description>
-          <addressOffset>0x40005B2E</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_CLK</name>
-          <description>SAR Clock Selection Register</description>
-          <addressOffset>0x40005B2F</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>SAR_WRK</name>
-          <description>SAR working register</description>
-          <addressOffset>0x40005BA2</addressOffset>
-          <size>16</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
         </register>
       </registers>
     </peripheral>

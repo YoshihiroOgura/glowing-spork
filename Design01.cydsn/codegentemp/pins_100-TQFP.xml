@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pindata xsi:schemaLocation="http://cypress.com/xsd/cypindata_v2 ../../dtd/cypindata_v2.xsd" device="CY8C5888AXI-LP096" package="100-TQFP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypindata_v2">
+<pindata xsi:schemaLocation="http://cypress.com/xsd/cypindata_v2 ../../dtd/cypindata_v2.xsd" device="CY8C5468AXI-LP106" package="100-TQFP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypindata_v2">
   <capabilities>
     <capability name="DIGITAL" value="0x0000000000000001" />
     <capability name="ANALOG" value="0x0000000000000002" />
@@ -216,48 +216,33 @@
       </pad>
     </pin>
     <pin number="44" name="P3[0]">
-      <pad name="P3[0]" number="52" type="GPIO" portId="3" pinId="0" ioSupplyPin="VDDIO3" capabilities="0x000000D000000117">
-        <ffbterm ffbtype="VIDAC" ffbid="1" term="iout" />
-      </pad>
+      <pad name="P3[0]" number="52" type="GPIO" portId="3" pinId="0" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="45" name="P3[1]">
-      <pad name="P3[1]" number="53" type="GPIO" portId="3" pinId="1" ioSupplyPin="VDDIO3" capabilities="0x000000D000000117">
-        <ffbterm ffbtype="VIDAC" ffbid="3" term="iout" />
-      </pad>
+      <pad name="P3[1]" number="53" type="GPIO" portId="3" pinId="1" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="46" name="P3[2]">
-      <pad name="P3[2]" number="54" type="GPIO" portId="3" pinId="2" ioSupplyPin="VDDIO3" capabilities="0x000000D820000817">
-        <ffbterm ffbtype="OpAmp" ffbid="3" term="vminus" />
+      <pad name="P3[2]" number="54" type="GPIO" portId="3" pinId="2" ioSupplyPin="VDDIO3" capabilities="0x000000D820000017">
         <ffbterm ffbtype="DSM" ffbid="0" term="ext_pin_2" />
       </pad>
     </pin>
     <pin number="47" name="P3[3]">
-      <pad name="P3[3]" number="55" type="GPIO" portId="3" pinId="3" ioSupplyPin="VDDIO3" capabilities="0x000000D000000217">
-        <ffbterm ffbtype="OpAmp" ffbid="3" term="vplus" />
-      </pad>
+      <pad name="P3[3]" number="55" type="GPIO" portId="3" pinId="3" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="48" name="P3[4]">
-      <pad name="P3[4]" number="56" type="GPIO" portId="3" pinId="4" ioSupplyPin="VDDIO3" capabilities="0x000000D000000817">
-        <ffbterm ffbtype="OpAmp" ffbid="1" term="vminus" />
-      </pad>
+      <pad name="P3[4]" number="56" type="GPIO" portId="3" pinId="4" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="49" name="P3[5]">
-      <pad name="P3[5]" number="57" type="GPIO" portId="3" pinId="5" ioSupplyPin="VDDIO3" capabilities="0x000000D000000217">
-        <ffbterm ffbtype="OpAmp" ffbid="1" term="vplus" />
-      </pad>
+      <pad name="P3[5]" number="57" type="GPIO" portId="3" pinId="5" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="50" name="VDDIO3">
       <pad name="VDDIO3" number="58" type="PWR" ioSupplyPin="VDDIO3" powerPadNames="VDDIO3" capabilities="0x0000000000000000" />
     </pin>
     <pin number="51" name="P3[6]">
-      <pad name="P3[6]" number="59" type="GPIO" portId="3" pinId="6" ioSupplyPin="VDDIO3" capabilities="0x000000D000000417">
-        <ffbterm ffbtype="OpAmp" ffbid="1" term="vout" />
-      </pad>
+      <pad name="P3[6]" number="59" type="GPIO" portId="3" pinId="6" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="52" name="P3[7]">
-      <pad name="P3[7]" number="60" type="GPIO" portId="3" pinId="7" ioSupplyPin="VDDIO3" capabilities="0x000000D000000417">
-        <ffbterm ffbtype="OpAmp" ffbid="3" term="vout" />
-      </pad>
+      <pad name="P3[7]" number="60" type="GPIO" portId="3" pinId="7" ioSupplyPin="VDDIO3" capabilities="0x000000D000000017" />
     </pin>
     <pin number="53" name="P12[0]">
       <pad name="P12[0]" number="61" type="SIO" portId="12" pinId="0" ioSupplyPin="VDDIO3" capabilities="0x000000F000200025">
@@ -323,9 +308,8 @@
       </pad>
     </pin>
     <pin number="73" name="P0[2]">
-      <pad name="P0[2]" number="78" type="GPIO" portId="0" pinId="2" ioSupplyPin="VDDIO0" capabilities="0x000000D040000217">
+      <pad name="P0[2]" number="78" type="GPIO" portId="0" pinId="2" ioSupplyPin="VDDIO0" capabilities="0x000000D000000217">
         <ffbterm ffbtype="OpAmp" ffbid="0" term="vplus" />
-        <ffbterm ffbtype="SAR" ffbid="1" term="ext_pin" />
       </pad>
     </pin>
     <pin number="74" name="P0[3]">

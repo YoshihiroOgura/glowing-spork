@@ -117,7 +117,6 @@ static void c_sleep_until_nexttime(mrb_vm *vm, mrb_value v[], int argc)
   I2C_1_Sleep();
   USBUART_Stop();
   ADC_1_Sleep();
-  ADC_2_Sleep();
   CyPmSaveClocks();
 
   while( sleep_int_counter_ < sleep_wakeup_timing_ ) {
@@ -131,7 +130,6 @@ static void c_sleep_until_nexttime(mrb_vm *vm, mrb_value v[], int argc)
   UART_1_Wakeup();
   I2C_1_Wakeup();
   ADC_1_Wakeup();
-  ADC_2_Wakeup();
 }
 static void c_sleep_set_interval(mrb_vm *vm, mrb_value v[], int argc)
 {

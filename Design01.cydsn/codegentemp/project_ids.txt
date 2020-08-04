@@ -1,7 +1,6 @@
-C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Design01.cyprj|a1b389fd-3a11-42fd-be73-27a4607cebf9
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|2cb57410-448f-49fc-8062-a97594037fd0
-C:\Users\164\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|cade6834-9c9c-4b04-a136-b3b82d5a0790
-C:\Users\164\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|be458602-5dfc-44dd-afc1-ed6234ac726b
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|9fdc6f37-ec5e-48ca-8a82-6f641beb1025
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|ae1d4a6c-1324-4d39-bc68-ae5f992218f5
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|5d2e31a5-8cfb-4823-8c48-ca1eb6540dc2
+C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn\Design01.cyprj|12e7889d-3afb-46f3-a212-8570cdbb2dfd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|307bbd5c-65ec-45cb-8693-67e889a5b9ad
+C:\Users\164\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|f32fb20e-35a2-4af5-bc7c-6166d667918b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|1864be7f-7b40-4c89-9dd2-2e1279b46e91
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|f1290bbf-8758-474a-8304-132fdc55152b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|beec9667-a908-4be3-bd68-2ea739ecde22

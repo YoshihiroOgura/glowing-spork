@@ -14,13 +14,6 @@ int ADC_1_GetResult()
     int val = ADC_1_GetResult16();
     return val;
 }
-int ADC_2_GetResult()
-{
-    ADC_2_StartConvert();
-    while(ADC_2_IsEndConversion(ADC_2_RETURN_STATUS) == 0);
-    int val = ADC_2_GetResult16();
-    return val;
-}
 
 static void adc_new(mrb_vm *vm, mrb_value v[], int argc)
 {
@@ -52,7 +45,6 @@ static void adc_stop(mrb_vm *vm, mrb_value *v, int argc)
 void mrbc_init_class_adc(struct VM *vm)
 {
   adc_init(&ah[0], ADC_1);
-  adc_init(&ah[1], ADC_2);
 
   // define class and methods.
   mrb_class *adc;
