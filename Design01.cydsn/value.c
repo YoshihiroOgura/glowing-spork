@@ -3,8 +3,8 @@
   mruby/c value definitions
 
   <pre>
-  Copyright (C) 2015-2018 Kyushu Institute of Technology.
-  Copyright (C) 2015-2018 Shimane IT Open-Innovation Center.
+  Copyright (C) 2015-2020 Kyushu Institute of Technology.
+  Copyright (C) 2015-2020 Shimane IT Open-Innovation Center.
 
   This file is distributed under BSD 3-Clause License.
 
@@ -13,47 +13,16 @@
 */
 
 #include "vm_config.h"
-#include <stdint.h>
 #include <string.h>
 #include <assert.h>
 
 #include "value.h"
+#include "vm.h"
 #include "alloc.h"
-#include "keyvalue.h"
-#include "class.h"
-#include "static.h"
-#include "symbol.h"
 #include "c_string.h"
 #include "c_range.h"
 #include "c_array.h"
 #include "c_hash.h"
-
-
-
-mrbc_object *mrbc_obj_alloc(struct VM *vm, mrbc_vtype tt)
-{
-  mrbc_object *ptr = (mrbc_object *)mrbc_alloc(vm, sizeof(mrbc_object));
-  if( ptr ){
-    ptr->tt = tt;
-  }
-  return ptr;
-}
-
-
-mrbc_proc *mrbc_rproc_alloc(struct VM *vm, const char *name)
-{
-  mrbc_proc *ptr = (mrbc_proc *)mrbc_alloc(vm, sizeof(mrbc_proc));
-  if( ptr ) {
-    ptr->ref_count = 1;
-    ptr->sym_id = str_to_symid(name);
-#ifdef MRBC_DEBUG
-    ptr->names = name;	// for debug; delete soon.
-#endif
-    ptr->next = 0;
-  }
-  return ptr;
-}
-
 
 
 //================================================================
@@ -141,22 +110,6 @@ int mrbc_compare(const mrbc_value *v1, const mrbc_value *v2)
 }
 
 
-//================================================================
-/*! Check the class is the class of object.
-
-  @param  obj	target object
-  @param  cls	class
-*/
-int mrbc_obj_is_kind_of( const mrbc_value *obj, const mrb_class *cls )
-{
-  const mrbc_class *c = find_class_by_object( 0, obj );
-  while( c != NULL ) {
-    if( c == cls ) return 1;
-    c = c->super;
-  }
-
-  return 0;
-}
 
 
 //================================================================
@@ -186,8 +139,7 @@ void mrbc_dup(mrbc_value *v)
 
 
 //================================================================
-/*!@brief
-  Release object related memory
+/*! Release object related memory
 
   @param   v     Pointer to target mrbc_value
 */
@@ -199,8 +151,7 @@ void mrbc_release(mrbc_value *v)
 
 
 //================================================================
-/*!@brief
-  Decrement reference counter
+/*! Decrement reference counter
 
   @param   v     Pointer to target mrbc_value
 */
@@ -214,6 +165,7 @@ void mrbc_dec_ref_counter(mrbc_value *v)
   case MRBC_TT_RANGE:
   case MRBC_TT_HASH:
     assert( v->instance->ref_count != 0 );
+    assert( v->instance->ref_count != 0xffff );	// check broken data.
     v->instance->ref_count--;
     break;
 
@@ -227,7 +179,7 @@ void mrbc_dec_ref_counter(mrbc_value *v)
 
   switch( v->tt ) {
   case MRBC_TT_OBJECT:	mrbc_instance_delete(v);	break;
-  case MRBC_TT_PROC:	mrbc_raw_free(v->handle);	break;
+  case MRBC_TT_PROC:	mrbc_proc_delete(v);		break;
   case MRBC_TT_ARRAY:	mrbc_array_delete(v);		break;
 #if MRBC_USE_STRING
   case MRBC_TT_STRING:	mrbc_string_delete(v);		break;
@@ -243,8 +195,7 @@ void mrbc_dec_ref_counter(mrbc_value *v)
 
 
 //================================================================
-/*!@brief
-  clear vm id
+/*! clear vm id
 
   @param   v     Pointer to target mrbc_value
 */
@@ -266,9 +217,7 @@ void mrbc_clear_vm_id(mrbc_value *v)
 
 
 //================================================================
-/*!@brief
-
-  convert ASCII string to integer mruby/c version
+/*! convert ASCII string to integer mruby/c version
 
   @param  s	source string.
   @param  base	n base.
@@ -316,118 +265,4 @@ mrbc_int mrbc_atoi( const char *s, int base )
   if( sign ) ret = -ret;
 
   return ret;
-}
-
-
-
-//================================================================
-/*!@brief
-  mrbc_irep allocator
-
-  @param  vm	Pointer of VM.
-  @return	Pointer of allocated mrbc_irep
-*/
-mrbc_irep *mrbc_irep_alloc(struct VM *vm)
-{
-  mrbc_irep *p = (mrbc_irep *)mrbc_alloc(vm, sizeof(mrbc_irep));
-  if( p )
-    memset(p, 0, sizeof(mrbc_irep));	// caution: assume NULL is zero.
-  return p;
-}
-
-
-//================================================================
-/*!@brief
-  release mrbc_irep holds memory
-*/
-void mrbc_irep_free(mrbc_irep *irep)
-{
-  int i;
-
-  // release pools.
-  for( i = 0; i < irep->plen; i++ ) {
-    mrbc_raw_free( irep->pools[i] );
-  }
-  if( irep->plen ) mrbc_raw_free( irep->pools );
-
-  // release child ireps.
-  for( i = 0; i < irep->rlen; i++ ) {
-    mrbc_irep_free( irep->reps[i] );
-  }
-  if( irep->rlen ) mrbc_raw_free( irep->reps );
-
-  mrbc_raw_free( irep );
-}
-
-
-//================================================================
-/*! mrbc_instance constructor
-
-  @param  vm    Pointer to VM.
-  @param  cls	Pointer to Class (mrbc_class).
-  @param  size	size of additional data.
-  @return       mrbc_instance object.
-*/
-mrbc_value mrbc_instance_new(struct VM *vm, mrbc_class *cls, int size)
-{
-  mrbc_value v = {.tt = MRBC_TT_OBJECT};
-  v.instance = (mrbc_instance *)mrbc_alloc(vm, sizeof(mrbc_instance) + size);
-  if( v.instance == NULL ) return v;	// ENOMEM
-
-  v.instance->ivar = mrbc_kv_new(vm, 0);
-  if( v.instance->ivar == NULL ) {	// ENOMEM
-    mrbc_raw_free(v.instance);
-    v.instance = NULL;
-    return v;
-  }
-
-  v.instance->ref_count = 1;
-  v.instance->tt = MRBC_TT_OBJECT;	// for debug only.
-  v.instance->cls = cls;
-
-  return v;
-}
-
-
-
-//================================================================
-/*! mrbc_instance destructor
-
-  @param  v	pointer to target value
-*/
-void mrbc_instance_delete(mrbc_value *v)
-{
-  mrbc_kv_delete( v->instance->ivar );
-  mrbc_raw_free( v->instance );
-}
-
-
-//================================================================
-/*! instance variable setter
-
-  @param  obj		pointer to target.
-  @param  sym_id	key symbol ID.
-  @param  v		pointer to value.
-*/
-void mrbc_instance_setiv(mrbc_object *obj, mrbc_sym sym_id, mrbc_value *v)
-{
-  mrbc_dup(v);
-  mrbc_kv_set( obj->instance->ivar, sym_id, v );
-}
-
-
-//================================================================
-/*! instance variable getter
-
-  @param  obj		pointer to target.
-  @param  sym_id	key symbol ID.
-  @return		value.
-*/
-mrbc_value mrbc_instance_getiv(mrbc_object *obj, mrbc_sym sym_id)
-{
-  mrbc_value *v = mrbc_kv_get( obj->instance->ivar, sym_id );
-  if( !v ) return mrbc_nil_value();
-
-  mrbc_dup(v);
-  return *v;
 }

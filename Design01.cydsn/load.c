@@ -3,8 +3,8 @@
   mruby bytecode loader.
 
   <pre>
-  Copyright (C) 2015-2017 Kyushu Institute of Technology.
-  Copyright (C) 2015-2017 Shimane IT Open-Innovation Center.
+  Copyright (C) 2015-2020 Kyushu Institute of Technology.
+  Copyright (C) 2015-2020 Shimane IT Open-Innovation Center.
 
   This file is distributed under BSD 3-Clause License.
 
@@ -15,16 +15,23 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <assert.h>
+
 #include "vm.h"
 #include "load.h"
-#include "errorcode.h"
 #include "value.h"
 #include "alloc.h"
+#include "console.h"
+
+//
+// This is a dummy code for raise
+//
+#define mrbc_raise(vm,err,msg) console_printf("<raise> %s:%d\n", __FILE__, __LINE__);
+
 
 
 //================================================================
-/*!@brief
-  Parse header section.
+/*! Parse header section.
 
   @param  vm    A pointer of VM.
   @param  pos	A pointer of pointer of RITE header.
@@ -33,7 +40,7 @@
   <pre>
   Structure
    "RITE"	identifier
-   "0004"	version
+   "0006"	version
    0000		CRC
    0000_0000	total size
    "MATZ"	compiler name
@@ -44,8 +51,8 @@ static int load_header(struct VM *vm, const uint8_t **pos)
 {
   const uint8_t *p = *pos;
 
-  if( memcmp(p, "RITE0004", 8) != 0 ) {
-    vm->error_code = LOAD_FILE_HEADER_ERROR_VERSION;
+  if( memcmp(p, "RITE0006", 8) != 0 ) {
+    mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
     return -1;
   }
 
@@ -54,11 +61,11 @@ static int load_header(struct VM *vm, const uint8_t **pos)
   /* Ignore size */
 
   if( memcmp(p + 14, "MATZ", 4) != 0 ) {
-    vm->error_code = LOAD_FILE_HEADER_ERROR_MATZ;
+    mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
     return -1;
   }
   if( memcmp(p + 18, "0000", 4) != 0 ) {
-    vm->error_code = LOAD_FILE_HEADER_ERROR_VERSION;
+    mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
     return -1;
   }
 
@@ -69,8 +76,7 @@ static int load_header(struct VM *vm, const uint8_t **pos)
 
 
 //================================================================
-/*!@brief
-  read one irep section.
+/*! read one irep section.
 
   @param  vm    A pointer of VM.
   @param  pos	A pointer of pointer of IREP section.
@@ -105,7 +111,7 @@ static mrbc_irep * load_irep_1(struct VM *vm, const uint8_t **pos)
   // new irep
   mrbc_irep *irep = mrbc_irep_alloc(0);
   if( irep == NULL ) {
-    vm->error_code = LOAD_FILE_IREP_ERROR_ALLOCATION;
+    mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
     return NULL;
   }
 
@@ -122,21 +128,21 @@ static mrbc_irep * load_irep_1(struct VM *vm, const uint8_t **pos)
   if( irep->rlen ) {
     irep->reps = (mrbc_irep **)mrbc_alloc(0, sizeof(mrbc_irep *) * irep->rlen);
     if( irep->reps == NULL ) {
-      vm->error_code = LOAD_FILE_IREP_ERROR_ALLOCATION;
+      mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
       return NULL;
     }
   }
 
   // ISEQ (code) BLOCK
   irep->code = (uint8_t *)p;
-  p += irep->ilen * 4;
+  p += irep->ilen;
 
   // POOL BLOCK
   irep->plen = bin_to_uint32(p);	p += 4;
   if( irep->plen ) {
     irep->pools = (mrbc_object**)mrbc_alloc(0, sizeof(void*) * irep->plen);
     if(irep->pools == NULL ) {
-      vm->error_code = LOAD_FILE_IREP_ERROR_ALLOCATION;
+      mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
       return NULL;
     }
   }
@@ -145,9 +151,9 @@ static mrbc_irep * load_irep_1(struct VM *vm, const uint8_t **pos)
   for( i = 0; i < irep->plen; i++ ) {
     int tt = *p++;
     int obj_size = bin_to_uint16(p);	p += 2;
-    mrbc_object *obj = mrbc_obj_alloc(0, MRBC_TT_EMPTY);
+    mrbc_object *obj = mrbc_alloc(0, sizeof(mrbc_object));
     if( obj == NULL ) {
-      vm->error_code = LOAD_FILE_IREP_ERROR_ALLOCATION;
+      mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
       return NULL;
     }
     switch( tt ) {
@@ -174,7 +180,7 @@ static mrbc_irep * load_irep_1(struct VM *vm, const uint8_t **pos)
     } break;
 #endif
     default:
-      break;
+      assert(!"Unknown tt");
     }
 
     irep->pools[i] = obj;
@@ -196,8 +202,7 @@ static mrbc_irep * load_irep_1(struct VM *vm, const uint8_t **pos)
 
 
 //================================================================
-/*!@brief
-  read all irep section.
+/*! read all irep section.
 
   @param  vm    A pointer of VM.
   @param  pos	A pointer of pointer of IREP section.
@@ -219,8 +224,7 @@ static mrbc_irep * load_irep_0(struct VM *vm, const uint8_t **pos)
 
 
 //================================================================
-/*!@brief
-  Parse IREP section.
+/*! Parse IREP section.
 
   @param  vm    A pointer of VM.
   @param  pos	A pointer of pointer of IREP section.
@@ -235,11 +239,11 @@ static mrbc_irep * load_irep_0(struct VM *vm, const uint8_t **pos)
 */
 static int load_irep(struct VM *vm, const uint8_t **pos)
 {
-  const uint8_t *p = *pos + 4;			// 4 = skip "RITE"
+  const uint8_t *p = *pos + 4;			// 4 = skip "IREP"
   int section_size = bin_to_uint32(p);
   p += 4;
-  if( memcmp(p, "0000", 4) != 0 ) {		// rite version
-    vm->error_code = LOAD_FILE_IREP_ERROR_VERSION;
+  if( memcmp(p, "0002", 4) != 0 ) {		// rite version
+    mrbc_raise(vm, E_BYTECODE_ERROR, NULL);
     return -1;
   }
   p += 4;
@@ -255,8 +259,7 @@ static int load_irep(struct VM *vm, const uint8_t **pos)
 
 
 //================================================================
-/*!@brief
-  Parse LVAR section.
+/*! Parse LVAR section.
 
   @param  vm    A pointer of VM.
   @param  pos	A pointer of pointer of LVAR section.
@@ -274,8 +277,7 @@ static int load_lvar(struct VM *vm, const uint8_t **pos)
 
 
 //================================================================
-/*!@brief
-  Load the VM bytecode.
+/*! Load the VM bytecode.
 
   @param  vm    Pointer to VM.
   @param  ptr	Pointer to bytecode.

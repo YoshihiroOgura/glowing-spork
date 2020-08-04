@@ -16,6 +16,7 @@
 */
 #include <project.h>
 #include "vm_config.h"
+#include "mrubyc.h"
 #include "class.h"
 #include "value.h"
 #include "static.h"

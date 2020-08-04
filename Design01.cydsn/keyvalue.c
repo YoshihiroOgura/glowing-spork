@@ -19,6 +19,13 @@
 #include "alloc.h"
 #include "keyvalue.h"
 
+#if !defined(MRBC_KV_SIZE_INIT)
+#define MRBC_KV_SIZE_INIT 2
+#endif
+#if !defined(MRBC_KV_SIZE_INCREMENT)
+#define MRBC_KV_SIZE_INCREMENT 5
+#endif
+
 
 //================================================================
 /*! binary search
@@ -49,28 +56,48 @@ static int binary_search(mrbc_kv_handle *kvh, mrbc_sym sym_id)
 //================================================================
 /*! constructor
 
-  @param  vm	pointer to VM.
-  @param  size	initial size.
+  @param  vm	Pointer to VM.
+  @param  size	Initial size of data.
   @return 	Key-Value handle.
 */
 mrbc_kv_handle * mrbc_kv_new(struct VM *vm, int size)
 {
-  /*
-    Allocate handle and data buffer.
-  */
   mrbc_kv_handle *kvh = mrbc_alloc(vm, sizeof(mrbc_kv_handle));
   if( !kvh ) return NULL;	// ENOMEM
 
-  kvh->data = mrbc_alloc(vm, sizeof(mrbc_kv) * size);
-  if( !kvh->data ) {		// ENOMEM
+  if( mrbc_kv_init_handle( vm, kvh, size ) != 0 ) {
     mrbc_raw_free( kvh );
     return NULL;
   }
 
+  return kvh;
+}
+
+
+//================================================================
+/*! initialize handle
+
+  @param  vm	Pointer to VM.
+  @param  kvh	Pointer to Key-Value handle.
+  @param  size	Initial size of data.
+  @return 	0 if no error.
+*/
+int mrbc_kv_init_handle(struct VM *vm, mrbc_kv_handle *kvh, int size)
+{
   kvh->data_size = size;
   kvh->n_stored = 0;
 
-  return kvh;
+  if( size == 0 ) {
+    // save VM address temporary.
+    kvh->vm = vm;
+
+  } else {
+    // Allocate data buffer.
+    kvh->data = mrbc_alloc(vm, sizeof(mrbc_kv) * size);
+    if( !kvh->data ) return -1;		// ENOMEM
+  }
+
+  return 0;
 }
 
 
@@ -81,10 +108,23 @@ mrbc_kv_handle * mrbc_kv_new(struct VM *vm, int size)
 */
 void mrbc_kv_delete(mrbc_kv_handle *kvh)
 {
-  mrbc_kv_clear(kvh);
-
-  mrbc_raw_free(kvh->data);
+  mrbc_kv_delete_data(kvh);
   mrbc_raw_free(kvh);
+}
+
+
+//================================================================
+/*! delete all datas and free data memory.
+
+  @param  kvh	pointer to key-value handle.
+*/
+void mrbc_kv_delete_data(mrbc_kv_handle *kvh)
+{
+  if( kvh->data_size == 0 ) return;
+
+  mrbc_kv_clear(kvh);
+  kvh->data_size = 0;
+  mrbc_raw_free(kvh->data);
 }
 
 
@@ -96,6 +136,7 @@ void mrbc_kv_delete(mrbc_kv_handle *kvh)
 void mrbc_kv_clear_vm_id(mrbc_kv_handle *kvh)
 {
   mrbc_set_vm_id( kvh, 0 );
+  if( kvh->data_size == 0 ) return;
 
   mrbc_kv *p1 = kvh->data;
   const mrbc_kv *p2 = p1 + kvh->n_stored;
@@ -154,10 +195,17 @@ int mrbc_kv_set(mrbc_kv_handle *kvh, mrbc_sym sym_id, mrbc_value *set_val)
   }
 
  INSERT_VALUE:
+  // need alloc?
+  if( kvh->data_size == 0 ) {
+    kvh->data = mrbc_alloc(kvh->vm, sizeof(mrbc_kv) * MRBC_KV_SIZE_INIT);
+    if( kvh->data == NULL ) return E_NOMEMORY_ERROR;	// ENOMEM
+    kvh->data_size = MRBC_KV_SIZE_INIT;
+
   // need resize?
-  if( kvh->n_stored >= kvh->data_size ) {
-    if( mrbc_kv_resize(kvh, kvh->data_size + 5) != 0 )
+  } else if( kvh->n_stored >= kvh->data_size ) {
+    if( mrbc_kv_resize(kvh, kvh->data_size + MRBC_KV_SIZE_INCREMENT) != 0 ) {
       return E_NOMEMORY_ERROR;		// ENOMEM
+    }
   }
 
   // need move data?
@@ -203,10 +251,17 @@ mrbc_value * mrbc_kv_get(mrbc_kv_handle *kvh, mrbc_sym sym_id)
 */
 int mrbc_kv_append(mrbc_kv_handle *kvh, mrbc_sym sym_id, mrbc_value *set_val)
 {
+  // need alloc?
+  if( kvh->data_size == 0 ) {
+    kvh->data = mrbc_alloc(kvh->vm, sizeof(mrbc_kv) * MRBC_KV_SIZE_INIT);
+    if( kvh->data == NULL ) return E_NOMEMORY_ERROR;	// ENOMEM
+    kvh->data_size = MRBC_KV_SIZE_INIT;
+
   // need resize?
-  if( kvh->n_stored >= kvh->data_size ) {
-    if( mrbc_kv_resize(kvh, kvh->data_size + 5) != 0 )
+  } else if( kvh->n_stored >= kvh->data_size ) {
+    if( mrbc_kv_resize(kvh, kvh->data_size + MRBC_KV_SIZE_INCREMENT) != 0 ) {
       return E_NOMEMORY_ERROR;		// ENOMEM
+    }
   }
 
   kvh->data[kvh->n_stored].sym_id = sym_id;
@@ -231,6 +286,8 @@ static int compare_key( const void *kv1, const void *kv2 )
 */
 int mrbc_kv_reorder(mrbc_kv_handle *kvh)
 {
+  if( kvh->data_size == 0 ) return 0;
+
   qsort( kvh->data, kvh->n_stored, sizeof(mrbc_kv), compare_key );
 
   return 0;
@@ -276,4 +333,22 @@ void mrbc_kv_clear(mrbc_kv_handle *kvh)
   }
 
   kvh->n_stored = 0;
+}
+
+
+//================================================================
+/*! duplicate
+
+  @param  src		pointer to key-value handle source.
+  @param  dst		pointer to key-value handle destination.
+*/
+void mrbc_kv_dup(const mrbc_kv_handle *src, mrbc_kv_handle *dst)
+{
+  mrbc_kv_iterator ite = mrbc_kv_iterator_new( src );
+
+  while( mrbc_kv_i_has_next( &ite ) ) {
+    mrbc_kv *kv = mrbc_kv_i_next( &ite );
+    mrbc_dup( &kv->value );
+    mrbc_kv_set( dst, kv->sym_id, &kv->value );
+  }
 }

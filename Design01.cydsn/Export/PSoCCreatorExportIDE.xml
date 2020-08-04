@@ -6,7 +6,7 @@
     <Toolchain Name="ARM GCC Generic" Selected="True">
       <Tool Name="prebuild" Command="" Options="" />
       <Tool Name="assembler" Command="arm-none-eabi-as.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -alh=${OutputDir}/${CompileFile}.lst -g -W" />
-      <Tool Name="compiler" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+      <Tool Name="compiler" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -D NDEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
       <Tool Name="linker" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -l m -L Generated_Source\PSoC5 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -u _printf_float -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects" />
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
@@ -25,7 +25,7 @@
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
   </Toolchains>
-  <Project Name="Design01" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" Version="5.70" Type="Normal">
+  <Project Name="Design01" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" Version="5.70" Type="Normal">
     <CMSIS_SVD_File>Design01.svd</CMSIS_SVD_File>
     <Datasheet />
     <LinkerFiles>
@@ -34,8 +34,8 @@
       <LinkerFile Toolchain="ARM IAR Generic">.\Generated_Source\PSoC5\Cm3Iar.icf</LinkerFile>
     </LinkerFiles>
     <Folders>
-      <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">alloc.c</File>
           <File BuildType="BUILD" Toolchain="">c_array.c</File>
@@ -62,6 +62,7 @@
           <File BuildType="BUILD" Toolchain="">c_adc.c</File>
           <File BuildType="BUILD" Toolchain="">standard_io.c</File>
           <File BuildType="BUILD" Toolchain="">c_digital.c</File>
+          <File BuildType="BUILD" Toolchain="">error.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
           <File BuildType="BUILD" Toolchain="">alloc.h</File>
           <File BuildType="BUILD" Toolchain="">c_adc.h</File>
@@ -77,7 +78,6 @@
           <File BuildType="BUILD" Toolchain="">c_uart.h</File>
           <File BuildType="BUILD" Toolchain="">class.h</File>
           <File BuildType="BUILD" Toolchain="">console.h</File>
-          <File BuildType="BUILD" Toolchain="">errorcode.h</File>
           <File BuildType="BUILD" Toolchain="">global.h</File>
           <File BuildType="BUILD" Toolchain="">keyvalue.h</File>
           <File BuildType="BUILD" Toolchain="">load.h</File>
@@ -91,10 +91,11 @@
           <File BuildType="BUILD" Toolchain="">value.h</File>
           <File BuildType="BUILD" Toolchain="">vm.h</File>
           <File BuildType="BUILD" Toolchain="">vm_config.h</File>
+          <File BuildType="BUILD" Toolchain="">error.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Generated_Source\PSoC5">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn\Generated_Source\PSoC5">
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitter_cfg.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitter_cfg.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cymetadata.c</File>
@@ -111,8 +112,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitteriar.inc</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitter.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cydisabledsheets.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cy_em_eeprom.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cy_em_eeprom.h</File>
           <File BuildType="BUILD" Toolchain="ARM GCC Generic">Generated_Source\PSoC5\cm3gcc.ld</File>
           <File BuildType="BUILD" Toolchain="ARM MDK Generic">Generated_Source\PSoC5\Cm3RealView.scat</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Cm3Start.c</File>
@@ -270,50 +269,50 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Clock_1.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Export\ARM_GCC_Generic">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn\Export\ARM_GCC_Generic">
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="ARM GCC Generic">.\Export\ARM_GCC_Generic\CyComponentLibrary.a</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Export\ARM_MDK_Generic">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn\Export\ARM_MDK_Generic">
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="ARM MDK Generic">.\Export\ARM_MDK_Generic\CyComponentLibrary.a</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\164\Desktop\github\mcmc\Design01.cydsn\Export\ARM_IAR_Generic">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn\Export\ARM_IAR_Generic">
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn">
           <File BuildType="BUILD" Toolchain="ARM IAR Generic">.\Export\ARM_IAR_Generic\CyComponentLibrary.a</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_441">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_473">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051_Keil_952">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM0">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM0p">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM3">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM4">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM7">
-        <Files Root="C:\Users\164\Desktop\github\mcmc\Design01.cydsn" />
+        <Files Root="C:\Users\164\Documents\psoc_mrubyc\sjc_mrubyc_boad\Design01.cydsn" />
       </Folder>
     </Folders>
   </Project>

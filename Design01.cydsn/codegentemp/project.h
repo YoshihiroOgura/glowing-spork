@@ -78,7 +78,6 @@
 #include "USBUART_Dp_aliases.h"
 #include "USBUART_Dp.h"
 #include "UART_2_IntClock.h"
-#include "cy_em_eeprom.h"
 #include "core_cm3_psoc5.h"
 #include "CyDmac.h"
 #include "CyFlash.h"

@@ -16,32 +16,31 @@
 #define MRBC_SRC_VALUE_H_
 
 #include <stdint.h>
+#include "vm_config.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+// pre define of some struct
+struct VM;
+struct IREP;
+struct RObject;
+struct RClass;
+struct RInstance;
+struct RProc;
 
 // mrbc types
 typedef int32_t mrbc_int;
 typedef double mrbc_float;
 typedef int16_t mrbc_sym;
+typedef void (*mrbc_func_t)(struct VM *vm, struct RObject *v, int argc);
 
-/* aspec access ? */
-#define MRB_ASPEC_REQ(a)          (((a) >> 18) & 0x1f)
-#define MRB_ASPEC_OPT(a)          (((a) >> 13) & 0x1f)
-#define MRB_ASPEC_REST(a)         (((a) >> 12) & 0x1)
-#define MRB_ASPEC_POST(a)         (((a) >> 7) & 0x1f)
 
 #define MRBC_OBJECT_HEADER \
   uint16_t ref_count; \
   mrbc_vtype tt : 8  // TODO: for debug use only.
 
-
-struct VM;
-struct IREP;
-struct RObject;
-typedef void (*mrbc_func_t)(struct VM *vm, struct RObject *v, int argc);
 
 
 //================================================================
@@ -93,6 +92,9 @@ typedef enum {
   E_NOTIMP_ERROR,
   E_FLOATDOMAIN_ERROR,
   E_KEY_ERROR,
+
+  // Internal Error
+  E_BYTECODE_ERROR,
 } mrbc_error_code;
 
 
@@ -124,55 +126,6 @@ typedef struct RObject mrb_value;	// not recommended.
 typedef struct RObject mrbc_object;
 typedef struct RObject mrbc_value;
 
-
-//================================================================
-/*!@brief
-  mruby/c class object.
-*/
-typedef struct RClass {
-  mrbc_sym sym_id;	// class name
-#ifdef MRBC_DEBUG
-  const char *names;	// for debug. delete soon.
-#endif
-  struct RClass *super;	// mrbc_class[super]
-  struct RProc *procs;	// mrbc_proc[rprocs], linked list
-} mrbc_class;
-typedef struct RClass mrb_class;
-
-
-//================================================================
-/*!@brief
-  mruby/c instance object.
-*/
-typedef struct RInstance {
-  MRBC_OBJECT_HEADER;
-
-  struct RClass *cls;
-  struct RKeyValueHandle *ivar;
-  uint8_t data[];
-} mrbc_instance;
-typedef struct RInstance mrb_instance;
-
-
-//================================================================
-/*!@brief
-  mruby/c proc object.
-*/
-typedef struct RProc {
-  MRBC_OBJECT_HEADER;
-
-  unsigned int c_func : 1;	// 0:IREP, 1:C Func
-  mrbc_sym sym_id;
-#ifdef MRBC_DEBUG
-  const char *names;		// for debug; delete soon
-#endif
-  struct RProc *next;
-  union {
-    struct IREP *irep;
-    mrbc_func_t func;
-  };
-} mrbc_proc;
-typedef struct RProc mrb_proc;
 
 
 
@@ -206,21 +159,12 @@ typedef struct RProc mrb_proc;
 #define mrbc_false_value()	((mrbc_value){.tt = MRBC_TT_FALSE})
 #define mrbc_bool_value(n)	((mrbc_value){.tt = (n)?MRBC_TT_TRUE:MRBC_TT_FALSE})
 
-mrbc_object *mrbc_obj_alloc(struct VM *vm, mrbc_vtype tt);
-mrbc_proc *mrbc_rproc_alloc(struct VM *vm, const char *name);
 int mrbc_compare(const mrbc_value *v1, const mrbc_value *v2);
-int mrbc_obj_is_kind_of( const mrbc_value *obj, const mrb_class *cls );
 void mrbc_dup(mrbc_value *v);
 void mrbc_release(mrbc_value *v);
 void mrbc_dec_ref_counter(mrbc_value *v);
 void mrbc_clear_vm_id(mrbc_value *v);
 mrbc_int mrbc_atoi(const char *s, int base);
-struct IREP *mrbc_irep_alloc(struct VM *vm);
-void mrbc_irep_free(struct IREP *irep);
-mrbc_value mrbc_instance_new(struct VM *vm, mrbc_class *cls, int size);
-void mrbc_instance_delete(mrbc_value *v);
-void mrbc_instance_setiv(mrbc_object *obj, mrbc_sym sym_id, mrbc_value *v);
-mrbc_value mrbc_instance_getiv(mrbc_object *obj, mrbc_sym sym_id);
 
 
 // (mruby compatible functions.)
